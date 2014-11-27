@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import in.srain.cube.mints.base.BlockMenuFragment;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.ui.classic.*;
+import in.srain.cube.views.ptr.demo.ui.storehouse.ETaoFragment;
 
 import java.util.ArrayList;
 
@@ -84,6 +85,13 @@ public class HomeFragment extends BlockMenuFragment {
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(PtrStoreHouseHeaderFragment.class, null);
+            }
+        }));
+        itemInfos.add(newItemInfo("StoreHouse", R.color.cube_holo_blue_bright, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(ETaoFragment.class, null);
             }
         }));
     }

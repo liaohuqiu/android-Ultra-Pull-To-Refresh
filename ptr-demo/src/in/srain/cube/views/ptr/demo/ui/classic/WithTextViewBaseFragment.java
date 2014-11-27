@@ -10,14 +10,13 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.demo.R;
-import in.srain.cube.views.ptr.demo.ui.Utils;
 
 public abstract class WithTextViewBaseFragment extends TitleBaseFragment {
 
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final View contentView = inflater.inflate(R.layout.fragment_rotate_header_with_textview, container, false);
+        final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_textview, container, false);
 
         TextView textView = (TextView) contentView.findViewById(R.id.fragment_rotate_header_with_text_view_content);
         final PtrClassicFrameLayout ptrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.fragment_rotate_header_with_text_view_frame);

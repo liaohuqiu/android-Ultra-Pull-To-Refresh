@@ -2,6 +2,7 @@ package in.srain.cube.views.ptr;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import in.srain.cube.util.CLog;
 
 public abstract class PtrDefaultHandler implements PtrHandler {
@@ -18,6 +19,13 @@ public abstract class PtrDefaultHandler implements PtrHandler {
         ViewGroup viewGroup = (ViewGroup) content;
         if (viewGroup.getChildCount() == 0) {
             return true;
+        }
+
+        if (viewGroup instanceof AbsListView) {
+            AbsListView listView = (AbsListView) viewGroup;
+            if (listView.getFirstVisiblePosition() > 0) {
+                return false;
+            }
         }
 
         View child = viewGroup.getChildAt(0);

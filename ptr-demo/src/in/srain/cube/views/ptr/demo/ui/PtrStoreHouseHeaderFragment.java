@@ -28,7 +28,6 @@ public class PtrStoreHouseHeaderFragment extends TitleBaseFragment {
         setHeaderTitle("Storehouse");
 
         Resources res = getResources();
-        TypedArray colors = res.obtainTypedArray(R.array.path);
 
         CubeImageView imageView = (CubeImageView) view.findViewById(R.id.store_house_ptr_image);
         ImageLoader imageLoader = ImageLoaderFactory.create(getContext());

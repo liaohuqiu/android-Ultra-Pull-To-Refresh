@@ -37,8 +37,8 @@ public class StoreHouseHeader extends View {
 
     private float mProgress = 0;
 
-    private int mDrawWidth = 0;
-    private int mDrawHeight = 0;
+    private int mDrawZoneWidth = 0;
+    private int mDrawZoneHeight = 0;
     private int mBoundHeight;
     private int mBoundsWidth;
     private int mOffsetX = 0;
@@ -50,12 +50,14 @@ public class StoreHouseHeader extends View {
 
     public StoreHouseHeader(Context context) {
         super(context);
-        init();
     }
 
     public StoreHouseHeader(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+    }
+
+    public StoreHouseHeader(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     public void setProgress(float progress) {
@@ -64,57 +66,64 @@ public class StoreHouseHeader extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int height = (int) (getPaddingTop() + getPaddingBottom() + mDrawZoneHeight * 3);
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setBounds(getMeasuredWidth(), getMeasuredHeight());
     }
 
-    public void setBounds(int width, int height) {
+    private void setBounds(int width, int height) {
         mBoundsWidth = width;
         mBoundHeight = height;
-
-        mOffsetX = (mBoundsWidth - mDrawWidth) / 2;
-        mOffsetY = (mBoundHeight - mDrawHeight) / 2;
+        mOffsetX = (mBoundsWidth - mDrawZoneWidth) / 2;
+        mOffsetY = (int) (mDrawZoneHeight * 1.5);
     }
 
     public void initWithString(String str) {
-
+        // ArrayList<float[]> pointList = StoreHousePath.getPath("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0.2f, 14);
+        // ArrayList<float[]> pointList = StoreHousePath.getPath("ALIBABA", 0.2f, 14);
+        // ArrayList<float[]> pointList = StoreHousePath.getPath("SRAIN", 0.2f, 14);
+        ArrayList<float[]> pointList = StoreHousePath.getPath("Alibaba", 0.25f, 14);
+        //ArrayList<float[]> pointList = StoreHousePath.getPath("cube", 0.5f, 14);
+        initWithPointArray(pointList);
     }
 
     public void initWithStringArray(int id) {
-
+        String[] points = getResources().getStringArray(id);
+        ArrayList<float[]> pointList = new ArrayList<float[]>();
+        for (int i = 0; i < points.length; i++) {
+            String[] x = points[i].split(",");
+            float[] f = new float[4];
+            for (int j = 0; j < 4; j++) {
+                f[j] = Float.parseFloat(x[j]);
+            }
+            pointList.add(f);
+        }
+        initWithPointArray(pointList);
     }
 
     public void initWithPointArray(ArrayList<float[]> pointList) {
 
-    }
-
-    private void init() {
-        // ArrayList<float[]> pointList = StoreHousePath.getPath("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0.2f, 14);
-        // ArrayList<float[]> pointList = StoreHousePath.getPath("ALIBABA", 0.2f, 14);
-        // ArrayList<float[]> pointList = StoreHousePath.getPath("SRAIN", 0.2f, 14);
-        ArrayList<float[]> pointList = StoreHousePath.getPath("ETAO", 0.2f, 14);
-        //ArrayList<float[]> pointList = StoreHousePath.getPath("cube", 0.5f, 14);
-
         float drawWidth = 0;
         float drawHeight = 0;
+        mItemList.clear();
         for (int i = 0; i < pointList.size(); i++) {
             float[] line = pointList.get(i);
-            if (line[0] > drawWidth) {
-                drawWidth = line[0];
-            }
-            if (line[1] > drawWidth) {
-                drawWidth = line[1];
-            }
-            if (line[2] > drawHeight) {
-                drawHeight = line[2];
-            }
-            if (line[3] > drawHeight) {
-                drawHeight = line[3];
-            }
-        }
-        mDrawWidth = PtrLocalDisplay.dp2px(drawWidth);
-        mDrawHeight = PtrLocalDisplay.dp2px(mDrawHeight);
+            PointF startPoint = new PointF(PtrLocalDisplay.dp2px(line[0]), PtrLocalDisplay.dp2px(line[1]));
+            PointF endPoint = new PointF(PtrLocalDisplay.dp2px(line[2]), PtrLocalDisplay.dp2px(line[3]));
 
+            drawWidth = Math.max(drawWidth, startPoint.x);
+            drawWidth = Math.max(drawWidth, endPoint.x);
+
+            drawHeight = Math.max(drawHeight, startPoint.y);
+            drawHeight = Math.max(drawHeight, endPoint.y);
+
+            StoreHouseBarItem item = new StoreHouseBarItem(i, startPoint, endPoint, Color.WHITE, lineWidth);
+            item.reset(horizontalRandomness);
+            mItemList.add(item);
+        }
+        mDrawZoneWidth = (int) Math.ceil(drawWidth);
+        mDrawZoneHeight = (int) Math.ceil(drawHeight);
         /*
         for (int i = 0; i < startX.length; i++) {
             startX[i] = LocalDisplay.dp2px(startX[i] / 2);
@@ -122,30 +131,20 @@ public class StoreHouseHeader extends View {
             endX[i] = LocalDisplay.dp2px(endX[i] / 2);
             endY[i] = LocalDisplay.dp2px(endY[i] / 2);
 
-            if (startX[i] > mDrawWidth) {
-                mDrawWidth = startX[i];
+            if (startX[i] > mDrawZoneWidth) {
+                mDrawZoneWidth = startX[i];
             }
-            if (endX[i] > mDrawWidth) {
-                mDrawWidth = endX[i];
+            if (endX[i] > mDrawZoneWidth) {
+                mDrawZoneWidth = endX[i];
             }
-            if (startY[i] > mDrawHeight) {
-                mDrawHeight = startY[i];
+            if (startY[i] > mDrawZoneHeight) {
+                mDrawZoneHeight = startY[i];
             }
-            if (endY[i] > mDrawHeight) {
-                mDrawHeight = endY[i];
+            if (endY[i] > mDrawZoneHeight) {
+                mDrawZoneHeight = endY[i];
             }
         }
         */
-
-        for (int i = 0; i < pointList.size(); i++) {
-            float[] line = pointList.get(i);
-            PointF startPoint = new PointF(PtrLocalDisplay.dp2px(line[0]), PtrLocalDisplay.dp2px(line[1]));
-            PointF endPoint = new PointF(PtrLocalDisplay.dp2px(line[2]), PtrLocalDisplay.dp2px(line[3]));
-
-            StoreHouseBarItem item = new StoreHouseBarItem(i, startPoint, endPoint, Color.WHITE, lineWidth);
-            item.reset(horizontalRandomness);
-            mItemList.add(item);
-        }
     }
 
     public void beginLoading() {
@@ -159,6 +158,7 @@ public class StoreHouseHeader extends View {
             item.setDuration(400);
             item.start();
         }
+        /*
         postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -167,6 +167,7 @@ public class StoreHouseHeader extends View {
                 }
             }
         }, mItemList.size() * 100);
+        */
         CLog.d("ptr-test", "beginLoading");
         invalidate();
     }

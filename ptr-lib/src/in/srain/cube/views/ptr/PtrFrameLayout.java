@@ -12,12 +12,16 @@ import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 public class PtrFrameLayout extends ViewGroup {
 
+    protected final static byte PTR_STATUS_INIT = 1;
+    protected final static byte PTR_STATUS_PREPARE = 2;
+    protected final static byte PTR_STATUS_LOADING = 3;
+    protected final static byte PTR_STATUS_COMPLETE = 4;
+    private final static int POS_START = 0;
     public static boolean DEBUG = false;
-
     private static int ID = 1;
     protected final String LOG_TAG = "ptr-frame-" + ++ID;
     protected View mContent;
-
+    protected int mOffsetToRefresh = 0;
     private int mHeaderId = 0;
     private int mContainerId = 0;
     private float mResistance = 1.7f;
@@ -26,34 +30,19 @@ public class PtrFrameLayout extends ViewGroup {
     private float mRatioOfHeaderHeightToRefresh = 1.2f;
     private boolean mKeepHeaderWhenRefresh = true;
     private boolean mPullToRefresh = false;
-
-    protected int mOffsetToRefresh = 0;
     private View mHeaderView;
     private int mHeaderHeight;
-
     private MotionEvent mDownEvent;
     private CheckForLongPress mPendingCheckForLongPress = new CheckForLongPress();
     private CheckForLongPress2 mPendingCheckForLongPress2 = new CheckForLongPress2();
-
     private ScrollChecker mScrollChecker;
-
-    private final static int POS_START = 0;
     private int mCurrentPos = 0;
     private int mLastPos = 0;
     private int mPagingTouchSlop;
-
     private PtrUIHandler mPtrUIHandler;
     private PtrHandler mPtrHandler;
-
     private PointF mPtLastMove = new PointF();
-
     private byte mStatus = PTR_STATUS_INIT;
-
-    protected final static byte PTR_STATUS_INIT = 1;
-    protected final static byte PTR_STATUS_PREPARE = 2;
-    protected final static byte PTR_STATUS_LOADING = 3;
-    protected final static byte PTR_STATUS_COMPLETE = 4;
-
     private boolean mPreventForHorizontal = false;
     private boolean mIsUnderTouch = false;
     private boolean mDisableWhenHorizontalMove = false;
@@ -189,7 +178,7 @@ public class PtrFrameLayout extends ViewGroup {
             final int left = paddingLeft + lp.leftMargin;
             final int top = paddingTop + lp.topMargin + offsetX - mHeaderHeight;
             final int right = left + mHeaderView.getMeasuredWidth();
-            final int bottom = top + mHeaderView.getMeasuredHeight() + offsetX;
+            final int bottom = top + mHeaderView.getMeasuredHeight();
             mHeaderView.layout(left, top, right, bottom);
             if (DEBUG) {
                 CLog.d(LOG_TAG, "onLayout header: %s %s %s %s", left, top, right, bottom);
@@ -200,7 +189,7 @@ public class PtrFrameLayout extends ViewGroup {
             final int left = paddingLeft + lp.leftMargin;
             final int top = paddingTop + lp.topMargin + offsetX;
             final int right = left + mContent.getMeasuredWidth();
-            final int bottom = top + mContent.getMeasuredHeight() + offsetX;
+            final int bottom = top + mContent.getMeasuredHeight();
             if (DEBUG) {
                 CLog.d(LOG_TAG, "onLayout content: %s %s %s %s", left, top, right, bottom);
             }
@@ -413,6 +402,10 @@ public class PtrFrameLayout extends ViewGroup {
         }
     }
 
+    protected void onPtrScrollAbort() {
+
+    }
+
     protected void onPtrScrollFinish() {
         // by calling autoRefresh
         if (mCurrentPos == mHeaderHeight && mAutoScrollRefresh) {
@@ -487,28 +480,28 @@ public class PtrFrameLayout extends ViewGroup {
         mPtrUIHandler = ptrUIHandler;
     }
 
-    public void setResistance(float resistance) {
-        mResistance = resistance;
-    }
-
     public float getResistance() {
         return mResistance;
     }
 
-    public void setDurationToClose(int duration) {
-        mDurationToClose = duration;
+    public void setResistance(float resistance) {
+        mResistance = resistance;
     }
 
     public float getDurationToClose() {
         return mDurationToClose;
     }
 
-    public void setDurationToCloseHeader(int duration) {
-        mDurationToCloseHeader = duration;
+    public void setDurationToClose(int duration) {
+        mDurationToClose = duration;
     }
 
     public float getDurationToCloseHeader() {
         return mDurationToCloseHeader;
+    }
+
+    public void setDurationToCloseHeader(int duration) {
+        mDurationToCloseHeader = duration;
     }
 
     public void setRatioOfHeaderHeightToRefresh(float ratio) {
@@ -520,12 +513,12 @@ public class PtrFrameLayout extends ViewGroup {
         return mRatioOfHeaderHeightToRefresh;
     }
 
-    public void setKeepHeaderWhenRefresh(boolean keepOrNot) {
-        mKeepHeaderWhenRefresh = keepOrNot;
-    }
-
     public boolean isKeepHeaderWhenRefresh() {
         return mKeepHeaderWhenRefresh;
+    }
+
+    public void setKeepHeaderWhenRefresh(boolean keepOrNot) {
+        mKeepHeaderWhenRefresh = keepOrNot;
     }
 
     public boolean isPullToRefresh() {
@@ -536,11 +529,11 @@ public class PtrFrameLayout extends ViewGroup {
         mPullToRefresh = pullToRefresh;
     }
 
-    protected View getHeaderView() {
+    public View getHeaderView() {
         return mHeaderView;
     }
 
-    public void setPtrHeaderView(View header) {
+    public void setHeaderView(View header) {
         if (mHeaderView != null && header != null && mHeaderView != header) {
             removeView(mHeaderView);
         }
@@ -686,6 +679,7 @@ public class PtrFrameLayout extends ViewGroup {
                 if (!mScroller.isFinished()) {
                     mScroller.forceFinished(true);
                 }
+                onPtrScrollAbort();
                 reset();
             }
         }

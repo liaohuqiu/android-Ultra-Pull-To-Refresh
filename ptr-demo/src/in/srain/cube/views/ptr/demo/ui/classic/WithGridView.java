@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -37,7 +38,7 @@ public class WithGridView extends TitleBaseFragment {
 
         mImageLoader = ImageLoaderFactory.create(getContext());
 
-        final View contentView = inflater.inflate(R.layout.fragment_rotate_header_with_gridview, null);
+        final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_gridview, null);
         final GridView gridListView = (GridView) contentView.findViewById(R.id.rotate_header_grid_view);
 
         mAdapter = new ListViewDataAdapter<JsonData>(new ViewHolderCreator<JsonData>() {
@@ -92,7 +93,7 @@ public class WithGridView extends TitleBaseFragment {
         @Override
         public View createView(LayoutInflater inflater) {
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_image_list_grid, null);
-            mImageView = (CubeImageView) view.findViewById(R.id.iv_item_iamge_list_grid);
+            mImageView = (CubeImageView) view.findViewById(R.id.iv_item_image_list_grid);
             mImageView.setScaleType(ScaleType.CENTER_CROP);
 
             LinearLayout.LayoutParams lyp = new LinearLayout.LayoutParams(sGirdImageSize, sGirdImageSize);

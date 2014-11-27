@@ -6,15 +6,13 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler, IPtrClassicHeader {
+public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler, PtrClassicHeader {
 
     private static SimpleDateFormat sDataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private TextView mTitleTextView;
@@ -66,6 +64,33 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
     }
 
     @Override
+    public void onUIReset(PtrFrameLayout frame) {
+        resetView();
+        mShouldShowLastUpdate = true;
+    }
+
+    @Override
+    public void onUIRefreshPrepare(PtrFrameLayout frame, boolean isAutoRefresh) {
+
+        tryUpdateLastUpdateTime();
+
+        if (isAutoRefresh) {
+            mTitleTextView.setText(getResources().getString(R.string.cube_ptr_auto_refresh));
+        } else {
+            mShouldShowLastUpdate = true;
+            mProgressBar.setVisibility(INVISIBLE);
+
+            mRotateView.setVisibility(VISIBLE);
+            mTitleTextView.setVisibility(VISIBLE);
+            if (frame.isPullToRefresh()) {
+                mTitleTextView.setText(getResources().getString(R.string.cube_ptr_pull_down_to_refresh));
+            } else {
+                mTitleTextView.setText(getResources().getString(R.string.cube_ptr_pull_down));
+            }
+        }
+    }
+
+    @Override
     public void onUIRefreshBegin(PtrFrameLayout frame) {
         mShouldShowLastUpdate = false;
         hideRotateView();
@@ -90,33 +115,6 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
         if (!TextUtils.isEmpty(mLastUpdateTimeKey)) {
             mLastUpdateTime = new Date().getTime();
             sharedPreferences.edit().putLong(mLastUpdateTimeKey, mLastUpdateTime).commit();
-        }
-    }
-
-    @Override
-    public void onUIReset(PtrFrameLayout frame) {
-        resetView();
-        mShouldShowLastUpdate = true;
-    }
-
-    @Override
-    public void onUIRefreshPrepare(PtrFrameLayout frame, boolean isAutoRefresh) {
-
-        tryUpdateLastUpdateTime();
-
-        if (isAutoRefresh) {
-            onUIRefreshBegin(frame);
-        } else {
-            mShouldShowLastUpdate = true;
-            mProgressBar.setVisibility(INVISIBLE);
-
-            mRotateView.setVisibility(VISIBLE);
-            mTitleTextView.setVisibility(VISIBLE);
-            if (frame.isPullToRefresh()) {
-                mTitleTextView.setText(getResources().getString(R.string.cube_ptr_pull_down_to_refresh));
-            } else {
-                mTitleTextView.setText(getResources().getString(R.string.cube_ptr_pull_down));
-            }
         }
     }
 

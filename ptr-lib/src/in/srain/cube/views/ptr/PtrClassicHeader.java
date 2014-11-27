@@ -2,7 +2,7 @@ package in.srain.cube.views.ptr;
 
 import android.view.View;
 
-public interface IPtrClassicHeader {
+public interface PtrClassicHeader {
 
     public View getRotateView();
 

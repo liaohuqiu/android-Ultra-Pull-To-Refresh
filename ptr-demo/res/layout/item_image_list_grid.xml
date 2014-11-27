@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="15dp">
+    android:paddingTop="15dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -12,7 +12,7 @@
         android:padding="1dp">
 
         <in.srain.cube.image.CubeImageView
-            android:id="@+id/iv_item_iamge_list_grid"
+            android:id="@+id/iv_item_image_list_grid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter" />
