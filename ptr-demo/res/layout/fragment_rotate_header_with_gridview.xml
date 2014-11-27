@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#f1f1f1"
+    android:layout_height="match_parent">
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/rotate_header_grid_view_frame"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:ptr_content="@+id/rotate_header_grid_view">
+
+        <GridView
+            android:background="#fff"
+            android:id="@+id/rotate_header_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:focusable="false"
+            android:horizontalSpacing="10dp"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="2"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth" />
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+</RelativeLayout>

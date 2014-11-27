@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>in.srain</groupId>
+        <artifactId>cube-parent-for-oss</artifactId>
+        <version>1.1.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>in.srain.cube</groupId>
+    <artifactId>ultra-ptr-demo</artifactId>
+    <packaging>apk</packaging>
+    <name>Ultra Pull to Refresh Demo</name>
+    <version>1.0.1</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>4.1.1.4</version>
+            <scope>provided</scope>
+            <!--
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            -->
+        </dependency>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>support-v4</artifactId>
+            <version>r18</version>
+        </dependency>
+        <dependency>
+            <groupId>in.srain.cube</groupId>
+            <artifactId>clog</artifactId>
+            <type>jar</type>
+            <version>1.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>in.srain.cube</groupId>
+            <artifactId>ultra-ptr</artifactId>
+            <type>apklib</type>
+            <version>1.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>in.srain.cube</groupId>
+            <artifactId>cube-sdk</artifactId>
+            <type>apklib</type>
+            <version>1.0.40-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <android_maven_plugin_version>3.8.2</android_maven_plugin_version>
+        <android_compile_api_level>16</android_compile_api_level>
+    </properties>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <sourceDirectory>src/</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <!-- compile plugin -->
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <version>${android_maven_plugin_version}</version>
+                <configuration>
+                    <sdk>
+                        <platform>${android_compile_api_level}</platform>
+                    </sdk>
+                    <sign>
+                        <debug>false</debug>
+                    </sign>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

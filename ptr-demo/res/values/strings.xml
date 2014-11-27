@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ultra PTR</string>
+    <string name="ptr_demo_title_for_home">Ultra Pull to Refresh</string>
+
+    <string name="ptr_demo_title_grid_view">Contain GridView</string>
+    <string name="ptr_demo_title_frame_layout">Contain FrameLayout</string>
+    <string name="ptr_demo_title_only_text_view">Contain Event A TextView</string>
+
+    <string name="ptr_demo_title_pull_to_refresh">Pull to Refresh</string>
+    <string name="ptr_demo_title_release_to_refresh">Release to Refresh</string>
+    <string name="ptr_demo_title_auto_fresh">Auto Refresh</string>
+
+    <string name="ptr_demo_title_keep_header">Keep Header When Refresh</string>
+    <string name="ptr_demo_title_hide_header">Hide Header When Refresh</string>
+
+</resources>

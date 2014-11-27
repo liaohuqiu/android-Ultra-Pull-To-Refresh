@@ -1,0 +1,4 @@
+rootProject.name = 'android-Ultra-Pull-To-Refresh'
+include ':ptr-lib', ':app'
+// include ':android-cube-app'
+// project(':app').projectDir = new File('android-cube-app/app')

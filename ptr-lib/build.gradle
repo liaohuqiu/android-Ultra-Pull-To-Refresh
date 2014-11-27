@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        applicationId "in.srain.cube.views.ptr"
+        minSdkVersion 8
+        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['resources']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            // aidl.srcDirs = ['src']
+            // renderscript.srcDirs = ['src']
+        }
+
+        androidTest.setRoot('tests')
+    }
+}
+
+dependencies {
+    compile 'in.srain.cube:clog:1.0.1'
+    compile 'com.android.support:support-v4:20.+'
+}
+apply from: './gradle-mvn-push.gradle'
