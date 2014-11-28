@@ -74,19 +74,15 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
 
         tryUpdateLastUpdateTime();
 
-        if (isAutoRefresh) {
-            mTitleTextView.setText(getResources().getString(R.string.cube_ptr_auto_refresh));
-        } else {
-            mShouldShowLastUpdate = true;
-            mProgressBar.setVisibility(INVISIBLE);
+        mShouldShowLastUpdate = true;
+        mProgressBar.setVisibility(INVISIBLE);
 
-            mRotateView.setVisibility(VISIBLE);
-            mTitleTextView.setVisibility(VISIBLE);
-            if (frame.isPullToRefresh()) {
-                mTitleTextView.setText(getResources().getString(R.string.cube_ptr_pull_down_to_refresh));
-            } else {
-                mTitleTextView.setText(getResources().getString(R.string.cube_ptr_pull_down));
-            }
+        mRotateView.setVisibility(VISIBLE);
+        mTitleTextView.setVisibility(VISIBLE);
+        if (frame.isPullToRefresh()) {
+            mTitleTextView.setText(getResources().getString(R.string.cube_ptr_pull_down_to_refresh));
+        } else {
+            mTitleTextView.setText(getResources().getString(R.string.cube_ptr_pull_down));
         }
     }
 

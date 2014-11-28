@@ -36,7 +36,7 @@ public class ETaoFragment extends TitleBaseFragment {
         Debug.DEBUG_PTR_FRAME = true;
 
         final PtrStoreHouseHeaderFrameLayout frame = (PtrStoreHouseHeaderFrameLayout) view.findViewById(R.id.store_house_ptr_frame);
-        frame.getHeader().initWithStringArray(R.array.storehouse);
+        // frame.getHeader().initWithStringArray(R.array.storehouse);
         frame.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {

@@ -29,7 +29,7 @@ public class CubeDemoApplication extends Application {
             CLog.setLogLevel(CLog.LEVEL_VERBOSE);
         }
 
-        Debug.DEBUG_IMAGE = true;
+        // Debug.DEBUG_IMAGE = true;
         PtrFrameLayout.DEBUG = true;
 
         ImageLoaderFactory.setDefaultImageResizer(DemoDuiTangImageResizer.getInstance());

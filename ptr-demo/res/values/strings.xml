@@ -14,5 +14,7 @@
 
     <string name="ptr_demo_title_keep_header">Keep Header When Refresh</string>
     <string name="ptr_demo_title_hide_header">Hide Header When Refresh</string>
+    <string name="ptr_demo_title_with_long_press">With Long Press</string>
+    <string name="ptr_demo_title_with_view_page">With ViewPager</string>
 
 </resources>

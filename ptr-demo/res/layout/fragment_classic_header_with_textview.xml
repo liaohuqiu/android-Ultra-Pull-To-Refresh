@@ -27,7 +27,7 @@
             android:clickable="true"
             android:gravity="center"
             android:text="I am a TextView"
-            android:textColor="@color/cube_demo_white"
+            android:textColor="@color/cube_mints_white"
             android:textSize="30sp" />
 
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>

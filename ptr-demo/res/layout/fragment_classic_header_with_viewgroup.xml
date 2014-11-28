@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cube_demo_white">
+    android:background="@color/cube_mints_white">
 
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
         android:id="@+id/fragment_rotate_header_with_view_group_frame"
@@ -26,7 +26,7 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:text="I am a TextView in FrameLayout"
-                android:textColor="@color/cube_demo_black"
+                android:textColor="@color/cube_mints_black"
                 android:textSize="30sp" />
 
         </FrameLayout>

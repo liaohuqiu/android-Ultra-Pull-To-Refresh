@@ -1,5 +1,6 @@
 package in.srain.cube.views.ptr.demo.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,12 +80,11 @@ public class HomeFragment extends BlockMenuFragment {
             }
         }));
 
-
-        itemInfos.add(newItemInfo("StoreHouse", R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_title_with_long_press, R.color.cube_holo_blue_bright, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                getContext().pushFragmentToBackStack(PtrStoreHouseHeaderFragment.class, null);
+                getContext().pushFragmentToBackStack(WithLongPressFragment.class, null);
             }
         }));
         itemInfos.add(newItemInfo("StoreHouse", R.color.cube_holo_blue_bright, new OnClickListener() {
@@ -99,7 +99,7 @@ public class HomeFragment extends BlockMenuFragment {
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.createView(inflater, container, savedInstanceState);
-        view.setBackgroundColor(getResources().getColor(R.color.c333333));
+        view.setBackgroundColor(Color.BLACK);
         return view;
     }
 
