@@ -28,7 +28,7 @@ public abstract class WithTextViewBaseFragment extends TitleBaseFragment {
                     public void run() {
                         ptrFrame.refreshComplete();
                     }
-                }, 1500);
+                }, 3500);
             }
 
             @Override

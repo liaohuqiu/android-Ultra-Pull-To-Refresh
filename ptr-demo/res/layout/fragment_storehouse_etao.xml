@@ -4,15 +4,14 @@
     android:layout_height="match_parent"
     android:background="#333333">
 
-    <in.srain.cube.views.ptr.PtrStoreHouseHeaderFrameLayout
+    <in.srain.cube.views.ptr.PtrFrameLayout
         android:id="@+id/store_house_ptr_frame"
         xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         cube_ptr:ptr_content="@+id/store_house_ptr_image_content"
         cube_ptr:ptr_duration_to_close="300"
-        cube_ptr:ptr_duration_to_close_header="2000"
-        cube_ptr:ptr_storehouse_text="bbbbb">
+        cube_ptr:ptr_duration_to_close_header="2000">
 
         <LinearLayout
             android:id="@+id/store_house_ptr_image_content"
@@ -28,5 +27,5 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-    </in.srain.cube.views.ptr.PtrStoreHouseHeaderFrameLayout>
+    </in.srain.cube.views.ptr.PtrFrameLayout>
 </RelativeLayout>

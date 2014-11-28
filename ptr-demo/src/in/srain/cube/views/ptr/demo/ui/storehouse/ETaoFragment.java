@@ -1,7 +1,6 @@
 package in.srain.cube.views.ptr.demo.ui.storehouse;
 
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,8 @@ import in.srain.cube.mints.base.TitleBaseFragment;
 import in.srain.cube.util.Debug;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
-import in.srain.cube.views.ptr.PtrStoreHouseHeaderFrameLayout;
 import in.srain.cube.views.ptr.demo.R;
+import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 public class ETaoFragment extends TitleBaseFragment {
 
@@ -35,8 +34,19 @@ public class ETaoFragment extends TitleBaseFragment {
 
         Debug.DEBUG_PTR_FRAME = true;
 
-        final PtrStoreHouseHeaderFrameLayout frame = (PtrStoreHouseHeaderFrameLayout) view.findViewById(R.id.store_house_ptr_frame);
-        // frame.getHeader().initWithStringArray(R.array.storehouse);
+        final PtrFrameLayout frame = (PtrFrameLayout) view.findViewById(R.id.store_house_ptr_frame);
+        StoreHouseHeader houseHeader = new StoreHouseHeader(getContext());
+        houseHeader.initWithStringArray(R.array.storehouse);
+
+        frame.setHeaderView(houseHeader);
+        frame.setPtrUIHandler(houseHeader);
+        frame.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                frame.autoRefresh();
+            }
+        }, 100);
+
         frame.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {

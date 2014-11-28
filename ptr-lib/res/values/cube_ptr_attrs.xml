@@ -21,8 +21,4 @@
         <attr name="ptr_rotate_view" format="reference" />
         <attr name="ptr_rotate_ani_time" format="integer" />
     </declare-styleable>
-
-    <declare-styleable name="PtrStoreHouseHeader">
-        <attr name="ptr_storehouse_text" format="string" />
-    </declare-styleable>
 </resources>

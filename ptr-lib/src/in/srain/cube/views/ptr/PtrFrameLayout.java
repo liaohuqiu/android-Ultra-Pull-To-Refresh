@@ -19,6 +19,7 @@ public class PtrFrameLayout extends ViewGroup {
     private final static int POS_START = 0;
     public static boolean DEBUG = false;
     private static int ID = 1;
+
     protected final String LOG_TAG = "ptr-frame-" + ++ID;
     protected View mContent;
     protected int mOffsetToRefresh = 0;
@@ -34,17 +35,21 @@ public class PtrFrameLayout extends ViewGroup {
     private int mHeaderHeight;
     private MotionEvent mDownEvent;
 
+    // long press
     private boolean mLongPressCheckerPendingRemoved = false;
     private boolean mLongPressing = false;
     private CheckForLongPress mPendingCheckForLongPress = new CheckForLongPress();
     private CheckForLongPress2 mPendingCheckForLongPress2 = new CheckForLongPress2();
     private ScrollChecker mScrollChecker;
+
     private int mCurrentPos = 0;
     private int mLastPos = 0;
     private int mPagingTouchSlop;
+
     private PtrUIHandler mPtrUIHandler;
     private PtrHandler mPtrHandler;
     private PointF mPtLastMove = new PointF();
+
     private byte mStatus = PTR_STATUS_INIT;
     private boolean mPreventForHorizontal = false;
     private boolean mIsUnderTouch = false;
@@ -415,7 +420,8 @@ public class PtrFrameLayout extends ViewGroup {
     protected void onPtrScrollFinish() {
         // for autoRefresh
         if (mCurrentPos == mHeaderHeight && mAutoScrollRefresh) {
-            onRelease();
+            if (mStatus == PTR_STATUS_PREPARE) {
+            }
         }
     }
 
@@ -576,41 +582,18 @@ public class PtrFrameLayout extends ViewGroup {
 
     public static class LayoutParams extends MarginLayoutParams {
 
-        /**
-         * Creates a new set of layout parameters. The values are extracted from
-         * the supplied attributes set and context.
-         *
-         * @param c     the application environment
-         * @param attrs the set of attributes from which to extract the layout
-         */
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
         }
 
-        /**
-         * {@inheritDoc}
-         *
-         * @param width
-         * @param height
-         */
         public LayoutParams(int width, int height) {
             super(width, height);
         }
 
-        /**
-         * Copy constructor. Clones the width, height and margin values of the source.
-         *
-         * @param source The layout params to copy from.
-         */
         public LayoutParams(MarginLayoutParams source) {
             super(source);
         }
 
-        /**
-         * {@inheritDoc}
-         *
-         * @param source
-         */
         public LayoutParams(ViewGroup.LayoutParams source) {
             super(source);
         }
@@ -630,7 +613,6 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     private void sendCancelEvent() {
-
         if (DEBUG) {
             CLog.d(LOG_TAG, "send cancel event");
         }
