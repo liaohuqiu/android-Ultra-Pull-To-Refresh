@@ -8,10 +8,10 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.ui.Utils;
 
-public class HideHeader extends WithTextViewBaseFragment {
+public class HideHeader extends WithTextViewInFrameLayoutFragment {
 
     @Override
-    protected void setupViews(final PtrClassicFrameLayout ptrFrame, TextView textView) {
+    protected void setupViews(final PtrClassicFrameLayout ptrFrame) {
         setHeaderTitle(R.string.ptr_demo_title_hide_header);
         ptrFrame.setKeepHeaderWhenRefresh(false);
 

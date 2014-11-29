@@ -4,10 +4,10 @@ import android.widget.TextView;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.demo.R;
 
-public class AutoRefresh extends WithTextViewBaseFragment {
+public class AutoRefresh extends WithTextViewInFrameLayoutFragment {
 
     @Override
-    protected void setupViews(final PtrClassicFrameLayout ptrFrame, TextView textView) {
+    protected void setupViews(final PtrClassicFrameLayout ptrFrame) {
         setHeaderTitle(R.string.ptr_demo_title_auto_fresh);
         ptrFrame.postDelayed(new Runnable() {
             @Override

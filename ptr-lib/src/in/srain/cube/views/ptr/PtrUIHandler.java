@@ -18,7 +18,7 @@ public interface PtrUIHandler {
      * @param frame
      * @param isAutoRefresh
      */
-    public void onUIRefreshPrepare(PtrFrameLayout frame, boolean isAutoRefresh);
+    public void onUIRefreshPrepare(PtrFrameLayout frame);
 
     /**
      * perform refreshing UI

@@ -3,15 +3,15 @@ package in.srain.cube.views.ptr;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import in.srain.cube.util.CLog;
 
 public abstract class PtrDefaultHandler implements PtrHandler {
 
+    @Override
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return checkContentCanPullDown(frame, content, header);
+        return checkContentCanBePulledDown(frame, content, header);
     }
 
-    public static boolean checkContentCanPullDown(PtrFrameLayout frame, View content, View header) {
+    public static boolean checkContentCanBePulledDown(PtrFrameLayout frame, View content, View header) {
         if (!(content instanceof ViewGroup)) {
             return true;
         }
@@ -29,6 +29,13 @@ public abstract class PtrDefaultHandler implements PtrHandler {
         }
 
         View child = viewGroup.getChildAt(0);
-        return viewGroup.getChildAt(0).getTop() == viewGroup.getPaddingTop();
+        ViewGroup.LayoutParams glp = child.getLayoutParams();
+        int top = child.getTop();
+        if (glp instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) glp;
+            return top == mlp.topMargin + viewGroup.getPaddingTop();
+        } else {
+            return top == viewGroup.getPaddingTop();
+        }
     }
 }

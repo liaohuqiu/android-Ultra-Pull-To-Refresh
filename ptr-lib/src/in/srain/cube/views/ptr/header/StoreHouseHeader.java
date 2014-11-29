@@ -15,12 +15,13 @@ import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class StoreHouseHeader extends View implements PtrUIHandler {
 
     public ArrayList<StoreHouseBarItem> mItemList = new ArrayList<StoreHouseBarItem>();
 
-    private int lineWidth = PtrLocalDisplay.dp2px(1);
+    private int mLineWidth = PtrLocalDisplay.dp2px(1);
     private float scale = 1;
     private int mDropHeight = PtrLocalDisplay.dp2px(40);
     private float internalAnimationFactor = 0.7f;
@@ -30,8 +31,6 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
 
     private int mDrawZoneWidth = 0;
     private int mDrawZoneHeight = 0;
-    private int mBoundHeight;
-    private int mBoundsWidth;
     private int mOffsetX = 0;
     private int mOffsetY = 0;
     private float mBarDarkAlpha = 0.4f;
@@ -41,42 +40,61 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
 
     public StoreHouseHeader(Context context) {
         super(context);
+        initView();
     }
 
     public StoreHouseHeader(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initView();
     }
 
     public StoreHouseHeader(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initView();
     }
 
-    public void setProgress(float progress) {
+    private void initView() {
+    }
+
+    private void setProgress(float progress) {
         mProgress = progress;
+    }
+
+    public StoreHouseHeader setLineWidth(int width) {
+        mLineWidth = width;
+        return this;
+    }
+
+    public StoreHouseHeader setDropHeight(int height) {
+        mDropHeight = height;
+        return this;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int height = (int) (getPaddingTop() + getPaddingBottom() + mDrawZoneHeight * 3);
+        int height = getPaddingTop() + getPaddingBottom() + getTopOffset() + mDrawZoneHeight + getBottomOffset();
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setBounds(getMeasuredWidth(), getMeasuredHeight());
+
+        mOffsetX = (getMeasuredWidth() - mDrawZoneWidth) / 2;
+        mOffsetY = getTopOffset();
     }
 
-    private void setBounds(int width, int height) {
-        mBoundsWidth = width;
-        mBoundHeight = height;
-        mOffsetX = (mBoundsWidth - mDrawZoneWidth) / 2;
-        mOffsetY = (int) (mDrawZoneHeight * 1.5);
+    private int getTopOffset() {
+        return (int) Math.min(mDrawZoneHeight * 1.5f, PtrLocalDisplay.dp2px(30));
+    }
+
+    private int getBottomOffset() {
+        return (int) Math.min(mDrawZoneHeight * 0.5f, PtrLocalDisplay.dp2px(10));
     }
 
     public void initWithString(String str) {
-        // ArrayList<float[]> pointList = StoreHousePath.getPath("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0.2f, 14);
-        // ArrayList<float[]> pointList = StoreHousePath.getPath("ALIBABA", 0.2f, 14);
-        // ArrayList<float[]> pointList = StoreHousePath.getPath("SRAIN", 0.2f, 14);
-        ArrayList<float[]> pointList = StoreHousePath.getPath("Alibaba", 0.25f, 14);
-        //ArrayList<float[]> pointList = StoreHousePath.getPath("cube", 0.5f, 14);
-        initWithPointArray(pointList);
+        initWithString(str, 25);
+    }
+
+    public void initWithString(String str, int size) {
+        ArrayList<float[]> pointList = StoreHousePath.getPath(str, size * 0.01f, 14);
+        initWithPointList(pointList);
     }
 
     public void initWithStringArray(int id) {
@@ -90,10 +108,10 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
             }
             pointList.add(f);
         }
-        initWithPointArray(pointList);
+        initWithPointList(pointList);
     }
 
-    public void initWithPointArray(ArrayList<float[]> pointList) {
+    public void initWithPointList(ArrayList<float[]> pointList) {
 
         float drawWidth = 0;
         float drawHeight = 0;
@@ -109,7 +127,7 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
             drawHeight = Math.max(drawHeight, startPoint.y);
             drawHeight = Math.max(drawHeight, endPoint.y);
 
-            StoreHouseBarItem item = new StoreHouseBarItem(i, startPoint, endPoint, Color.WHITE, lineWidth);
+            StoreHouseBarItem item = new StoreHouseBarItem(i, startPoint, endPoint, Color.WHITE, mLineWidth);
             item.reset(horizontalRandomness);
             mItemList.add(item);
         }
@@ -217,10 +235,9 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
      * prepare for loading
      *
      * @param frame
-     * @param isAutoRefresh
      */
     @Override
-    public void onUIRefreshPrepare(PtrFrameLayout frame, boolean isAutoRefresh) {
+    public void onUIRefreshPrepare(PtrFrameLayout frame) {
 
     }
 

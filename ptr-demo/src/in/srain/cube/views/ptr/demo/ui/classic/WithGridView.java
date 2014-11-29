@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -21,6 +20,7 @@ import in.srain.cube.views.list.ViewHolderCreator;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.data.DemoRequestData;
 
@@ -52,16 +52,21 @@ public class WithGridView extends TitleBaseFragment {
         mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.rotate_header_grid_view_frame);
         mPtrFrame.setLastUpdateTimeKey("WithGridView");
         mPtrFrame.setKeepHeaderWhenRefresh(true);
-        mPtrFrame.setPtrHandler(new PtrDefaultHandler() {
+        mPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 updateData();
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
             }
         });
         mPtrFrame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mPtrFrame.autoRefresh();
+                // mPtrFrame.autoRefresh();
             }
         }, 100);
         // updateData();
@@ -72,16 +77,16 @@ public class WithGridView extends TitleBaseFragment {
 
         DemoRequestData.getImageList(new RequestFinishHandler<JsonData>() {
             @Override
-            public void onRequestFinish(JsonData data) {
-                mAdapter.getDataList().clear();
-                mAdapter.getDataList().addAll(data.optJson("data").optJson("list").toArrayList());
-                mAdapter.notifyDataSetChanged();
+            public void onRequestFinish(final JsonData data) {
                 mPtrFrame.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        mAdapter.getDataList().clear();
+                        mAdapter.getDataList().addAll(data.optJson("data").optJson("list").toArrayList());
                         mPtrFrame.refreshComplete();
+                        mAdapter.notifyDataSetChanged();
                     }
-                }, 500);
+                }, 1000);
             }
         });
     }

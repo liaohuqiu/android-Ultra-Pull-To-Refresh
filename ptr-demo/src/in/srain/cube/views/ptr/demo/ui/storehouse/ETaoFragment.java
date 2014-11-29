@@ -37,13 +37,14 @@ public class ETaoFragment extends TitleBaseFragment {
         final PtrFrameLayout frame = (PtrFrameLayout) view.findViewById(R.id.store_house_ptr_frame);
         StoreHouseHeader houseHeader = new StoreHouseHeader(getContext());
         houseHeader.initWithStringArray(R.array.storehouse);
+        houseHeader.initWithString("Alibaba");
 
         frame.setHeaderView(houseHeader);
         frame.setPtrUIHandler(houseHeader);
         frame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                frame.autoRefresh();
+                frame.autoRefresh(false);
             }
         }, 100);
 

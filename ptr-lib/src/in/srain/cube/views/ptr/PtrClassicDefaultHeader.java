@@ -70,7 +70,7 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
     }
 
     @Override
-    public void onUIRefreshPrepare(PtrFrameLayout frame, boolean isAutoRefresh) {
+    public void onUIRefreshPrepare(PtrFrameLayout frame) {
 
         tryUpdateLastUpdateTime();
 

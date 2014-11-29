@@ -4,17 +4,18 @@
     <string name="app_name">Ultra PTR</string>
     <string name="ptr_demo_title_for_home">Ultra Pull to Refresh</string>
 
-    <string name="ptr_demo_title_grid_view">Contain GridView</string>
-    <string name="ptr_demo_title_frame_layout">Contain FrameLayout</string>
-    <string name="ptr_demo_title_only_text_view">Contain Event A TextView</string>
+    <string name="ptr_demo_title_grid_view">Contains A GridView</string>
+    <string name="ptr_demo_title_frame_layout">Contains A FrameLayout</string>
+    <string name="ptr_demo_title_only_text_view">Contains Even A TextView</string>
 
     <string name="ptr_demo_title_pull_to_refresh">Pull to Refresh</string>
     <string name="ptr_demo_title_release_to_refresh">Release to Refresh</string>
     <string name="ptr_demo_title_auto_fresh">Auto Refresh</string>
 
-    <string name="ptr_demo_title_keep_header">Keep Header When Refresh</string>
-    <string name="ptr_demo_title_hide_header">Hide Header When Refresh</string>
-    <string name="ptr_demo_title_with_long_press">With Long Press</string>
-    <string name="ptr_demo_title_with_view_page">With ViewPager</string>
+    <string name="ptr_demo_title_keep_header">Keep Header while Refreshing</string>
+    <string name="ptr_demo_title_hide_header">Hide Header while Refreshing</string>
+    <string name="ptr_demo_title_with_long_press">Long Press</string>
+    <string name="ptr_demo_title_with_view_page">ViewPager</string>
+    <string name="ptr_demo_title_storehouse_header">StoreHouse</string>
 
 </resources>

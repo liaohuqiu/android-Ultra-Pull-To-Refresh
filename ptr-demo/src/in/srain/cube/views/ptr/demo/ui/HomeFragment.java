@@ -19,21 +19,21 @@ public class HomeFragment extends BlockMenuFragment {
     protected void addItemInfo(ArrayList<BlockMenuFragment.ItemInfo> itemInfos) {
 
         // GridView
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_grid_view, R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_title_grid_view, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(WithGridView.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_frame_layout, R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_title_frame_layout, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(WithTextViewInFrameLayoutFragment.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_only_text_view, R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_title_only_text_view, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -41,14 +41,14 @@ public class HomeFragment extends BlockMenuFragment {
             }
         }));
 
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_keep_header, R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_title_keep_header, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(KeepHeader.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_hide_header, R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_title_hide_header, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ public class HomeFragment extends BlockMenuFragment {
         }));
         itemInfos.add(null);
 
-        itemInfos.add(newItemInfo(R.string.cube_ptr_release_to_refresh, R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.cube_ptr_release_to_refresh, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -65,14 +65,14 @@ public class HomeFragment extends BlockMenuFragment {
             }
         }));
 
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_pull_to_refresh, R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_title_pull_to_refresh, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(PullToRefresh.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_auto_fresh, R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_title_auto_fresh, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -80,14 +80,14 @@ public class HomeFragment extends BlockMenuFragment {
             }
         }));
 
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_with_long_press, R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_title_with_long_press, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(WithLongPressFragment.class, null);
             }
         }));
-        itemInfos.add(newItemInfo("StoreHouse", R.color.cube_holo_blue_bright, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_title_storehouse_header, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
