@@ -43,7 +43,7 @@ public class PtrFrameLayout extends ViewGroup {
     private boolean mKeepHeaderWhenRefresh = true;
     private boolean mPullToRefresh = false;
     private View mHeaderView;
-    private PtrUIHandler mPtrUIHandler;
+    private PtrUIHandlerHolder mPtrUIHandlerHolder = PtrUIHandlerHolder.create();
     private PtrHandler mPtrHandler;
     // working parameters
     private ScrollChecker mScrollChecker;
@@ -350,10 +350,10 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         // leave initiated position
-        if (mLastPos == POS_START && mCurrentPos != POS_START && mPtrUIHandler != null) {
+        if (mLastPos == POS_START && mCurrentPos != POS_START && mPtrUIHandlerHolder.hasHandler()) {
             if (mStatus == PTR_STATUS_INIT) {
                 mStatus = PTR_STATUS_PREPARE;
-                mPtrUIHandler.onUIRefreshPrepare(this);
+                mPtrUIHandlerHolder.onUIRefreshPrepare(this);
                 if (DEBUG) {
                     CLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshPrepare, mAutoScrollRefresh %s", mAutoScrollRefresh);
                 }
@@ -399,8 +399,8 @@ public class PtrFrameLayout extends ViewGroup {
 
         final float oldPercent = mHeaderHeight == 0 ? 0 : mLastPos / mHeaderHeight;
         final float currentPercent = mHeaderHeight == 0 ? 0 : mCurrentPos / mHeaderHeight;
-        if (mPtrUIHandler != null) {
-            mPtrUIHandler.onUIPositionChange(this, mIsUnderTouch, mStatus, mLastPos, mCurrentPos, oldPercent, currentPercent);
+        if (mPtrUIHandlerHolder.hasHandler()) {
+            mPtrUIHandlerHolder.onUIPositionChange(this, mIsUnderTouch, mStatus, mLastPos, mCurrentPos, oldPercent, currentPercent);
         }
         onPositionChange(mIsUnderTouch, mStatus, mLastPos, mCurrentPos, oldPercent, currentPercent);
     }
@@ -449,8 +449,8 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     private void performRefresh() {
-        if (mPtrUIHandler != null) {
-            mPtrUIHandler.onUIRefreshBegin(this);
+        if (mPtrUIHandlerHolder.hasHandler()) {
+            mPtrUIHandlerHolder.onUIRefreshBegin(this);
             if (DEBUG) {
                 CLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshBegin");
             }
@@ -462,8 +462,8 @@ public class PtrFrameLayout extends ViewGroup {
 
     private void tryToNotifyReset() {
         if (mStatus == PTR_STATUS_COMPLETE && mCurrentPos == POS_START) {
-            if (mPtrUIHandler != null) {
-                mPtrUIHandler.onUIReset(this);
+            if (mPtrUIHandlerHolder.hasHandler()) {
+                mPtrUIHandlerHolder.onUIReset(this);
                 if (DEBUG) {
                     CLog.i(LOG_TAG, "PtrUIHandler: onUIReset");
                 }
@@ -495,8 +495,8 @@ public class PtrFrameLayout extends ViewGroup {
 
         tryToNotifyReset();
 
-        if (mPtrUIHandler != null) {
-            mPtrUIHandler.onUIRefreshComplete(this);
+        if (mPtrUIHandlerHolder.hasHandler()) {
+            mPtrUIHandlerHolder.onUIRefreshComplete(this);
             if (DEBUG) {
                 CLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshComplete");
             }
@@ -527,8 +527,8 @@ public class PtrFrameLayout extends ViewGroup {
         mAutoScrollRefresh = atOnce ? STATUS_AUTO_SCROLL_AT_ONCE : STATUS_AUTO_SCROLL_LATER;
 
         mStatus = PTR_STATUS_PREPARE;
-        if (mPtrUIHandler != null) {
-            mPtrUIHandler.onUIRefreshPrepare(this);
+        if (mPtrUIHandlerHolder.hasHandler()) {
+            mPtrUIHandlerHolder.onUIRefreshPrepare(this);
             if (DEBUG) {
                 CLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshPrepare, mAutoScrollRefresh %s", mAutoScrollRefresh);
             }
@@ -561,8 +561,13 @@ public class PtrFrameLayout extends ViewGroup {
         mPtrHandler = ptrHandler;
     }
 
-    public void setPtrUIHandler(PtrUIHandler ptrUIHandler) {
-        mPtrUIHandler = ptrUIHandler;
+    public void addPtrUIHandler(PtrUIHandler ptrUIHandler) {
+        PtrUIHandlerHolder.addHandler(mPtrUIHandlerHolder, ptrUIHandler);
+    }
+
+    public void removePtrUIHandler(PtrUIHandler ptrUIHandler) {
+        mPtrUIHandlerHolder = PtrUIHandlerHolder.removeHandler(mPtrUIHandlerHolder, ptrUIHandler);
+
     }
 
     public float getResistance() {

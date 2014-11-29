@@ -29,7 +29,7 @@ public class PtrClassicFrameLayout extends PtrFrameLayout {
     private void initViews() {
         mPtrClassicHeader = new PtrClassicDefaultHeader(getContext());
         setHeaderView(mPtrClassicHeader);
-        setPtrUIHandler(mPtrClassicHeader);
+        addPtrUIHandler(mPtrClassicHeader);
     }
 
     public PtrClassicDefaultHeader getHeader() {

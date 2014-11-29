@@ -72,7 +72,7 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int height = getPaddingTop() + getPaddingBottom() + getTopOffset() + mDrawZoneHeight + getBottomOffset();
+        int height = getTopOffset() + mDrawZoneHeight + getBottomOffset();
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
@@ -81,11 +81,11 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
     }
 
     private int getTopOffset() {
-        return (int) Math.min(mDrawZoneHeight * 1.5f, PtrLocalDisplay.dp2px(30));
+        return getPaddingTop() + PtrLocalDisplay.dp2px(10);
     }
 
     private int getBottomOffset() {
-        return (int) Math.min(mDrawZoneHeight * 0.5f, PtrLocalDisplay.dp2px(10));
+        return getPaddingBottom() + PtrLocalDisplay.dp2px(10);
     }
 
     public void initWithString(String str) {
@@ -115,6 +115,7 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
 
         float drawWidth = 0;
         float drawHeight = 0;
+        boolean shouldLayout = mItemList.size() > 0;
         mItemList.clear();
         for (int i = 0; i < pointList.size(); i++) {
             float[] line = pointList.get(i);
@@ -133,6 +134,9 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         }
         mDrawZoneWidth = (int) Math.ceil(drawWidth);
         mDrawZoneHeight = (int) Math.ceil(drawHeight);
+        if (shouldLayout) {
+            requestLayout();
+        }
     }
 
     public void beginLoading() {

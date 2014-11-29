@@ -37,7 +37,7 @@ public class StoreHouseUsingStringArray extends TitleBaseFragment {
         houseHeader.initWithStringArray(R.array.storehouse);
 
         frame.setHeaderView(houseHeader);
-        frame.setPtrUIHandler(houseHeader);
+        frame.addPtrUIHandler(houseHeader);
         frame.postDelayed(new Runnable() {
             @Override
             public void run() {

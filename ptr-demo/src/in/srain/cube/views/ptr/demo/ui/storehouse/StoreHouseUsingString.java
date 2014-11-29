@@ -11,6 +11,7 @@ import in.srain.cube.mints.base.TitleBaseFragment;
 import in.srain.cube.util.Debug;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
+import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
@@ -31,16 +32,43 @@ public class StoreHouseUsingString extends TitleBaseFragment {
         Debug.DEBUG_PTR_FRAME = true;
 
         final PtrFrameLayout frame = (PtrFrameLayout) view.findViewById(R.id.store_house_ptr_frame);
-        StoreHouseHeader houseHeader = new StoreHouseHeader(getContext());
+        final StoreHouseHeader header = new StoreHouseHeader(getContext());
 
         /**
          * using a string, support: A-Z 0-9 - .
          * you can all more letters by {@link in.srain.cube.views.ptr.header.StoreHousePath#addChar}
          */
-        houseHeader.initWithString("Alibaba");
+        header.initWithString("Alibaba");
 
-        frame.setHeaderView(houseHeader);
-        frame.setPtrUIHandler(houseHeader);
+        frame.addPtrUIHandler(new PtrUIHandler() {
+            @Override
+            public void onUIReset(PtrFrameLayout frame) {
+                header.initWithString("TMALL 11-11");
+            }
+
+            @Override
+            public void onUIRefreshPrepare(PtrFrameLayout frame) {
+
+            }
+
+            @Override
+            public void onUIRefreshBegin(PtrFrameLayout frame) {
+
+            }
+
+            @Override
+            public void onUIRefreshComplete(PtrFrameLayout frame) {
+
+            }
+
+            @Override
+            public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent) {
+
+            }
+        });
+
+        frame.setHeaderView(header);
+        frame.addPtrUIHandler(header);
         frame.postDelayed(new Runnable() {
             @Override
             public void run() {

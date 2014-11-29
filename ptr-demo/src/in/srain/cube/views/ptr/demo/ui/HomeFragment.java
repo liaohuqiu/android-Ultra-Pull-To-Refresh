@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import in.srain.cube.mints.base.BlockMenuFragment;
+import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
@@ -116,10 +117,11 @@ public class HomeFragment extends BlockMenuFragment {
 
         final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.fragment_ptr_home_ptr_frame);
         StoreHouseHeader header = new StoreHouseHeader(getContext());
+        header.setPadding(0, LocalDisplay.dp2px(20), 0, LocalDisplay.dp2px(20));
         header.initWithString("CUBE");
 
         ptrFrameLayout.setHeaderView(header);
-        ptrFrameLayout.setPtrUIHandler(header);
+        ptrFrameLayout.addPtrUIHandler(header);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
