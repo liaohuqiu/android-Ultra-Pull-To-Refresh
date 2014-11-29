@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/cube_mints_f1f1f1"
     android:orientation="vertical">
 
     <in.srain.cube.views.ptr.PtrClassicFrameLayout

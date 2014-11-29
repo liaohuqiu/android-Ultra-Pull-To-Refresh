@@ -97,8 +97,8 @@ public class WithGridView extends TitleBaseFragment {
 
         @Override
         public View createView(LayoutInflater inflater) {
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_image_list_grid, null);
-            mImageView = (CubeImageView) view.findViewById(R.id.iv_item_image_list_grid);
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.with_grid_view_item_image_list_grid, null);
+            mImageView = (CubeImageView) view.findViewById(R.id.with_grid_view_item_image);
             mImageView.setScaleType(ScaleType.CENTER_CROP);
 
             LinearLayout.LayoutParams lyp = new LinearLayout.LayoutParams(sGirdImageSize, sGirdImageSize);

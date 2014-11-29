@@ -29,7 +29,7 @@ public class WithTextViewInFrameLayoutFragment extends TitleBaseFragment {
                     public void run() {
                         ptrFrame.refreshComplete();
                     }
-                }, 1000);
+                }, 1800);
             }
 
             @Override

@@ -5,9 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
@@ -21,7 +19,6 @@ import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.image.Images;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class WithLongPressFragment extends TitleBaseFragment {
 
@@ -37,6 +34,7 @@ public class WithLongPressFragment extends TitleBaseFragment {
         setHeaderTitle(R.string.ptr_demo_title_with_long_press);
 
         final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.with_long_press_list_view_frame);
+        ptrFrameLayout.setInterceptEventWhileWorking(true);
         ListView listView = (ListView) view.findViewById(R.id.with_long_press_list_view);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

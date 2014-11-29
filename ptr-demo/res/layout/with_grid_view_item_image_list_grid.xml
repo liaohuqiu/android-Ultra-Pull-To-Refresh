@@ -12,7 +12,7 @@
         android:padding="1dp">
 
         <in.srain.cube.image.CubeImageView
-            android:id="@+id/iv_item_image_list_grid"
+            android:id="@+id/with_grid_view_item_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter" />

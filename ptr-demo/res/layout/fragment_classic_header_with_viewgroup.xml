@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/cube_mints_white"
-            android:padding="@dimen/cube_demo_content_view_padding">
+            android:padding="@dimen/cube_mints_content_view_padding">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
                 android:layout_marginTop="100dp"
                 android:background="@color/cube_mints_4d90fe"
                 android:gravity="center"
-                android:padding="@dimen/cube_demo_content_view_padding"
+                android:padding="@dimen/cube_mints_content_view_padding"
                 android:text="I am a TextView in FrameLayout"
                 android:textColor="@color/cube_mints_white"
                 android:textSize="30sp" />

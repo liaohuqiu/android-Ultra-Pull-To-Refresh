@@ -167,6 +167,7 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
 
     @Override
     public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         float progress = mProgress;
         int c1 = canvas.save();
         int len = mItemList.size();

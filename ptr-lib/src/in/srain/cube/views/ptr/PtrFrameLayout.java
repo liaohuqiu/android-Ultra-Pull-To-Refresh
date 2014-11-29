@@ -10,23 +10,32 @@ import android.widget.TextView;
 import in.srain.cube.util.CLog;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
+/**
+ * This layout view for "Pull to Refresh(Ptr)" support all of the view, you can contain everything you want.
+ * support: pull to refresh / release to refresh / auto refresh / keep header view while refreshing / hide header view while refreshing
+ * It defines {@link in.srain.cube.views.ptr.PtrUIHandler}, which allows you customize the UI easily.
+ */
 public class PtrFrameLayout extends ViewGroup {
 
+    // status enum
     protected final static byte PTR_STATUS_INIT = 1;
     protected final static byte PTR_STATUS_PREPARE = 2;
     protected final static byte PTR_STATUS_LOADING = 3;
     protected final static byte PTR_STATUS_COMPLETE = 4;
+
     private final static int POS_START = 0;
     public static boolean DEBUG = false;
     private static int ID = 1;
-    // auto refresh
+    // auto refresh status
     private static byte STATUS_AUTO_SCROLL_AT_ONCE = 0x01;
     private static byte STATUS_AUTO_SCROLL_LATER = 0x02;
     protected final String LOG_TAG = "ptr-frame-" + ++ID;
     protected View mContent;
     protected int mOffsetToRefresh = 0;
+    // optional config for define header and content in xml file
     private int mHeaderId = 0;
     private int mContainerId = 0;
+    // config
     private float mResistance = 1.7f;
     private int mDurationToClose = 200;
     private int mDurationToCloseHeader = 1000;
@@ -34,25 +43,29 @@ public class PtrFrameLayout extends ViewGroup {
     private boolean mKeepHeaderWhenRefresh = true;
     private boolean mPullToRefresh = false;
     private View mHeaderView;
-    private int mHeaderHeight;
-    private MotionEvent mDownEvent;
-    // long press
-    private boolean mLongPressCheckerPendingRemoved = false;
-    private boolean mLongPressing = false;
-    private CheckForLongPress mPendingCheckForLongPress = new CheckForLongPress();
-    private CheckForLongPress2 mPendingCheckForLongPress2 = new CheckForLongPress2();
+    private PtrUIHandler mPtrUIHandler;
+    private PtrHandler mPtrHandler;
+    // working parameters
     private ScrollChecker mScrollChecker;
+    private PointF mPtLastMove = new PointF();
     private int mCurrentPos = 0;
     private int mLastPos = 0;
     private int mPagingTouchSlop;
-    private PtrUIHandler mPtrUIHandler;
-    private PtrHandler mPtrHandler;
-    private PointF mPtLastMove = new PointF();
+    private int mHeaderHeight;
+
     private byte mStatus = PTR_STATUS_INIT;
-    private boolean mPreventForHorizontal = false;
     private boolean mIsUnderTouch = false;
     private boolean mDisableWhenHorizontalMove = false;
     private int mAutoScrollRefresh = 0x00;
+
+    // disable when detect moving horizontally
+    private boolean mPreventForHorizontal = false;
+
+    // intercept child event while working
+    private boolean mInterceptEventWhileWorking = false;
+    private MotionEvent mDownEvent;
+    private MotionEvent mLastMoveEvent;
+
 
     public PtrFrameLayout(Context context) {
         this(context, null);
@@ -64,11 +77,7 @@ public class PtrFrameLayout extends ViewGroup {
 
     public PtrFrameLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
         PtrLocalDisplay.init(getContext());
-        if (DEBUG) {
-            CLog.d(LOG_TAG, "PtrBaseFrame(Context context, AttributeSet attrs, int defStyle)");
-        }
 
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.PtrFrameLayout, 0, 0);
         if (arr != null) {
@@ -83,6 +92,7 @@ public class PtrFrameLayout extends ViewGroup {
 
             mRatioOfHeaderHeightToRefresh = arr.getFloat(R.styleable.PtrFrameLayout_ptr_ratio_of_header_height_to_refresh, mRatioOfHeaderHeightToRefresh);
             mKeepHeaderWhenRefresh = arr.getBoolean(R.styleable.PtrFrameLayout_ptr_keep_header_when_refresh, mKeepHeaderWhenRefresh);
+
             mPullToRefresh = arr.getBoolean(R.styleable.PtrFrameLayout_ptr_pull_to_fresh, mPullToRefresh);
             arr.recycle();
         }
@@ -95,16 +105,47 @@ public class PtrFrameLayout extends ViewGroup {
 
     @Override
     protected void onFinishInflate() {
-        if (mHeaderId != 0 && mHeaderView == null) {
-            mHeaderView = findViewById(mHeaderId);
-        }
-        if (mContainerId != 0 && mContent == null) {
-            mContent = findViewById(mContainerId);
-        }
-        if (DEBUG) {
-            CLog.i(LOG_TAG, "onFinishInflate");
-        }
-        if (mContent == null) {
+        final int childCount = getChildCount();
+        if (childCount > 2) {
+            throw new IllegalStateException("PtrFrameLayout only can host 2 elements");
+        } else if (childCount == 2) {
+            if (mHeaderId != 0 && mHeaderView == null) {
+                mHeaderView = findViewById(mHeaderId);
+            }
+            if (mContainerId != 0 && mContent == null) {
+                mContent = findViewById(mContainerId);
+            }
+
+            // not specify header or content
+            if (mContent == null || mHeaderView == null) {
+
+                View child1 = getChildAt(0);
+                View child2 = getChildAt(1);
+                if (child1 instanceof PtrUIHandler) {
+                    mHeaderView = child1;
+                    mContent = child2;
+                } else if (child2 instanceof PtrUIHandler) {
+                    mHeaderView = child2;
+                    mContent = child1;
+                } else {
+                    // both are not specified
+                    if (mContent == null && mHeaderView == null) {
+                        mHeaderView = child1;
+                        mContent = child2;
+                    }
+                    // only one is specified
+                    else {
+                        if (mHeaderView == null) {
+                            mHeaderView = mContent == child1 ? child2 : child1;
+                        } else {
+                            mContent = mHeaderView == child1 ? child2 : child1;
+                        }
+                    }
+                }
+            }
+        } else if (childCount == 1) {
+            mContent = getChildAt(0);
+        } else {
             TextView errorView = new TextView(getContext());
             errorView.setClickable(true);
             errorView.setTextColor(0xffff6600);
@@ -200,13 +241,14 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     public boolean dispatchTouchEventSupper(MotionEvent e) {
-        boolean handled = super.dispatchTouchEvent(e);
-        CLog.d(LOG_TAG, "dispatchTouchEvent: %s %s", e.getAction(), handled);
-        return handled;
+        return super.dispatchTouchEvent(e);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent e) {
+        if (!isEnabled() || mContent == null || mHeaderView == null) {
+            return dispatchTouchEventSupper(e);
+        }
         int action = e.getAction();
         switch (action) {
             case MotionEvent.ACTION_UP:
@@ -225,20 +267,17 @@ public class PtrFrameLayout extends ViewGroup {
 
                 mIsUnderTouch = true;
                 mPreventForHorizontal = false;
-                mLongPressing = false;
-                postDelayed(mPendingCheckForLongPress, ViewConfiguration.getLongPressTimeout() + 100);
-                mLongPressCheckerPendingRemoved = false;
-                dispatchTouchEventSupper(e);
+                if (mInterceptEventWhileWorking && mCurrentPos > POS_START) {
+                    // do nothing, intercept child event
+                } else {
+                    dispatchTouchEventSupper(e);
+                }
                 return true;
 
             case MotionEvent.ACTION_MOVE:
+                mLastMoveEvent = e;
                 float offsetX = e.getX() - mPtLastMove.x;
                 float offsetY = (int) (e.getY() - mPtLastMove.y);
-
-                if (!mLongPressCheckerPendingRemoved) {
-                    removeCallbacks(mPendingCheckForLongPress);
-                    mLongPressCheckerPendingRemoved = true;
-                }
 
                 mPtLastMove.set(e.getX(), e.getY());
                 if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop || Math.abs(offsetX) > 3 * Math.abs(offsetY))) {
@@ -319,11 +358,21 @@ public class PtrFrameLayout extends ViewGroup {
                     CLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshPrepare, mAutoScrollRefresh %s", mAutoScrollRefresh);
                 }
             }
+
+            // send cancel event to children
+            if (mIsUnderTouch && mInterceptEventWhileWorking) {
+                sendCancelEvent();
+            }
         }
 
         // back to initiated position
         if (mLastPos != POS_START && mCurrentPos == POS_START) {
             tryToNotifyReset();
+
+            // recover event to children
+            if (mIsUnderTouch && mInterceptEventWhileWorking) {
+                sendDownEvent();
+            }
         }
 
         // Pull to Refresh
@@ -339,7 +388,6 @@ public class PtrFrameLayout extends ViewGroup {
             }
         }
 
-
         if (DEBUG) {
             CLog.v(LOG_TAG, "updatePos: change: %s, current: %s last: %s, top: %s, headerHeight: %s",
                     change, mCurrentPos, mLastPos, mContent.getTop(), mHeaderHeight);
@@ -351,7 +399,9 @@ public class PtrFrameLayout extends ViewGroup {
 
         final float oldPercent = mHeaderHeight == 0 ? 0 : mLastPos / mHeaderHeight;
         final float currentPercent = mHeaderHeight == 0 ? 0 : mCurrentPos / mHeaderHeight;
-        mPtrUIHandler.onUIPositionChange(this, mIsUnderTouch, mStatus, mLastPos, mCurrentPos, oldPercent, currentPercent);
+        if (mPtrUIHandler != null) {
+            mPtrUIHandler.onUIPositionChange(this, mIsUnderTouch, mStatus, mLastPos, mCurrentPos, oldPercent, currentPercent);
+        }
         onPositionChange(mIsUnderTouch, mStatus, mLastPos, mCurrentPos, oldPercent, currentPercent);
     }
 
@@ -499,6 +549,10 @@ public class PtrFrameLayout extends ViewGroup {
         mDisableWhenHorizontalMove = disable;
     }
 
+    public void setInterceptEventWhileWorking(boolean yes) {
+        mInterceptEventWhileWorking = yes;
+    }
+
     public View getContentView() {
         return mContent;
     }
@@ -538,6 +592,14 @@ public class PtrFrameLayout extends ViewGroup {
     public void setRatioOfHeaderHeightToRefresh(float ratio) {
         mRatioOfHeaderHeightToRefresh = ratio;
         mOffsetToRefresh = (int) (mHeaderHeight * mRatioOfHeaderHeightToRefresh);
+    }
+
+    public int getOffsetToRefresh() {
+        return mOffsetToRefresh;
+    }
+
+    public void setOffsetToRefresh(int offset) {
+        mOffsetToRefresh = offset;
     }
 
     public float getRatioOfHeaderToHeightRefresh() {
@@ -605,6 +667,15 @@ public class PtrFrameLayout extends ViewGroup {
         dispatchTouchEventSupper(e);
     }
 
+    private void sendDownEvent() {
+        if (DEBUG) {
+            CLog.d(LOG_TAG, "send down event");
+        }
+        final MotionEvent last = mLastMoveEvent;
+        MotionEvent e = MotionEvent.obtain(last.getDownTime(), last.getEventTime(), MotionEvent.ACTION_DOWN, last.getX(), last.getY(), last.getMetaState());
+        dispatchTouchEventSupper(e);
+    }
+
     public static class LayoutParams extends MarginLayoutParams {
 
         public LayoutParams(Context c, AttributeSet attrs) {
@@ -621,19 +692,6 @@ public class PtrFrameLayout extends ViewGroup {
 
         public LayoutParams(ViewGroup.LayoutParams source) {
             super(source);
-        }
-    }
-
-    private class CheckForLongPress implements Runnable {
-        public void run() {
-            mLongPressing = true;
-            postDelayed(mPendingCheckForLongPress2, 100);
-        }
-    }
-
-    private class CheckForLongPress2 implements Runnable {
-        public void run() {
-            // sendCancelEvent();
         }
     }
 

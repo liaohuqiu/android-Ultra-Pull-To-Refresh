@@ -18,7 +18,6 @@
     </declare-styleable>
 
     <declare-styleable name="PtrClassicHeader">
-        <attr name="ptr_rotate_view" format="reference" />
         <attr name="ptr_rotate_ani_time" format="integer" />
     </declare-styleable>
 </resources>

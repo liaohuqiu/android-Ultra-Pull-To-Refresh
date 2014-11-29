@@ -16,6 +16,7 @@
     <string name="ptr_demo_title_hide_header">Hide Header while Refreshing</string>
     <string name="ptr_demo_title_with_long_press">Long Press</string>
     <string name="ptr_demo_title_with_view_page">ViewPager</string>
-    <string name="ptr_demo_title_storehouse_header">StoreHouse</string>
+    <string name="ptr_demo_title_storehouse_header_using_string_array">StoreHouse Style (using string array)</string>
+    <string name="ptr_demo_title_storehouse_header_using_string">StoreHouse Style (using string)</string>
 
 </resources>

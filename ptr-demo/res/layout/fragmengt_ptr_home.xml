@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <in.srain.cube.views.ptr.PtrFrameLayout
+        android:id="@+id/fragment_ptr_home_ptr_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cube_mints_white">
+
+            <in.srain.cube.views.block.BlockListView
+                android:id="@+id/fragment_block_menu_block_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/cube_mints_content_view_padding" />
+        </ScrollView>
+
+    </in.srain.cube.views.ptr.PtrFrameLayout>
+</LinearLayout>
