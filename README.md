@@ -7,34 +7,34 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 * StoreHouse Style first!
 
     <div class='row'>
-        <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
-        <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
     </div>
 
     Thanks to [CBStoreHouseRefreshControl](https://github.com/liaohuqiu/CBStoreHouseRefreshControl).
 
 * **Supports all of the views**: 
     ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
-    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/></div>
+    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif' width="300px" style='border: #f1f1f1 solid 1px'/></div>
 
 * Supports all of the refresh types.
     * pull to refresh
-        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/pull-to-refresh.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/></div>
+        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/pull-to-refresh.gif' width="300px" style='border: #f1f1f1 solid 1px'/></div>
     * release to refresh
-        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/release-to-refresh.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/></div>
+        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/release-to-refresh.gif' width="300px" style='border: #f1f1f1 solid 1px'/></div>
 
     * keep header when refresh 
         <div>
-            <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
+            <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
         </div>
 
     * hide header when refresh
         <div>
-            <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
+            <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
         </div>
 
     * auto refresh
-        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/auto-refresh.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/></div>
+        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/auto-refresh.gif' width="300px" style='border: #f1f1f1 solid 1px'/></div>
 
 # Usage
 
