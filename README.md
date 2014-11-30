@@ -1,9 +1,17 @@
-## [中文版文档](https://github.com/liaohuqiu/android-CLog/blob/master/README-cn.md)
+## [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
 
 # Ultra Pull To Refresh
-`API LEVEL >= 8`
 
-* Supports all of the view: ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
+Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
+
+* StoreHouse Style first!
+
+    <div class='row'>
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="200px"/>
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="200px"/>
+    </div>
+
+* **Supports all of the view**: ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
     <div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif' width="200px"/></div>
 
 * Supports all of the refresh types.
@@ -24,23 +32,6 @@
 
     * auto refresh
         <div><img src='http://srain-github.qiniudn.com/ultra-ptr/auto-refresh.gif' width="200px"/></div>
-
-* Easy to use and custiomize
-
-* Multiple build-in style:
-
-    * classic style with last update time
-    * StoreHouse style
-
-## Multiple build in style:
-
-* Classic Style
-* StoreHouse Style
-
-    <div class='row'>
-        <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="200px"/>
-        <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="200px"/>
-    </div>
 
 # Usage
 
