@@ -11,6 +11,14 @@ public abstract class PtrDefaultHandler implements PtrHandler {
         return checkContentCanBePulledDown(frame, content, header);
     }
 
+    /**
+     * Default implement for check can perform pull to refresh
+     *
+     * @param frame
+     * @param content
+     * @param header
+     * @return
+     */
     public static boolean checkContentCanBePulledDown(PtrFrameLayout frame, View content, View header) {
         if (!(content instanceof ViewGroup)) {
             return true;

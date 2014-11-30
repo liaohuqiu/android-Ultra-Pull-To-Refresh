@@ -1,6 +1,10 @@
 # Ultra Pull To Refresh
 
-支持 `API LEVEL >= 8`
+这是现在已经停止维护的下拉刷新项目的替代方案。继承与ViewGroup可以包含任何View。功能比SwipeRefreshLayout强大。
+
+使用起来非常简单。良好的设计，如果你想定制自己的UI样式，非常简单，就像给ListView加一个Header View那么简单。
+
+支持 `API LEVEL >= 8`。
 
 * 先上两张StoreHouse风格的截图! 感谢 [CBStoreHouseRefreshControl](https://github.com/liaohuqiu/CBStoreHouseRefreshControl).
     <div class='row'>
@@ -10,7 +14,8 @@
 
 
 * **支持所有的View**: 
-    ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
+
+    ListView, GridView, ScrollView, FrameLayout, 甚至 TextView.
     <div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif' width="300px" style='border: #f1f1f1 solid 1px'/></div>
 
 * 支持各种下拉刷新交互.
@@ -163,6 +168,53 @@ header.initWithStringArray(R.array.storehouse);
         <item>0,7,12,0,</item>
     </string-array>
 </resources>
+```
+
+# 处理刷新
+
+通过`PtrHandler`，可以检查确定是否可以下来刷新以及在合适的时间刷新数据。
+
+检查是否可以下拉刷新在`PtrDefaultHandler.checkContentCanBePulledDown`中有默认简单的实现，你可以根据实际情况完成这个逻辑。
+
+```
+public interface PtrHandler {
+
+    /**
+     * 检查是否可以执行下来刷新，比如列表为空或者列表第一项在最上面时。
+     * <p/>
+     * {@link in.srain.cube.views.ptr.PtrDefaultHandler#checkContentCanBePulledDown}
+     */
+    public boolean checkCanDoRefresh(final PtrFrameLayout frame, final View content, final View header);
+
+    /**
+     * 需要加载数据时触发
+     *
+     * @param frame
+     */
+    public void onRefreshBegin(final PtrFrameLayout frame);
+}
+```
+
+例子:
+
+```java
+ptrFrame.setPtrHandler(new PtrHandler() {
+    @Override
+    public void onRefreshBegin(PtrFrameLayout frame) {
+        frame.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ptrFrame.refreshComplete();
+            }
+        }, 1800);
+    }
+
+    @Override
+    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+        // 默认实现，根据实际情况做改动
+        return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+    }
+});
 ```
 
 
