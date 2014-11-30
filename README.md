@@ -1,6 +1,7 @@
 ## [中文版文档](https://github.com/liaohuqiu/android-CLog/blob/master/README-cn.md)
 
 # Ultra Pull To Refresh
+`API LEVEL >= 8`
 
 * Supports all of the view: ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
     <div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif' width="300px"/></div>
@@ -27,11 +28,11 @@
 ## Multiple build in style:
 
 * Classic Style
-    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/pull-to-refresh.gif' width="300px"/></div>
-
 * StoreHouse Style
 
-    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px"/></div>
+    <div class='row'>
+        <div class='col-md-4'><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px"/></div>
+    </div>
     <div><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px"/></div>
 
 # Usage
