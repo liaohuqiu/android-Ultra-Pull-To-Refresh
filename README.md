@@ -3,9 +3,7 @@
 # Ultra Pull To Refresh
 
 * Supports all of the view: ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
-    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif ' width="300px"/></div>
-    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px"/></div>
-    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px"/></div>
+    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif' width="300px"/></div>
 
 * Supports all of the refresh types.
     * pull to refresh
@@ -25,6 +23,16 @@
 
     * classic style with last update time
     * StoreHouse style
+
+## Multiple build in style:
+
+* Classic Style
+    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/pull-to-refresh.gif' width="300px"/></div>
+
+* StoreHouse Style
+
+    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px"/></div>
+    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px"/></div>
 
 # Usage
 
