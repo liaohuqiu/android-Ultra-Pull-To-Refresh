@@ -36,6 +36,7 @@ public class WithTextViewInFrameLayoutFragment extends TitleBaseFragment {
                 return true;
             }
         });
+
         // the following are default settings
         ptrFrame.setResistance(1.7f);
         ptrFrame.setRatioOfHeaderHeightToRefresh(1.2f);

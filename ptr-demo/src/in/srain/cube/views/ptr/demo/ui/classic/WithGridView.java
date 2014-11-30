@@ -24,6 +24,8 @@ import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.data.DemoRequestData;
 
+import java.util.Objects;
+
 public class WithGridView extends TitleBaseFragment {
 
     private static final int sGirdImageSize = (LocalDisplay.SCREEN_WIDTH_PIXELS - LocalDisplay.dp2px(12 + 12 + 10)) / 2;
@@ -50,8 +52,7 @@ public class WithGridView extends TitleBaseFragment {
         gridListView.setAdapter(mAdapter);
 
         mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.rotate_header_grid_view_frame);
-        mPtrFrame.setLastUpdateTimeKey("WithGridView");
-        mPtrFrame.setKeepHeaderWhenRefresh(true);
+        mPtrFrame.setLastUpdateTimeKey(((Object) this).getClass().getName());
         mPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
@@ -63,6 +64,15 @@ public class WithGridView extends TitleBaseFragment {
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
             }
         });
+        // the following are default settings
+        mPtrFrame.setResistance(1.7f);
+        mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
+        mPtrFrame.setDurationToClose(200);
+        mPtrFrame.setDurationToCloseHeader(1000);
+        // default is false
+        mPtrFrame.setPullToRefresh(false);
+        // default is true
+        mPtrFrame.setKeepHeaderWhenRefresh(true);
         mPtrFrame.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -70,10 +80,15 @@ public class WithGridView extends TitleBaseFragment {
             }
         }, 100);
         // updateData();
+        setupViews(mPtrFrame);
         return contentView;
     }
 
-    private void updateData() {
+    protected void setupViews(final PtrClassicFrameLayout ptrFrame) {
+
+    }
+
+    protected void updateData() {
 
         DemoRequestData.getImageList(new RequestFinishHandler<JsonData>() {
             @Override

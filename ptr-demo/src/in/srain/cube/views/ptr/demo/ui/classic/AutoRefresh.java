@@ -3,7 +3,7 @@ package in.srain.cube.views.ptr.demo.ui.classic;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.demo.R;
 
-public class AutoRefresh extends WithTextViewInFrameLayoutFragment {
+public class AutoRefresh extends WithGridView {
 
     @Override
     protected void setupViews(final PtrClassicFrameLayout ptrFrame) {
