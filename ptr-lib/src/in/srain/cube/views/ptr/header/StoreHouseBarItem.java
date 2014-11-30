@@ -1,6 +1,8 @@
 package in.srain.cube.views.ptr.header;
 
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PointF;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
@@ -11,44 +13,41 @@ import java.util.Random;
  */
 public class StoreHouseBarItem extends Animation {
 
-    private final Paint mPaint = new Paint();
     public PointF midPoint;
     public float translationX;
-    private PointF mStartPoint;
-    private PointF mEndPoint;
+    public int index;
+
+    private final Paint mPaint = new Paint();
     private float mFromAlpha = 1.0f;
     private float mToAlpha = 0.4f;
     private PointF mCStartPoint;
     private PointF mCEndPoint;
-    private int mLineWidth;
-    private int mColor;
-    private int mIndex;
 
     public StoreHouseBarItem(int index, PointF start, PointF end, int color, int lineWidth) {
-        mIndex = index;
-        mStartPoint = start;
-        mEndPoint = end;
+        this.index = index;
 
         midPoint = new PointF((start.x + end.x) / 2, (start.y + end.y) / 2);
 
-        mCStartPoint = new PointF(mStartPoint.x - midPoint.x, mStartPoint.y - midPoint.y);
-        mCEndPoint = new PointF(mEndPoint.x - midPoint.x, mEndPoint.y - midPoint.y);
-        mColor = color;
-        mLineWidth = lineWidth;
+        mCStartPoint = new PointF(start.x - midPoint.x, start.y - midPoint.y);
+        mCEndPoint = new PointF(end.x - midPoint.x, end.y - midPoint.y);
 
+        setColor(color);
+        setLineWidth(lineWidth);
         mPaint.setAntiAlias(true);
-        mPaint.setStrokeWidth(lineWidth);
-        mPaint.setColor(color);
         mPaint.setStyle(Paint.Style.STROKE);
     }
 
-    public int getIndex() {
-        return mIndex;
+    public void setLineWidth(int width) {
+        mPaint.setStrokeWidth(width);
     }
 
-    public void reset(int horizontalRandomness) {
+    public void setColor(int color) {
+        mPaint.setColor(color);
+    }
+
+    public void resetPosition(int horizontalRandomness) {
         Random random = new Random();
-        int randomNumber = -random.nextInt(horizontalRandomness * 2) + horizontalRandomness;
+        int randomNumber = -random.nextInt(horizontalRandomness) + horizontalRandomness;
         translationX = randomNumber;
     }
 
@@ -57,6 +56,12 @@ public class StoreHouseBarItem extends Animation {
         float alpha = mFromAlpha;
         alpha = alpha + ((mToAlpha - alpha) * interpolatedTime);
         setAlpha(alpha);
+    }
+
+    public void start(float fromAlpha, float toAlpha) {
+        mFromAlpha = fromAlpha;
+        mToAlpha = toAlpha;
+        super.start();
     }
 
     public void setAlpha(float alpha) {

@@ -2,21 +2,23 @@
 <resources>
 
     <string name="app_name">Ultra PTR</string>
-    <string name="ptr_demo_title_for_home">Ultra Pull to Refresh</string>
+    <string name="ptr_demo_block_for_home">Ultra Pull to Refresh</string>
 
-    <string name="ptr_demo_title_grid_view">Contains A GridView</string>
-    <string name="ptr_demo_title_frame_layout">Contains A FrameLayout</string>
-    <string name="ptr_demo_title_only_text_view">Contains Even A TextView</string>
+    <string name="ptr_demo_block_grid_view">Contains A GridView</string>
+    <string name="ptr_demo_block_frame_layout">Contains A FrameLayout</string>
+    <string name="ptr_demo_block_only_text_view">Contains Even A TextView</string>
 
-    <string name="ptr_demo_title_pull_to_refresh">Pull to Refresh</string>
-    <string name="ptr_demo_title_release_to_refresh">Release to Refresh</string>
-    <string name="ptr_demo_title_auto_fresh">Auto Refresh</string>
+    <string name="ptr_demo_block_pull_to_refresh">Pull to Refresh</string>
+    <string name="ptr_demo_block_release_to_refresh">Release to Refresh</string>
+    <string name="ptr_demo_block_auto_fresh">Auto Refresh</string>
 
-    <string name="ptr_demo_title_keep_header">Keep Header while Refreshing</string>
-    <string name="ptr_demo_title_hide_header">Hide Header while Refreshing</string>
-    <string name="ptr_demo_title_with_long_press">Long Press</string>
-    <string name="ptr_demo_title_with_view_page">ViewPager</string>
-    <string name="ptr_demo_title_storehouse_header_using_string_array">StoreHouse Style (using string array)</string>
-    <string name="ptr_demo_title_storehouse_header_using_string">StoreHouse Style (using string)</string>
+    <string name="ptr_demo_block_keep_header">Keep Header while Refreshing</string>
+    <string name="ptr_demo_block_hide_header">Hide Header while Refreshing</string>
+    <string name="ptr_demo_block_with_long_press">Long Press</string>
+    <string name="ptr_demo_block_with_view_page">ViewPager</string>
+    <string name="ptr_demo_block_storehouse_header_using_string_array">StoreHouse Style \n\nusing string array from xml</string>
+    <string name="ptr_demo_storehouse_header_using_string_array_in_title">using xml:&#160;</string>
+    <string name="ptr_demo_block_storehouse_header_using_string">StoreHouse Style \n\n\nusing string</string>
+    <string name="ptr_demo_storehouse_header_using_string_in_title">using string:&#160;</string>
 
 </resources>

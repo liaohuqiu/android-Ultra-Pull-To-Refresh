@@ -1,6 +1,5 @@
 package in.srain.cube.views.ptr.demo.ui;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,21 +23,21 @@ public class HomeFragment extends BlockMenuFragment {
     protected void addItemInfo(ArrayList<BlockMenuFragment.ItemInfo> itemInfos) {
 
         // GridView
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_grid_view, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_grid_view, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(WithGridView.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_frame_layout, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_frame_layout, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(WithTextViewInFrameLayoutFragment.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_only_text_view, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_only_text_view, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -46,14 +45,14 @@ public class HomeFragment extends BlockMenuFragment {
             }
         }));
 
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_keep_header, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_keep_header, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(KeepHeader.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_hide_header, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_hide_header, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -62,7 +61,7 @@ public class HomeFragment extends BlockMenuFragment {
         }));
         itemInfos.add(null);
 
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_release_to_refresh, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_release_to_refresh, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -70,14 +69,14 @@ public class HomeFragment extends BlockMenuFragment {
             }
         }));
 
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_pull_to_refresh, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_pull_to_refresh, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(PullToRefresh.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_auto_fresh, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_auto_fresh, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -94,14 +93,14 @@ public class HomeFragment extends BlockMenuFragment {
             }
         }));
         */
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_storehouse_header_using_string_array, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_storehouse_header_using_string_array, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(StoreHouseUsingStringArray.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_storehouse_header_using_string, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_storehouse_header_using_string, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -118,7 +117,7 @@ public class HomeFragment extends BlockMenuFragment {
         final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.fragment_ptr_home_ptr_frame);
         StoreHouseHeader header = new StoreHouseHeader(getContext());
         header.setPadding(0, LocalDisplay.dp2px(20), 0, LocalDisplay.dp2px(20));
-        header.initWithString("CUBE");
+        header.initWithString("Ultra PTR");
 
         ptrFrameLayout.setHeaderView(header);
         ptrFrameLayout.addPtrUIHandler(header);
@@ -148,6 +147,6 @@ public class HomeFragment extends BlockMenuFragment {
 
     @Override
     protected void setupViews() {
-        setHeaderTitle(R.string.ptr_demo_title_for_home);
+        setHeaderTitle(R.string.ptr_demo_block_for_home);
     }
 }

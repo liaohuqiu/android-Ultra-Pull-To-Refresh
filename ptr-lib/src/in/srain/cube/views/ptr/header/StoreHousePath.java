@@ -4,6 +4,9 @@ import android.util.SparseArray;
 
 import java.util.ArrayList;
 
+/**
+ * Created by srain on 11/7/14.
+ */
 public class StoreHousePath {
 
     private static final SparseArray<float[]> sPointList;
@@ -326,6 +329,12 @@ public class StoreHousePath {
         return getPath(str, 1, 14);
     }
 
+    /**
+     * @param str
+     * @param scale
+     * @param gapBetweenLetter
+     * @return ArrayList of float[] {x1, y1, x2, y2}
+     */
     public static ArrayList<float[]> getPath(String str, float scale, int gapBetweenLetter) {
         ArrayList<float[]> list = new ArrayList<float[]>();
         float offsetForWidth = 0;
@@ -338,7 +347,6 @@ public class StoreHousePath {
             float[] points = sPointList.get(pos);
             int pointCount = points.length / 4;
 
-            // for each point
             for (int j = 0; j < pointCount; j++) {
                 float[] line = new float[4];
                 for (int k = 0; k < 4; k++) {
@@ -354,7 +362,7 @@ public class StoreHousePath {
                 }
                 list.add(line);
             }
-            offsetForWidth += 47 + gapBetweenLetter;
+            offsetForWidth += 57 + gapBetweenLetter;
         }
         return list;
     }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import in.srain.cube.mints.base.TitleBaseFragment;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
@@ -16,7 +15,7 @@ public class WithTextViewInFrameLayoutFragment extends TitleBaseFragment {
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        setHeaderTitle(R.string.ptr_demo_title_frame_layout);
+        setHeaderTitle(R.string.ptr_demo_block_frame_layout);
 
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_viewgroup, container, false);
 

@@ -15,7 +15,7 @@ public class EvenOnlyATextView extends TitleBaseFragment {
 
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        setHeaderTitle(R.string.ptr_demo_title_only_text_view);
+        setHeaderTitle(R.string.ptr_demo_block_only_text_view);
 
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_textview, container, false);
 

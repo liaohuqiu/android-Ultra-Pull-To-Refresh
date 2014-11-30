@@ -397,8 +397,8 @@ public class PtrFrameLayout extends ViewGroup {
         mContent.offsetTopAndBottom(change);
         invalidate();
 
-        final float oldPercent = mHeaderHeight == 0 ? 0 : mLastPos / mHeaderHeight;
-        final float currentPercent = mHeaderHeight == 0 ? 0 : mCurrentPos / mHeaderHeight;
+        final float oldPercent = mHeaderHeight == 0 ? 0 : mLastPos * 1f / mHeaderHeight;
+        final float currentPercent = mHeaderHeight == 0 ? 0 : mCurrentPos * 1f / mHeaderHeight;
         if (mPtrUIHandlerHolder.hasHandler()) {
             mPtrUIHandlerHolder.onUIPositionChange(this, mIsUnderTouch, mStatus, mLastPos, mCurrentPos, oldPercent, currentPercent);
         }
@@ -461,7 +461,7 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     private void tryToNotifyReset() {
-        if (mStatus == PTR_STATUS_COMPLETE && mCurrentPos == POS_START) {
+        if ((mStatus == PTR_STATUS_COMPLETE || mStatus == PTR_STATUS_PREPARE) && mCurrentPos == POS_START) {
             if (mPtrUIHandlerHolder.hasHandler()) {
                 mPtrUIHandlerHolder.onUIReset(this);
                 if (DEBUG) {

@@ -9,23 +9,24 @@ import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Transformation;
-import in.srain.cube.util.CLog;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
+/**
+ * Created by srain on 11/6/14.
+ */
 public class StoreHouseHeader extends View implements PtrUIHandler {
 
     public ArrayList<StoreHouseBarItem> mItemList = new ArrayList<StoreHouseBarItem>();
 
     private int mLineWidth = PtrLocalDisplay.dp2px(1);
-    private float scale = 1;
+    private float mScale = 1;
     private int mDropHeight = PtrLocalDisplay.dp2px(40);
     private float internalAnimationFactor = 0.7f;
-    private int horizontalRandomness = 850;
+    private int horizontalRandomness = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2;
 
     private float mProgress = 0;
 
@@ -34,9 +35,17 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
     private int mOffsetX = 0;
     private int mOffsetY = 0;
     private float mBarDarkAlpha = 0.4f;
+    private float mFromAlpha = 1.0f;
+    private float mToAlpha = 0.4f;
+
+    private int mLoadingAniDuration = 1000;
+    private int mLoadingAniSegDuration = 1000;
+    private int mLoadingAniItemDuration = 400;
 
     private Transformation mTransformation = new Transformation();
     private boolean mIsInLoading = false;
+    private AniController mAniController = new AniController();
+    private int mTextColor = Color.WHITE;
 
     public StoreHouseHeader(Context context) {
         super(context);
@@ -60,8 +69,28 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         mProgress = progress;
     }
 
+    public int getLoadingAniDuration() {
+        return mLoadingAniDuration;
+    }
+
+    public void setLoadingAniDuration(int duration) {
+        mLoadingAniDuration = duration;
+        mLoadingAniSegDuration = duration;
+    }
+
     public StoreHouseHeader setLineWidth(int width) {
         mLineWidth = width;
+        for (int i = 0; i < mItemList.size(); i++) {
+            mItemList.get(i).setLineWidth(width);
+        }
+        return this;
+    }
+
+    public StoreHouseHeader setTextColor(int color) {
+        mTextColor = color;
+        for (int i = 0; i < mItemList.size(); i++) {
+            mItemList.get(i).setColor(color);
+        }
         return this;
     }
 
@@ -78,6 +107,7 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
 
         mOffsetX = (getMeasuredWidth() - mDrawZoneWidth) / 2;
         mOffsetY = getTopOffset();
+        mDropHeight = getTopOffset();
     }
 
     private int getTopOffset() {
@@ -92,8 +122,8 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         initWithString(str, 25);
     }
 
-    public void initWithString(String str, int size) {
-        ArrayList<float[]> pointList = StoreHousePath.getPath(str, size * 0.01f, 14);
+    public void initWithString(String str, int fontSize) {
+        ArrayList<float[]> pointList = StoreHousePath.getPath(str, fontSize * 0.01f, 14);
         initWithPointList(pointList);
     }
 
@@ -111,6 +141,14 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         initWithPointList(pointList);
     }
 
+    public float getScale() {
+        return mScale;
+    }
+
+    public void setScale(float scale) {
+        mScale = scale;
+    }
+
     public void initWithPointList(ArrayList<float[]> pointList) {
 
         float drawWidth = 0;
@@ -119,8 +157,8 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         mItemList.clear();
         for (int i = 0; i < pointList.size(); i++) {
             float[] line = pointList.get(i);
-            PointF startPoint = new PointF(PtrLocalDisplay.dp2px(line[0]), PtrLocalDisplay.dp2px(line[1]));
-            PointF endPoint = new PointF(PtrLocalDisplay.dp2px(line[2]), PtrLocalDisplay.dp2px(line[3]));
+            PointF startPoint = new PointF(PtrLocalDisplay.dp2px(line[0]) * mScale, PtrLocalDisplay.dp2px(line[1]) * mScale);
+            PointF endPoint = new PointF(PtrLocalDisplay.dp2px(line[2]) * mScale, PtrLocalDisplay.dp2px(line[3]) * mScale);
 
             drawWidth = Math.max(drawWidth, startPoint.x);
             drawWidth = Math.max(drawWidth, endPoint.x);
@@ -128,8 +166,8 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
             drawHeight = Math.max(drawHeight, startPoint.y);
             drawHeight = Math.max(drawHeight, endPoint.y);
 
-            StoreHouseBarItem item = new StoreHouseBarItem(i, startPoint, endPoint, Color.WHITE, mLineWidth);
-            item.reset(horizontalRandomness);
+            StoreHouseBarItem item = new StoreHouseBarItem(i, startPoint, endPoint, mTextColor, mLineWidth);
+            item.resetPosition(horizontalRandomness);
             mItemList.add(item);
         }
         mDrawZoneWidth = (int) Math.ceil(drawWidth);
@@ -139,34 +177,15 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         }
     }
 
-    public void beginLoading() {
+    private void beginLoading() {
         mIsInLoading = true;
-        for (int i = 0; i < mItemList.size(); i++) {
-            StoreHouseBarItem item = mItemList.get(i);
-            item.setFillAfter(false);
-            item.setFillEnabled(true);
-            item.setFillBefore(false);
-            item.setStartOffset(100 * i);
-            item.setDuration(400);
-            item.start();
-        }
-        /*
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mIsInLoading) {
-                    beginLoading();
-                }
-            }
-        }, mItemList.size() * 100);
-        */
-        CLog.d("ptr-test", "beginLoading");
+        mAniController.start();
         invalidate();
     }
 
-    public void loadFinish() {
+    private void loadFinish() {
         mIsInLoading = false;
-        CLog.d("ptr-test", "loadFinish");
+        mAniController.stop();
     }
 
     @Override
@@ -189,7 +208,7 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
             } else {
 
                 if (progress == 0) {
-                    storeHouseBarItem.reset(horizontalRandomness);
+                    storeHouseBarItem.resetPosition(horizontalRandomness);
                     continue;
                 }
 
@@ -210,7 +229,7 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
                     offsetX += storeHouseBarItem.translationX * (1 - realProgress);
                     offsetY += -mDropHeight * (1 - realProgress);
                     Matrix matrix = new Matrix();
-                    matrix.postRotate((float) (360 * realProgress));
+                    matrix.postRotate(360 * realProgress);
                     matrix.postScale(realProgress, realProgress);
                     matrix.postTranslate(offsetX, offsetY);
                     storeHouseBarItem.setAlpha(mBarDarkAlpha * realProgress);
@@ -226,41 +245,25 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         canvas.restoreToCount(c1);
     }
 
-    /**
-     * When the content view has reached top and refresh has been completed, view will be reset.
-     *
-     * @param frame
-     */
     @Override
     public void onUIReset(PtrFrameLayout frame) {
         loadFinish();
+        for (int i = 0; i < mItemList.size(); i++) {
+            mItemList.get(i).resetPosition(horizontalRandomness);
+
+        }
     }
 
-    /**
-     * prepare for loading
-     *
-     * @param frame
-     */
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
 
     }
 
-    /**
-     * perform refreshing UI
-     *
-     * @param frame
-     */
     @Override
     public void onUIRefreshBegin(PtrFrameLayout frame) {
         beginLoading();
     }
 
-    /**
-     * perform UI after refresh
-     *
-     * @param frame
-     */
     @Override
     public void onUIRefreshComplete(PtrFrameLayout frame) {
         loadFinish();
@@ -268,10 +271,59 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
 
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent) {
-        float f = currentPosition * 1f / getMeasuredHeight();
-        if (f > 1) f = 1;
-        CLog.d("ptr-test", "onPositionChange: %s %s", currentPosition, getMeasuredHeight(), getHeight());
-        setProgress(f);
+        // currentPercent = Math.max(1, currentPercent);
+        setProgress(currentPercent);
         invalidate();
+    }
+
+    private class AniController implements Runnable {
+
+        private int mTick = 0;
+        private int mCountPerSeg = 0;
+        private int mSegCount = 0;
+        private int mInterval = 0;
+        private boolean mRunning = true;
+
+        private void start() {
+            mRunning = true;
+            mTick = 0;
+
+            mInterval = mLoadingAniDuration / mItemList.size();
+            mCountPerSeg = mLoadingAniSegDuration / mInterval;
+            mSegCount = mItemList.size() / mCountPerSeg + 1;
+            run();
+        }
+
+        @Override
+        public void run() {
+
+            int pos = mTick % mCountPerSeg;
+            for (int i = 0; i < mSegCount; i++) {
+
+                int index = i * mCountPerSeg + pos;
+                if (index > mTick) {
+                    continue;
+                }
+
+                index = index % mItemList.size();
+                StoreHouseBarItem item = mItemList.get(index);
+
+                item.setFillAfter(false);
+                item.setFillEnabled(true);
+                item.setFillBefore(false);
+                item.setDuration(mLoadingAniItemDuration);
+                item.start(mFromAlpha, mToAlpha);
+            }
+
+            mTick++;
+            if (mRunning) {
+                postDelayed(this, mInterval);
+            }
+        }
+
+        private void stop() {
+            mRunning = false;
+            removeCallbacks(this);
+        }
     }
 }

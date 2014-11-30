@@ -31,7 +31,7 @@ public class WithLongPressFragment extends TitleBaseFragment {
 
         View view = inflater.inflate(R.layout.fragment_with_long_press, null);
 
-        setHeaderTitle(R.string.ptr_demo_title_with_long_press);
+        setHeaderTitle(R.string.ptr_demo_block_with_long_press);
 
         final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.with_long_press_list_view_frame);
         ptrFrameLayout.setInterceptEventWhileWorking(true);

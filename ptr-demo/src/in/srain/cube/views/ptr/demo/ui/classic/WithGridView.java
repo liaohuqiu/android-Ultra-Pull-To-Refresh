@@ -34,7 +34,7 @@ public class WithGridView extends TitleBaseFragment {
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        setHeaderTitle(R.string.ptr_demo_title_grid_view);
+        setHeaderTitle(R.string.ptr_demo_block_grid_view);
 
         mImageLoader = ImageLoaderFactory.create(getContext());
 
