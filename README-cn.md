@@ -26,7 +26,7 @@
 
     * 刷新时，头部不保持(微信朋友圈)
 
-        <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/hide-header.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
 
     * 自动刷新，进入界面时自动刷新
 

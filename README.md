@@ -27,7 +27,7 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
     * hide header when refresh
 
-        <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/hide-header.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
 
     * auto refresh
 
