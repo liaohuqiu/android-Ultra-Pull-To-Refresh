@@ -5,15 +5,15 @@
 
     <parent>
         <groupId>in.srain</groupId>
-        <artifactId>cube-parent-for-ali</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <artifactId>cube-parent-for-oss</artifactId>
+        <version>1.0.1</version>
     </parent>
 
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <packaging>apklib</packaging>
     <name>Ultra Pull to Refresh</name>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
 
     <description>GridView with Header and Footer</description>
     <url>https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh</url>

@@ -2,17 +2,22 @@
 <resources>
 
     <declare-styleable name="PtrFrameLayout">
+        <!-- Optional. If you put header and content in xml, you can you these to specify them. -->
         <attr name="ptr_header" format="reference" />
         <attr name="ptr_content" format="reference" />
+
+        <!-- the resistance when you are moving the frame -->
         <attr name="ptr_resistance" format="float" />
 
+        <!-- the ration of the height of the header to trigger refresh -->
         <attr name="ptr_ratio_of_header_height_to_refresh" format="float" />
 
         <attr name="ptr_duration_to_close" format="integer" />
-        <!-- only when ptr_keep_header_when_refresh -->
         <attr name="ptr_duration_to_close_header" format="integer" />
+
         <!-- pull to refresh, otherwise release to refresh, default is release to refresh -->
         <attr name="ptr_pull_to_fresh" format="boolean" />
+
         <!-- keep header when refreshing-->
         <attr name="ptr_keep_header_when_refresh" format="boolean" />
     </declare-styleable>

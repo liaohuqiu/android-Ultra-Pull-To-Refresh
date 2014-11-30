@@ -45,13 +45,13 @@
             <groupId>in.srain.cube</groupId>
             <artifactId>ultra-ptr</artifactId>
             <type>apklib</type>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>in.srain.cube</groupId>
             <artifactId>cube-sdk</artifactId>
             <type>apklib</type>
-            <version>1.0.40-SNAPSHOT</version>
+            <version>1.0.40</version>
         </dependency>
     </dependencies>
 

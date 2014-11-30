@@ -3,6 +3,9 @@
 # Ultra Pull To Refresh
 
 * Supports all of the view: ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
+
+<div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif'/></div>
+
 * Supports all of the refresh types.
     * pull to refresh
     * release to refresh
@@ -10,7 +13,14 @@
     * hide header when refresh
     * auto refresh
 
-* Easy to use: 
+* Easy to use and custiomize
+
+* Multiple build-in style:
+
+    * classic style with last update time
+    * StoreHouse style
+
+# Usage
 
 #### Maven
 
@@ -19,8 +29,83 @@
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>apklib</type>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
+```
+
+#### Config
+
+There are 6 properties:
+
+* Resistence
+
+    This is the resistence while you are moving the frame, default is: `1.7f`.
+
+* Ratio of the Height of the Header to Refresh
+
+    The ratio of the height of the header to trigger refresh, default is: `1.2f`.
+
+* Duration to Close
+
+    The duration for moving from the position you relase the view to the height of header, default is `200ms`.
+
+* Duration to Close Header
+
+    The default value is `1000ms`
+
+* Keep Header while Refreshing
+
+    The default value is `true`.
+
+* Pull to Refresh / Release to Refresh
+
+    The default value is Pull to Refresh.
+
+##### Config in xml
+
+```xml
+<in.srain.cube.views.ptr.PtrFrameLayout
+    android:id="@+id/store_house_ptr_frame"
+    xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    cube_ptr:ptr_resistance="1.7"
+    cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+    cube_ptr:ptr_duration_to_close="300"
+    cube_ptr:ptr_duration_to_close_header="2000"
+    cube_ptr:ptr_keep_header_when_refresh="true"
+    cube_ptr:ptr_pull_to_fresh="false" >
+
+    <LinearLayout
+        android:id="@+id/store_house_ptr_image_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cube_mints_333333"
+        android:clickable="true"
+        android:padding="10dp">
+
+        <in.srain.cube.image.CubeImageView
+            android:id="@+id/store_house_ptr_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</in.srain.cube.views.ptr.PtrFrameLayout>
+```
+
+#### Config in java code
+
+```java
+// the following are default settings
+mPtrFrame.setResistance(1.7f);
+mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
+mPtrFrame.setDurationToClose(200);
+mPtrFrame.setDurationToCloseHeader(1000);
+// default is false
+mPtrFrame.setPullToRefresh(false);
+// default is true
+mPtrFrame.setKeepHeaderWhenRefresh(true);
 ```
 
 
