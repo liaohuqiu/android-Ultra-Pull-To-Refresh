@@ -24,17 +24,16 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
         <div><img src='http://srain-github.qiniudn.com/ultra-ptr/release-to-refresh.gif' width="300px" style='border: #f1f1f1 solid 1px'/></div>
 
     * keep header when refresh 
-        <div style='border: #f1f1f1 solid 1px'>
-            <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px"/>
-        </div>
+
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px"/>
 
     * hide header when refresh
-        <div>
-            <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
-        </div>
+
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
 
     * auto refresh
-        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/auto-refresh.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/></div>
+
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/auto-refresh.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/></div>
 
 # Usage
 
