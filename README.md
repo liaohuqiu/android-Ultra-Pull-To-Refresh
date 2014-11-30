@@ -28,12 +28,19 @@
 ## Multiple build in style:
 
 * Classic Style
+* 
 * StoreHouse Style
 
     <div class='row'>
-        <div class='col-md-4'><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px"/></div>
+        <div class='col-md-4'>
+            <p><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px"/></p>
+            <p>using string</p>
+        </div>
+        <div class='col-md-4'>
+            <p><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px"/></p>
+            <p>using string</p>
+        </div>
     </div>
-    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px"/></div>
 
 # Usage
 
