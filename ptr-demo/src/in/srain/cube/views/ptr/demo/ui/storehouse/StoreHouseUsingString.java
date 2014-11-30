@@ -79,7 +79,7 @@ public class StoreHouseUsingString extends TitleBaseFragment {
             }
         });
 
-        frame.setDurationToCloseHeader(2500);
+        frame.setDurationToCloseHeader(3000);
         frame.setHeaderView(header);
         frame.addPtrUIHandler(header);
         frame.postDelayed(new Runnable() {

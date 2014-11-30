@@ -24,8 +24,6 @@ import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.data.DemoRequestData;
 
-import java.util.Objects;
-
 public class WithGridView extends TitleBaseFragment {
 
     private static final int sGirdImageSize = (LocalDisplay.SCREEN_WIDTH_PIXELS - LocalDisplay.dp2px(12 + 12 + 10)) / 2;

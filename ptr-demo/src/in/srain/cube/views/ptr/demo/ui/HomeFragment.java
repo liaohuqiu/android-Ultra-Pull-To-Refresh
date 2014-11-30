@@ -119,6 +119,7 @@ public class HomeFragment extends BlockMenuFragment {
         header.setPadding(0, LocalDisplay.dp2px(20), 0, LocalDisplay.dp2px(20));
         header.initWithString("Ultra PTR");
 
+        ptrFrameLayout.setDurationToCloseHeader(3000);
         ptrFrameLayout.setHeaderView(header);
         ptrFrameLayout.addPtrUIHandler(header);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {

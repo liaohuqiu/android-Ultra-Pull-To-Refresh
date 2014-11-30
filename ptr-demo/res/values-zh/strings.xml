@@ -10,8 +10,8 @@
     <string name="ptr_demo_block_pull_to_refresh">下拉刷新</string>
     <string name="ptr_demo_block_release_to_refresh">释放刷新</string>
 
-    <string name="ptr_demo_block_storehouse_header_using_string_array">StoreHouse Style \n\n使用xml中的字符串数组</string>
+    <string name="ptr_demo_block_storehouse_header_using_string_array">StoreHouse Style \n使用xml中的字符串数组</string>
     <string name="ptr_demo_storehouse_header_using_string_array_in_title">使用xml: &#160;</string>
-    <string name="ptr_demo_block_storehouse_header_using_string">StoreHouse Style \n\n\n使用字符串</string>
+    <string name="ptr_demo_block_storehouse_header_using_string">StoreHouse Style \n\n使用字符串</string>
     <string name="ptr_demo_storehouse_header_using_string_in_title">使用字符串:&#160;</string>
 </resources>
