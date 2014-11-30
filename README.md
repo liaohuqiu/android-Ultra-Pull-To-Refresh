@@ -1,4 +1,4 @@
-## [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
+# [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
 
 # Ultra Pull To Refresh
 
@@ -72,7 +72,7 @@ There are 6 properties:
 
 * Pull to Refresh / Release to Refresh
 
-    The default value is Pull to Refresh.
+    The default value is Release to Refresh.
 
 ##### Config in xml
 
@@ -107,7 +107,7 @@ There are 6 properties:
 </in.srain.cube.views.ptr.PtrFrameLayout>
 ```
 
-#### Config in java code
+### Or config in java code
 
 ```java
 // the following are default settings
@@ -121,7 +121,7 @@ mPtrFrame.setPullToRefresh(false);
 mPtrFrame.setKeepHeaderWhenRefresh(true);
 ```
 
-#### StoreHouse
+## StoreHouse Style
 
 * Config using string:
 
@@ -164,6 +164,41 @@ And in `res/values/arrays.xml`:
         <item>0,7,12,0,</item>
     </string-array>
 </resources>
+```
+
+# Customize
+
+You can add a `PtrUIHandler` to `PtrFrameLayout` to implement any UI effect you want.
+
+```java
+public interface PtrUIHandler {
+
+    /**
+     * When the content view has reached top and refresh has been completed, view will be reset.
+     *
+     * @param frame
+     */
+    public void onUIReset(PtrFrameLayout frame);
+
+    /**
+     * prepare for loading
+     *
+     * @param frame
+     */
+    public void onUIRefreshPrepare(PtrFrameLayout frame);
+
+    /**
+     * perform refreshing UI
+     */
+    public void onUIRefreshBegin(PtrFrameLayout frame);
+
+    /**
+     * perform UI after refresh
+     */
+    public void onUIRefreshComplete(PtrFrameLayout frame);
+
+    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent);
+}
 ```
 
 

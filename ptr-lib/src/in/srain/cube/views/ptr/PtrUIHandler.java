@@ -16,7 +16,6 @@ public interface PtrUIHandler {
      * prepare for loading
      *
      * @param frame
-     * @param isAutoRefresh
      */
     public void onUIRefreshPrepare(PtrFrameLayout frame);
 
