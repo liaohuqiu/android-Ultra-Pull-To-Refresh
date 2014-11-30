@@ -41,4 +41,10 @@ public class PtrClassicFrameLayout extends PtrFrameLayout {
             mPtrClassicHeader.setLastUpdateTimeKey(key);
         }
     }
+
+    public void setLastUpdateTimeRelateObject(Object object) {
+        if (mPtrClassicHeader != null) {
+            mPtrClassicHeader.setLastUpdateTimeRelateObject(object);
+        }
+    }
 }

@@ -36,6 +36,7 @@ public class WithTextViewInFrameLayoutFragment extends TitleBaseFragment {
                 return true;
             }
         });
+        ptrFrame.setLastUpdateTimeRelateObject(this);
 
         // the following are default settings
         ptrFrame.setResistance(1.7f);

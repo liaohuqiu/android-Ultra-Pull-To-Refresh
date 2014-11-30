@@ -17,20 +17,20 @@ import java.util.Date;
 
 public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler {
 
+    private final static String KEY_SharedPreferences = "cube_ptr_classic_last_update";
+    private static SimpleDateFormat sDataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private int mRotateAniTime = 150;
     private RotateAnimation mFlipAnimation;
     private RotateAnimation mReverseFlipAnimation;
-
-    private static SimpleDateFormat sDataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private TextView mTitleTextView;
     private View mRotateView;
     private View mProgressBar;
     private long mLastUpdateTime = -1;
-
     private TextView mLastUpdateTextView;
     private String mLastUpdateTimeKey;
     private boolean mShouldShowLastUpdate;
-    private final static String KEY_SharedPreferences = "cube_ptr_classic_last_update";
+
+    private LastUpdateTimeUpdater mLastUpdateTimeUpdater = new LastUpdateTimeUpdater();
 
     public PtrClassicDefaultHeader(Context context) {
         super(context);
@@ -79,6 +79,10 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
         mLastUpdateTimeKey = key;
     }
 
+    public void setLastUpdateTimeRelateObject(Object object) {
+        setLastUpdateTimeKey(object.getClass().getName());
+    }
+
     private void buildAnimation() {
         mFlipAnimation = new RotateAnimation(0, -180, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         mFlipAnimation.setInterpolator(new LinearInterpolator());
@@ -94,7 +98,6 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
     private void resetView() {
         hideRotateView();
         mProgressBar.setVisibility(INVISIBLE);
-        tryUpdateLastUpdateTime();
     }
 
     private void hideRotateView() {
@@ -106,14 +109,16 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
     public void onUIReset(PtrFrameLayout frame) {
         resetView();
         mShouldShowLastUpdate = true;
+        tryUpdateLastUpdateTime();
     }
 
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
 
-        tryUpdateLastUpdateTime();
-
         mShouldShowLastUpdate = true;
+        tryUpdateLastUpdateTime();
+        mLastUpdateTimeUpdater.start();
+
         mProgressBar.setVisibility(INVISIBLE);
 
         mRotateView.setVisibility(VISIBLE);
@@ -134,6 +139,7 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
         mTitleTextView.setText(R.string.cube_ptr_refreshing);
 
         tryUpdateLastUpdateTime();
+        mLastUpdateTimeUpdater.stop();
     }
 
     @Override
@@ -208,9 +214,6 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
 
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int lastPos, int currentPos, float oldPercent, float currentPercent) {
-        if (!TextUtils.isEmpty(mLastUpdateTimeKey)) {
-            tryUpdateLastUpdateTime();
-        }
         final int mOffsetToRefresh = frame.getOffsetToRefresh();
         if (currentPos < mOffsetToRefresh && lastPos >= mOffsetToRefresh) {
             if (isUnderTouch && status == PtrFrameLayout.PTR_STATUS_PREPARE) {
@@ -244,6 +247,32 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
             mTitleTextView.setText(getResources().getString(R.string.cube_ptr_pull_down_to_refresh));
         } else {
             mTitleTextView.setText(getResources().getString(R.string.cube_ptr_pull_down));
+        }
+    }
+
+    private class LastUpdateTimeUpdater implements Runnable {
+
+        private boolean mRunning = false;
+
+        private void start() {
+            if (TextUtils.isEmpty(mLastUpdateTimeKey)) {
+                return;
+            }
+            mRunning = true;
+            run();
+        }
+
+        private void stop() {
+            mRunning = false;
+            removeCallbacks(this);
+        }
+
+        @Override
+        public void run() {
+            tryUpdateLastUpdateTime();
+            if (mRunning) {
+                postDelayed(this, 1000);
+            }
         }
     }
 }

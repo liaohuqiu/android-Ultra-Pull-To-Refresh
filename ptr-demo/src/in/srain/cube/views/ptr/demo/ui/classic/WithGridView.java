@@ -52,7 +52,7 @@ public class WithGridView extends TitleBaseFragment {
         gridListView.setAdapter(mAdapter);
 
         mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.rotate_header_grid_view_frame);
-        mPtrFrame.setLastUpdateTimeKey(((Object) this).getClass().getName());
+        mPtrFrame.setLastUpdateTimeRelateObject(this);
         mPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {

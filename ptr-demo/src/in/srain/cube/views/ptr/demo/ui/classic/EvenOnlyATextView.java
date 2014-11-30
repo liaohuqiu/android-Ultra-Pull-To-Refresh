@@ -20,6 +20,7 @@ public class EvenOnlyATextView extends TitleBaseFragment {
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_textview, container, false);
 
         final PtrClassicFrameLayout ptrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.fragment_rotate_header_with_text_view_frame);
+        ptrFrame.setLastUpdateTimeRelateObject(this);
         ptrFrame.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
