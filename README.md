@@ -4,22 +4,26 @@
 `API LEVEL >= 8`
 
 * Supports all of the view: ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
-    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif' width="300px"/></div>
+    <div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif' width="200px"/></div>
 
 * Supports all of the refresh types.
     * pull to refresh
-        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/pull-to-refresh.gif' width="300px"/></div>
+        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/pull-to-refresh.gif' width="200px"/></div>
     * release to refresh
-        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/release-to-refresh.gif' width="300px"/></div>
+        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/release-to-refresh.gif' width="200px"/></div>
 
-    * keep header when refresh / hide header when refresh
+    * keep header when refresh 
         <div>
             <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="200px"/>
-            <img src='http://srain-github.qiniudn.com/ultra-ptr/hide-header.gif' width="200px"/>
+        </div>
+
+    * hide header when refresh
+        <div>
+            <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="200px"/>
         </div>
 
     * auto refresh
-        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/auto-refresh.gif' width="300px"/></div>
+        <div><img src='http://srain-github.qiniudn.com/ultra-ptr/auto-refresh.gif' width="200px"/></div>
 
 * Easy to use and custiomize
 
