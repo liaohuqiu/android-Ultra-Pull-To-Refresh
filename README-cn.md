@@ -6,6 +6,8 @@
 
 支持 `API LEVEL >= 8`。
 
+[APK下载](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo/target/ultra-ptr-demo.apk)
+
 * 先上两张StoreHouse风格的截图! 感谢 [CBStoreHouseRefreshControl](https://github.com/liaohuqiu/CBStoreHouseRefreshControl).
     <div class='row'>
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
