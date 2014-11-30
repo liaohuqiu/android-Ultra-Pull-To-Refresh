@@ -4,14 +4,12 @@
 
 Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
-* StoreHouse Style first!
-
+* StoreHouse Style first! Thanks to [CBStoreHouseRefreshControl](https://github.com/liaohuqiu/CBStoreHouseRefreshControl).
     <div class='row'>
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
     </div>
 
-    Thanks to [CBStoreHouseRefreshControl](https://github.com/liaohuqiu/CBStoreHouseRefreshControl).
 
 * **Supports all of the views**: 
     ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
@@ -124,6 +122,50 @@ mPtrFrame.setKeepHeaderWhenRefresh(true);
 ```
 
 #### StoreHouse
+
+* Config using string:
+
+```java
+// header
+final StoreHouseHeader header = new StoreHouseHeader(getContext());
+header.setPadding(0, LocalDisplay.dp2px(15), 0, 0);
+
+/**
+ * using a string, support: A-Z 0-9 - .
+ * you can add more letters by {@link in.srain.cube.views.ptr.header.StoreHousePath#addChar}
+ */
+header.initWithString('Alibaba');
+```
+
+* Config using string array from xml:
+
+```java
+header.initWithStringArray(R.array.storehouse);
+```
+
+And in `res/values/arrays.xml`:
+
+```xml
+<resources>
+    <string-array name="storehouse">
+        <item>0,35,12,42,</item>
+        <item>12,42,24,35,</item>
+        <item>24,35,12,28,</item>
+        <item>0,35,12,28,</item>
+        <item>0,21,12,28,</item>
+        <item>12,28,24,21,</item>
+        <item>24,35,24,21,</item>
+        <item>24,21,12,14,</item>
+        <item>0,21,12,14,</item>
+        <item>0,21,0,7,</item>
+        <item>12,14,0,7,</item>
+        <item>12,14,24,7,</item>
+        <item>24,7,12,0,</item>
+        <item>0,7,12,0,</item>
+    </string-array>
+</resources>
+```
+
 
 # License
 
