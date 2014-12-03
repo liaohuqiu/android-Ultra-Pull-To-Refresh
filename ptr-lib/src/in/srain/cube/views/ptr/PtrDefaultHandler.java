@@ -1,5 +1,8 @@
 package in.srain.cube.views.ptr;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -34,6 +37,11 @@ public abstract class PtrDefaultHandler implements PtrHandler {
             if (listView.getFirstVisiblePosition() > 0) {
                 return false;
             }
+        }
+
+        boolean ret = false;
+        if (Build.VERSION.SDK_INT >= 14) {
+            ret = content.canScrollVertically(-1);
         }
 
         View child = viewGroup.getChildAt(0);
