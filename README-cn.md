@@ -39,20 +39,29 @@
 
         <img src='http://srain-github.qiniudn.com/ultra-ptr/auto-refresh.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/></div>
 
-# Usage
+# 使用方式
 
-#### Maven
+#### 中央库依赖
+
+** 使用 eclipse 的同学需要maven插件，配置复杂。可将 demo中的 libs目录下 apklib结尾的包改后缀解压，独立项目引入。 **
+
+Maven /  pom.xml 
 
 ```xml
 <dependency>
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>apklib</type>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
-#### Config
+gradle / Android Studio
+```
+compile 'in.srain.cube:ultra-ptr:1.0.3'
+```
+
+#### 配置
 
 有6个参数可配置:
 
@@ -224,12 +233,10 @@ ptrFrame.setPtrHandler(new PtrHandler() {
 
 Apache 2
 
-# Contact & Help
+# 联系方式和问题建议
 
-Please fell free to contact me if there is any problem when using the library.
-
+* 微博: http://weibo.com/liaohuqiu
+* QQ 群: 271918140
 * srain@php.net
 * twitter: https://twitter.com/liaohuqiu
-* 微博: http://weibo.com/liaohuqiu
 * blog: http://www.liaohuqiu.net
-* QQ 群: 271918140

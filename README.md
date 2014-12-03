@@ -43,15 +43,21 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
 # Usage
 
-#### Maven
+#### Maven Central
+
+pom
 
 ```xml
 <dependency>
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>apklib</type>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
+```
+gradle
+```
+compile 'in.srain.cube:ultra-ptr:1.0.3'
 ```
 
 #### Config
