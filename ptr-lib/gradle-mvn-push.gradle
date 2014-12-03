@@ -6,7 +6,7 @@ def isReleaseBuild() {
 }
 
 def getReleaseRepositoryUrl() {
-    if (VERSION_NAME.contains("ali") == true) {
+    if (VERSION_NAME.contains("-ali") == true) {
         return 'http://mvnrepo.taobao.ali.com/mvn/repository';
     }
     return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
@@ -14,7 +14,8 @@ def getReleaseRepositoryUrl() {
 }
 
 def getSnapshotRepositoryUrl() {
-    if (VERSION_NAME.contains("ali") == true) {
+    // only publish to snapshots
+    if (VERSION_NAME.contains("-ali") == true) {
         return 'http://mvnrepo.taobao.ali.com/mvn/snapshots/';
     }
     return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
@@ -22,11 +23,17 @@ def getSnapshotRepositoryUrl() {
 }
 
 def getRepositoryUsername() {
-    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+    if (VERSION_NAME.contains("-ali") == true) {
+        return ALI_USERNAME
+    }
+    return hasProperty('OSS_USERNAME') ? OSS_USERNAME : ''
 }
 
 def getRepositoryPassword() {
-    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+    if (VERSION_NAME.contains("-ali") == true) {
+        return ALI_PWD
+    }
+    return hasProperty('OSS_PWD') ? OSS_PWD : ''
 }
 
 afterEvaluate { project ->
@@ -35,7 +42,7 @@ afterEvaluate { project ->
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                pom.groupId = GROUP
+                pom.groupId = POM_GROUP
                 pom.artifactId = POM_ARTIFACT_ID
                 pom.version = VERSION_NAME
 
@@ -83,6 +90,7 @@ afterEvaluate { project ->
     }
 
     task apklib(type: Zip) {
+
         appendix = extension = 'apklib'
 
         from 'AndroidManifest.xml'
