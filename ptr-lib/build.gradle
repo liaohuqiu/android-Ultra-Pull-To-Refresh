@@ -27,6 +27,6 @@ android {
 
 dependencies {
     compile 'in.srain.cube:clog:1.0.2'
-    compile 'com.android.support:support-v4:20'
+    compile 'com.android.support:support-v4:20.0.0'
 }
 apply from: './gradle-mvn-push.gradle'
