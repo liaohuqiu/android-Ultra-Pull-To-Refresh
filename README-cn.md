@@ -43,9 +43,19 @@
 
 #### 中央库依赖
 
-** 使用 eclipse 的同学需要maven插件，配置复杂。可将 demo中的 libs目录下 apklib结尾的包改后缀解压，独立项目引入。 **
+项目已经发布到了Maven中央库，包括`aar`和`apklib`两种格式。在Maven或者Gradle下可如下直接引入:
 
-Maven /  pom.xml 
+`pom.xml` 文件中
+
+```xml
+<dependency>
+    <groupId>in.srain.cube</groupId>
+    <artifactId>ultra-ptr</artifactId>
+    <type>aar</type>
+    <version>1.0.3</version>
+</dependency>
+```
+或者
 
 ```xml
 <dependency>
@@ -58,8 +68,10 @@ Maven /  pom.xml
 
 gradle / Android Studio
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.3'
+compile 'in.srain.cube:ultra-ptr:1.0.3@aar'
 ```
+
+**demo 项目 eclipse 无法编译看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/**
 
 #### 配置
 
@@ -235,8 +247,10 @@ Apache 2
 
 # 联系方式和问题建议
 
-* 微博: http://weibo.com/liaohuqiu
+* 微博: http://weibo.com/liaohuqiu 欢迎关注
 * QQ 群: 271918140
 * srain@php.net
 * twitter: https://twitter.com/liaohuqiu
 * blog: http://www.liaohuqiu.net
+
+**demo 项目 eclipse 无法编译看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/**

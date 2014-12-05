@@ -21,14 +21,6 @@
             <artifactId>android</artifactId>
             <version>4.1.1.4</version>
             <scope>provided</scope>
-            <!--
-                <exclusions>
-                    <exclusion>
-                        <groupId>*</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
-            -->
         </dependency>
         <dependency>
             <groupId>com.google.android</groupId>
@@ -44,14 +36,14 @@
         <dependency>
             <groupId>in.srain.cube</groupId>
             <artifactId>ultra-ptr</artifactId>
-            <type>apklib</type>
+            <type>aar</type>
             <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>in.srain.cube</groupId>
             <artifactId>cube-sdk</artifactId>
-            <type>apklib</type>
-            <version>1.0.40</version>
+            <type>aar</type>
+            <version>1.0.42</version>
         </dependency>
     </dependencies>
 

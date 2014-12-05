@@ -11,7 +11,7 @@
 
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
-    <packaging>apklib</packaging>
+    <packaging>aar</packaging>
     <name>Ultra Pull to Refresh</name>
     <version>1.0.2</version>
 

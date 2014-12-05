@@ -45,7 +45,9 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
 #### Maven Central
 
-pom
+This project has been pushed to Maven Central, both in `aar` and `apklib`.
+
+pom.xml
 
 ```xml
 <dependency>
@@ -55,9 +57,20 @@ pom
     <version>1.0.3</version>
 </dependency>
 ```
+or 
+
+```xml
+<dependency>
+    <groupId>in.srain.cube</groupId>
+    <artifactId>ultra-ptr</artifactId>
+    <type>aar</type>
+    <version>1.0.3</version>
+</dependency>
+```
+
 gradle
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.3'
+compile 'in.srain.cube:ultra-ptr:1.0.3@aar'
 ```
 
 #### Config
