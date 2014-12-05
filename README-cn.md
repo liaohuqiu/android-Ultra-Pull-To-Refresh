@@ -8,6 +8,8 @@
 
 [APK下载](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo/target/ultra-ptr-demo.apk)
 
+** 使用eclipse 编译demo项目的同学看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/**
+
 * 先上两张StoreHouse风格的截图! 感谢 [CBStoreHouseRefreshControl](https://github.com/coolbeet/CBStoreHouseRefreshControl).
     <div class='row'>
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
@@ -70,8 +72,6 @@ gradle / Android Studio
 ```
 compile 'in.srain.cube:ultra-ptr:1.0.3@aar'
 ```
-
-**demo 项目 eclipse 无法编译看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/**
 
 #### 配置
 
@@ -252,5 +252,3 @@ Apache 2
 * srain@php.net
 * twitter: https://twitter.com/liaohuqiu
 * blog: http://www.liaohuqiu.net
-
-**demo 项目 eclipse 无法编译看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/**
