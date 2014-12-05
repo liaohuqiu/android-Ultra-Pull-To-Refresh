@@ -37,7 +37,7 @@
             <groupId>in.srain.cube</groupId>
             <artifactId>ultra-ptr</artifactId>
             <type>aar</type>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
         </dependency>
         <dependency>
             <groupId>in.srain.cube</groupId>
@@ -81,6 +81,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

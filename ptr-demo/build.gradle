@@ -46,6 +46,9 @@ android {
     }
 }
 
+task(copyLibs) << {
+}
+
 dependencies {
     compile(project(':ptr-lib')) {
     }

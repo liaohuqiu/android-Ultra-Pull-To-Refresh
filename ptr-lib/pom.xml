@@ -13,9 +13,9 @@
     <artifactId>ultra-ptr</artifactId>
     <packaging>aar</packaging>
     <name>Ultra Pull to Refresh</name>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
-    <description>GridView with Header and Footer</description>
+    <description>Ultra Pull to Refresh in Android</description>
     <url>https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh</url>
     <inceptionYear>2014</inceptionYear>
 
