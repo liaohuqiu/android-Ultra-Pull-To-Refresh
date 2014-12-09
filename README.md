@@ -18,6 +18,10 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
     </div>
 
+* Material Style, added @ 2014-12-09
+    <div class='row'>
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/material-style.gif' width="300px"/>
+    </div>
 
 * **Supports all of the views**: 
     ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.

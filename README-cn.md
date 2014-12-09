@@ -16,6 +16,10 @@
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
     </div>
 
+* 5.0 Material 风格 2014-12-09 新增
+    <div class='row'>
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/material-style.gif' width="300px"/>
+    </div>
 
 * **支持所有的View**: 
 

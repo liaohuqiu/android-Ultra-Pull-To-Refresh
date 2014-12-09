@@ -15,12 +15,10 @@ import in.srain.cube.image.ImageLoaderFactory;
 import in.srain.cube.image.ImageTask;
 import in.srain.cube.image.iface.ImageLoadHandler;
 import in.srain.cube.mints.base.TitleBaseFragment;
-import in.srain.cube.util.CLog;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
-import in.srain.cube.views.ptr.demo.data.DemoRequestData;
 import in.srain.cube.views.ptr.header.MaterialHeader;
 
 public class MaterialStyleFragment extends TitleBaseFragment {
@@ -33,7 +31,6 @@ public class MaterialStyleFragment extends TitleBaseFragment {
     public void onEnter(Object data) {
         if (data != null && data instanceof String) {
             mUrl = (String) data;
-            CLog.d("test", mUrl);
         }
     }
 
