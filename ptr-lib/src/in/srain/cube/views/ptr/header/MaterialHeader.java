@@ -115,10 +115,10 @@ public class MaterialHeader extends View implements PtrUIHandler {
      */
     @Override
     public void onUIRefreshComplete(PtrFrameLayout frame) {
+        clearAnimation();
         mPtrFrameLayout = frame;
         mScaleAnimation.setDuration(200);
         mScaleAnimation.setAnimationListener(mRefreshListener);
-        clearAnimation();
         startAnimation(mScaleAnimation);
     }
 
