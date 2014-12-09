@@ -15,9 +15,6 @@ import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 import java.util.ArrayList;
 
-/**
- * Created by srain on 11/6/14.
- */
 public class StoreHouseHeader extends View implements PtrUIHandler {
 
     public ArrayList<StoreHouseBarItem> mItemList = new ArrayList<StoreHouseBarItem>();
@@ -195,7 +192,7 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         int c1 = canvas.save();
         int len = mItemList.size();
 
-        for (int i = 0; i < mItemList.size(); i++) {
+        for (int i = 0; i < len; i++) {
 
             canvas.save();
             StoreHouseBarItem storeHouseBarItem = mItemList.get(i);
@@ -271,7 +268,7 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
 
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent) {
-        // currentPercent = Math.max(1, currentPercent);
+        currentPercent = Math.min(1f, currentPercent);
         setProgress(currentPercent);
         invalidate();
     }

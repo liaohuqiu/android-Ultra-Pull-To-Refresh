@@ -18,10 +18,10 @@ import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 public class PtrFrameLayout extends ViewGroup {
 
     // status enum
-    protected final static byte PTR_STATUS_INIT = 1;
-    protected final static byte PTR_STATUS_PREPARE = 2;
-    protected final static byte PTR_STATUS_LOADING = 3;
-    protected final static byte PTR_STATUS_COMPLETE = 4;
+    public final static byte PTR_STATUS_INIT = 1;
+    public final static byte PTR_STATUS_PREPARE = 2;
+    public final static byte PTR_STATUS_LOADING = 3;
+    public final static byte PTR_STATUS_COMPLETE = 4;
 
     private final static int POS_START = 0;
     public static boolean DEBUG = false;
@@ -66,6 +66,8 @@ public class PtrFrameLayout extends ViewGroup {
     private MotionEvent mDownEvent;
     private MotionEvent mLastMoveEvent;
 
+    // set to true, will not return to back after load complete
+    private boolean mHasAniBeforeComplete;
 
     public PtrFrameLayout(Context context) {
         this(context, null);
@@ -430,11 +432,54 @@ public class PtrFrameLayout extends ViewGroup {
                     // do nothing
                 }
             } else {
-                mScrollChecker.tryToScrollTo(POS_START, mDurationToCloseHeader);
+                scrollBackToTopWhileLoading();
             }
         } else {
+
+            if (mStatus == PTR_STATUS_COMPLETE) {
+                scrollBackToTopAfterComplete();
+            } else {
+                scrollBackToTopAbortRefresh();
+            }
+        }
+    }
+
+    /**
+     * Do remember call {@link #scrollBackToTop} after animation end
+     *
+     * @param hasAni
+     */
+    public void setHasAniBeforeComplete(boolean hasAni) {
+        mHasAniBeforeComplete = hasAni;
+    }
+
+    public void scrollBackToTop() {
+        if (!mIsUnderTouch) {
             mScrollChecker.tryToScrollTo(POS_START, mDurationToCloseHeader);
         }
+    }
+
+    /**
+     * just make easier to understand
+     */
+    private void scrollBackToTopWhileLoading() {
+        scrollBackToTop();
+    }
+
+    /**
+     * just make easier to understand
+     */
+    public void scrollBackToTopAfterComplete() {
+        if (!mHasAniBeforeComplete) {
+            scrollBackToTop();
+        }
+    }
+
+    /**
+     * just make easier to understand
+     */
+    private void scrollBackToTopAbortRefresh() {
+        scrollBackToTop();
     }
 
     private boolean tryToPerformRefresh() {
@@ -474,7 +519,6 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     protected void onPtrScrollAbort() {
-
     }
 
     protected void onPtrScrollFinish() {
@@ -502,11 +546,12 @@ public class PtrFrameLayout extends ViewGroup {
             }
         }
 
-        // back to top only while under touch or auto moving down when auto refresh
-        // not in scroll and also not under touch
+        // if is under touch or auto moving down when auto refresh, do nothing
+        // else return back
         if ((mScrollChecker.mIsRunning && mAutoScrollRefresh == STATUS_AUTO_SCROLL_LATER) || mIsUnderTouch) {
+            // do nothing
         } else {
-            mScrollChecker.tryToScrollTo(POS_START, mDurationToCloseHeader);
+            scrollBackToTopAfterComplete();
         }
     }
 
@@ -586,7 +631,7 @@ public class PtrFrameLayout extends ViewGroup {
         mDurationToClose = duration;
     }
 
-    public float getDurationToCloseHeader() {
+    public long getDurationToCloseHeader() {
         return mDurationToCloseHeader;
     }
 

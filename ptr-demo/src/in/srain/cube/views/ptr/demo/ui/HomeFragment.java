@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import in.srain.cube.mints.base.BlockMenuFragment;
+import in.srain.cube.util.CLog;
 import in.srain.cube.util.LocalDisplay;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
@@ -107,6 +110,34 @@ public class HomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(StoreHouseUsingString.class, null);
             }
         }));
+        itemInfos.add(newItemInfo(R.string.ptr_demo_material_style, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(MaterialPtr.class, null);
+            }
+        }));
+        itemInfos.add(newItemInfo(R.string.ptr_demo_material_style, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(MaterialPtr.class, null);
+            }
+        }));
+        itemInfos.add(newItemInfo(R.string.ptr_demo_material_style, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(MaterialPtr.class, null);
+            }
+        }));
+        itemInfos.add(newItemInfo(R.string.ptr_demo_material_style, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(MaterialPtr.class, null);
+            }
+        }));
     }
 
     @Override
@@ -114,18 +145,20 @@ public class HomeFragment extends BlockMenuFragment {
         View view = super.createView(inflater, container, savedInstanceState);
         view.setBackgroundColor(getResources().getColor(R.color.cube_mints_333333));
 
+        final ScrollView scrollView = (ScrollView) view.findViewById(R.id.fragment_block_menu_scroll_view);
+
         final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.fragment_ptr_home_ptr_frame);
         StoreHouseHeader header = new StoreHouseHeader(getContext());
         header.setPadding(0, LocalDisplay.dp2px(20), 0, LocalDisplay.dp2px(20));
         header.initWithString("Ultra PTR");
 
-        ptrFrameLayout.setDurationToCloseHeader(3000);
+        ptrFrameLayout.setDurationToCloseHeader(1500);
         ptrFrameLayout.setHeaderView(header);
         ptrFrameLayout.addPtrUIHandler(header);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return true;
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
             }
 
             @Override

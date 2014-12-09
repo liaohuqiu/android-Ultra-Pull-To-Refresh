@@ -7,7 +7,7 @@ import java.lang.ref.WeakReference;
 /**
  * A single linked list to wrap PtrUIHandler
  */
-public class PtrUIHandlerHolder implements PtrUIHandler {
+class PtrUIHandlerHolder implements PtrUIHandler {
 
     private PtrUIHandler mHandler;
     private PtrUIHandlerHolder mNext;

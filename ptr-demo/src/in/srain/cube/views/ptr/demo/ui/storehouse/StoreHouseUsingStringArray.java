@@ -44,7 +44,7 @@ public class StoreHouseUsingStringArray extends TitleBaseFragment {
         // using string array from resource xml file
         header.initWithStringArray(R.array.storehouse);
 
-        frame.setDurationToCloseHeader(3000);
+        frame.setDurationToCloseHeader(1500);
         frame.setHeaderView(header);
         frame.addPtrUIHandler(header);
         frame.postDelayed(new Runnable() {

@@ -36,4 +36,11 @@
         <item>24,7,12,0,</item>
         <item>0,7,12,0,</item>
     </string-array>
+
+    <integer-array name="google_colors">
+        <item>@color/red</item>
+        <item>@color/blue</item>
+        <item>@color/yellow</item>
+        <item>@color/green</item>
+    </integer-array>
 </resources>

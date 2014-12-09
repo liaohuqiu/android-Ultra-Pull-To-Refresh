@@ -4,6 +4,8 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ScrollView;
+import in.srain.cube.util.CLog;
 
 public abstract class PtrDefaultHandler implements PtrHandler {
 
@@ -37,9 +39,12 @@ public abstract class PtrDefaultHandler implements PtrHandler {
             }
         }
 
-        boolean ret = false;
         if (Build.VERSION.SDK_INT >= 14) {
-            ret = content.canScrollVertically(-1);
+            return !content.canScrollVertically(-1);
+        } else {
+            if (viewGroup instanceof ScrollView || viewGroup instanceof AbsListView) {
+                return viewGroup.getScrollY() == 0;
+            }
         }
 
         View child = viewGroup.getChildAt(0);
