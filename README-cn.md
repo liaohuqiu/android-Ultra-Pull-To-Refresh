@@ -50,10 +50,7 @@
 `pom.xml` 文件中
 
 ```xml
-<dependency>
-    <groupId>in.srain.cube</groupId>
-    <artifactId>ultra-ptr</artifactId>
-    <type>aar</type>
+1.0.4
     <version>1.0.3</version>
 </dependency>
 ```
@@ -64,13 +61,13 @@
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>apklib</type>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 
 gradle / Android Studio
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.3@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.4@aar'
 ```
 
 #### 配置

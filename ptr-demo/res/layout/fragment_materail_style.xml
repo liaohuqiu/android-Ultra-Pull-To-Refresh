@@ -19,7 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/cube_mints_f1f1f1"
+            android:background="@color/cube_mints_white"
             android:clickable="true"
             android:padding="10dp">
 

@@ -1,6 +1,10 @@
 package in.srain.cube.views.ptr.demo.ui;
 
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +15,7 @@ import in.srain.cube.image.ImageLoaderFactory;
 import in.srain.cube.image.ImageTask;
 import in.srain.cube.image.iface.ImageLoadHandler;
 import in.srain.cube.mints.base.TitleBaseFragment;
+import in.srain.cube.util.CLog;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
@@ -20,7 +25,7 @@ import in.srain.cube.views.ptr.header.MaterialHeader;
 
 public class MaterialStyleFragment extends TitleBaseFragment {
 
-    private String mUrl = "http://img5.duitang.com/uploads/blog/201405/05/20140505201105_MkXdn.thumb.jpeg";
+    private String mUrl = "http://img5.duitang.com/uploads/blog/201407/17/20140717113117_mUssJ.thumb.jpeg";
     private long mStartLoadingTime = -1;
     private boolean mImageHasLoaded = false;
 
@@ -28,6 +33,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
     public void onEnter(Object data) {
         if (data != null && data instanceof String) {
             mUrl = (String) data;
+            CLog.d("test", mUrl);
         }
     }
 
@@ -69,7 +75,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
             @Override
             public void onRefreshBegin(final PtrFrameLayout frame) {
                 if (mImageHasLoaded) {
-                    long delay = (long) (1000 + Math.random() * 3000);
+                    long delay = (long) (1000 + Math.random() * 2000);
                     delay = Math.max(0, delay);
                     frame.postDelayed(new Runnable() {
                         @Override
@@ -97,7 +103,9 @@ public class MaterialStyleFragment extends TitleBaseFragment {
                     @Override
                     public void run() {
                         if (cubeImageView != null && bitmapDrawable != null) {
-                            cubeImageView.setImageDrawable(bitmapDrawable);
+                            TransitionDrawable w1 = new TransitionDrawable(new Drawable[]{new ColorDrawable(Color.WHITE), (Drawable) bitmapDrawable});
+                            imageView.setImageDrawable(w1);
+                            w1.startTransition(200);
                         }
                         frame.refreshComplete();
                     }
