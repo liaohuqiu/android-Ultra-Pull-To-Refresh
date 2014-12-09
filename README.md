@@ -18,6 +18,10 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
     </div>
 
+* Material Style, added @ 2014-12-09
+    <div class='row'>
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/material-style.gif' width="300px"/>
+    </div>
 
 * **Supports all of the views**: 
     ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
@@ -54,7 +58,7 @@ pom.xml
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>apklib</type>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 or 
@@ -64,13 +68,13 @@ or
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>aar</type>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 
 gradle
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.3@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.4@aar'
 ```
 
 #### Config

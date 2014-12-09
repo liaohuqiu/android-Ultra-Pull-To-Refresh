@@ -5,12 +5,7 @@ import in.srain.cube.Cube;
 import in.srain.cube.image.ImageLoaderFactory;
 import in.srain.cube.request.RequestCacheManager;
 import in.srain.cube.util.CLog;
-import in.srain.cube.util.Debug;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrUIHandler;
-import in.srain.cube.views.ptr.PtrUIHandlerHolder;
 import in.srain.cube.views.ptr.demo.image.DemoDuiTangImageResizer;
-import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 public class CubeDemoApplication extends Application {
 

@@ -16,6 +16,7 @@
         cube_ptr:ptr_resistance="1.7">
 
         <ScrollView
+            android:id="@+id/fragment_block_menu_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/cube_mints_white">

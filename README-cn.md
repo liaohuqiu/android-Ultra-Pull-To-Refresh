@@ -16,6 +16,10 @@
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
     </div>
 
+* 5.0 Material 风格 2014-12-09 新增
+    <div class='row'>
+        <img src='http://srain-github.qiniudn.com/ultra-ptr/material-style.gif' width="300px"/>
+    </div>
 
 * **支持所有的View**: 
 
@@ -50,10 +54,7 @@
 `pom.xml` 文件中
 
 ```xml
-<dependency>
-    <groupId>in.srain.cube</groupId>
-    <artifactId>ultra-ptr</artifactId>
-    <type>aar</type>
+1.0.4
     <version>1.0.3</version>
 </dependency>
 ```
@@ -64,13 +65,13 @@
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>apklib</type>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 
 gradle / Android Studio
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.3@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.4@aar'
 ```
 
 #### 配置

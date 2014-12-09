@@ -1,9 +1,11 @@
 package in.srain.cube.views.ptr.demo.ui.classic;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -23,6 +25,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.data.DemoRequestData;
+import in.srain.cube.views.ptr.demo.ui.MaterialStyleFragment;
 
 public class WithGridView extends TitleBaseFragment {
 
@@ -40,6 +43,17 @@ public class WithGridView extends TitleBaseFragment {
 
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_gridview, null);
         final GridView gridListView = (GridView) contentView.findViewById(R.id.rotate_header_grid_view);
+        gridListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position >= 0) {
+                    final String url = mAdapter.getItem(position).optString("pic");
+                    if (!TextUtils.isEmpty(url)) {
+                        getContext().pushFragmentToBackStack(MaterialStyleFragment.class, url);
+                    }
+                }
+            }
+        });
 
         mAdapter = new ListViewDataAdapter<JsonData>(new ViewHolderCreator<JsonData>() {
             @Override

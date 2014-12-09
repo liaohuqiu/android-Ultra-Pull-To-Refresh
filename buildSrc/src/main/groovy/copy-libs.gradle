@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.+'
+    }
+}
+
+EXCLUDE_JAR_LIST = ['cube-sdk', 'support-v4-r7-source', 'ultra-ptr', 'support-annotation']
+
+class CopyLibsTask extends DefaultTask {
+
+    @TaskAction
+    def copyLibs() {
+
+        // copy jars
+        copy {
+            from configurations.compile
+            into "libs"
+
+            eachFile { file ->
+                println file.name
+                for (name in EXCLUDE_JAR_LIST) {
+                    if (file.name.contains(name)) {
+                        file.exclude()
+                        return
+                    }
+                }
+            }
+        }
+
+        // copy source
+        copy {
+
+            def sourceList = configurations.compile.incoming.dependencies.collect { dependency ->
+                dependency.artifact { artifact ->
+                    artifact.name = dependency.name
+                    artifact.type = 'source'
+                    artifact.extension = 'jar'
+                    artifact.classifier = 'sources'
+                }
+                dependency
+            }
+            from(configurations.detachedConfiguration(sourceList as Dependency[]).resolvedConfiguration.
+                    resolvedConfiguration.lenientConfiguration.getFiles(Specs.SATISFIES_ALL)) {
+            }
+
+            into("libs")
+
+            eachFile { file ->
+                println file.name
+                for (name in EXCLUDE_JAR_LIST) {
+                    if (file.name.contains(name)) {
+                        file.exclude()
+                        return
+                    }
+                }
+            }
+        }
+    }
+}

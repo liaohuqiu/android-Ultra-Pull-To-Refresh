@@ -1,4 +1,4 @@
-version_name = '1.0.3'
+version_name = '1.0.4'
 
 def replace_file(fname, start, end, replace, line_from = 1, line_to = 0):
 
@@ -32,10 +32,11 @@ replace_file('ptr-demo/pom.xml', '<version>', '</version>', version_name, 36, 41
 replace_file('ptr-lib/gradle.properties', 'VERSION_NAME=', '\n', version_name, 1, 2)
 
 # update version for reade me
-replace_file('README.md', '<version>', '</version>', version_name, 53, 58)
-replace_file('README.md', '<version>', '</version>', version_name, 63, 68)
-replace_file('README.md', 'in.srain.cube:ultra-ptr:', '@aar', version_name, 73, 74)
+offset = 4
+replace_file('README.md', '<version>', '</version>', version_name, 53 + offset, 58 + offset)
+replace_file('README.md', '<version>', '</version>', version_name, 63 + offset, 68 + offset)
+replace_file('README.md', 'in.srain.cube:ultra-ptr:', '@aar', version_name, 73 + offset, 74 + offset)
 
-replace_file('README-cn.md', '<version>', '</version>', version_name, 51, 56)
-replace_file('README-cn.md', '<version>', '</version>', version_name, 61, 66)
-replace_file('README-cn.md', 'in.srain.cube:ultra-ptr:', '@aar', version_name, 70, 72)
+replace_file('README-cn.md', '<version>', '</version>', version_name, 51 + offset, 56 + offset)
+replace_file('README-cn.md', '<version>', '</version>', version_name, 61 + offset, 66 + offset)
+replace_file('README-cn.md', 'in.srain.cube:ultra-ptr:', '@aar', version_name, 70 + offset, 72 + offset)
