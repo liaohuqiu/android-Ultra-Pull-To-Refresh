@@ -18,7 +18,7 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
     </div>
 
-* Material Style, added @ 2014-12-09
+* Material Style, added @ 2014-12-09. **There is a beautiful shadow which looks terrible in gif snapshot. Please Check out the DEMO.**
     <div class='row'>
         <img src='http://srain-github.qiniudn.com/ultra-ptr/material-style.gif' width="300px"/>
     </div>
