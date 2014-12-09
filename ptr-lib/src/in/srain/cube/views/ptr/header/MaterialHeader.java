@@ -1,9 +1,10 @@
 package in.srain.cube.views.ptr.header;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
@@ -55,12 +56,13 @@ public class MaterialHeader extends View implements PtrUIHandler {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = mDrawable.getIntrinsicHeight() + getPaddingTop() + getPaddingBottom();
-        setMeasuredDimension(widthMeasureSpec, MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        final int size = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
+        final int size = mDrawable.getIntrinsicHeight();
         mDrawable.setBounds(0, 0, size, size);
     }
 

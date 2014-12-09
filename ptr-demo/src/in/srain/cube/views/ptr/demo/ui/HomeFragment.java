@@ -5,9 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import in.srain.cube.mints.base.BlockMenuFragment;
-import in.srain.cube.util.CLog;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -114,28 +112,25 @@ public class HomeFragment extends BlockMenuFragment {
 
             @Override
             public void onClick(View v) {
-                getContext().pushFragmentToBackStack(MaterialPtr.class, null);
+                getContext().pushFragmentToBackStack(MaterialStyleFragment.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_material_style, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                getContext().pushFragmentToBackStack(MaterialPtr.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_material_style, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                getContext().pushFragmentToBackStack(MaterialPtr.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_material_style, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                getContext().pushFragmentToBackStack(MaterialPtr.class, null);
             }
         }));
     }
@@ -144,8 +139,6 @@ public class HomeFragment extends BlockMenuFragment {
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.createView(inflater, container, savedInstanceState);
         view.setBackgroundColor(getResources().getColor(R.color.cube_mints_333333));
-
-        final ScrollView scrollView = (ScrollView) view.findViewById(R.id.fragment_block_menu_scroll_view);
 
         final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.fragment_ptr_home_ptr_frame);
         StoreHouseHeader header = new StoreHouseHeader(getContext());

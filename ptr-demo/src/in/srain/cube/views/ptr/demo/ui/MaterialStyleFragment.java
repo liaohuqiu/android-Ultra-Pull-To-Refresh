@@ -8,12 +8,13 @@ import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
 import in.srain.cube.mints.base.TitleBaseFragment;
+import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.header.MaterialHeader;
 
-public class MaterialPtr extends TitleBaseFragment {
+public class MaterialStyleFragment extends TitleBaseFragment {
 
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,9 +33,9 @@ public class MaterialPtr extends TitleBaseFragment {
         // header
         final MaterialHeader header = new MaterialHeader(getContext());
         int[] colors = getResources().getIntArray(R.array.google_colors);
-        header.setColorSchemeColors(colors);
+        // header.setColorSchemeColors(colors);
         header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
-        header.setPadding(0, 50, 0, 30);
+        header.setPadding(0, LocalDisplay.dp2px(10), 0, LocalDisplay.dp2px(10));
 
         frame.setWillNotDraw(false);
         frame.setDurationToCloseHeader(1500);
@@ -43,7 +44,7 @@ public class MaterialPtr extends TitleBaseFragment {
         frame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // frame.autoRefresh(false);
+                frame.autoRefresh(false);
             }
         }, 100);
 
@@ -60,7 +61,7 @@ public class MaterialPtr extends TitleBaseFragment {
                     public void run() {
                         frame.refreshComplete();
                     }
-                }, (long) (1000 + Math.random() * 1000));
+                }, (long) (1000 + Math.random() * 3000));
             }
         });
         return view;
