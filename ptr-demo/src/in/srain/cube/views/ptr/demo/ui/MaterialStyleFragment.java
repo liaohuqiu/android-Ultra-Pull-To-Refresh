@@ -62,7 +62,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
         frame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                frame.autoRefresh();
+                frame.autoRefresh(true);
             }
         }, 100);
 

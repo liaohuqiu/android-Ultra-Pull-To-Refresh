@@ -1,4 +1,4 @@
-version_name = '1.0.4'
+version_name = '1.0.5'
 
 def replace_file(fname, start, end, replace, line_from = 1, line_to = 0):
 
