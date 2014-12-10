@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrUIHandlerHook;
 import in.srain.cube.views.ptr.PtrUIHandler;
 
 public class MaterialHeader extends View implements PtrUIHandler {
@@ -17,6 +18,15 @@ public class MaterialHeader extends View implements PtrUIHandler {
     private MaterialProgressDrawable mDrawable;
     private float mScale = 1f;
     private PtrFrameLayout mPtrFrameLayout;
+
+    private Animation mScaleAnimation = new Animation() {
+        @Override
+        public void applyTransformation(float interpolatedTime, Transformation t) {
+            mScale = 1f - interpolatedTime;
+            mDrawable.setAlpha((int) (255 * mScale));
+            invalidate();
+        }
+    };
 
     public MaterialHeader(Context context) {
         super(context);
@@ -31,6 +41,37 @@ public class MaterialHeader extends View implements PtrUIHandler {
     public MaterialHeader(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
+    }
+
+    public void setPtrFrameLayout(PtrFrameLayout layout) {
+
+        final PtrUIHandlerHook mPtrUIHandlerHook = new PtrUIHandlerHook() {
+            @Override
+            public void run() {
+                startAnimation(mScaleAnimation);
+            }
+        };
+
+        mScaleAnimation.setDuration(200);
+        mScaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mPtrUIHandlerHook.resume();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        mPtrFrameLayout = layout;
+        mPtrFrameLayout.setRefreshCompleteHook(mPtrUIHandlerHook);
     }
 
     private void initView() {
@@ -95,7 +136,6 @@ public class MaterialHeader extends View implements PtrUIHandler {
      */
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
-        frame.setHasAniBeforeComplete(true);
     }
 
     /**
@@ -115,39 +155,8 @@ public class MaterialHeader extends View implements PtrUIHandler {
      */
     @Override
     public void onUIRefreshComplete(PtrFrameLayout frame) {
-        clearAnimation();
-        mPtrFrameLayout = frame;
-        mScaleAnimation.setDuration(200);
-        mScaleAnimation.setAnimationListener(mRefreshListener);
-        startAnimation(mScaleAnimation);
+        mDrawable.stop();
     }
-
-    private Animation mScaleAnimation = new Animation() {
-        @Override
-        public void applyTransformation(float interpolatedTime, Transformation t) {
-            mScale = 1f - interpolatedTime;
-            mDrawable.setAlpha((int) (255 * mScale));
-            invalidate();
-        }
-    };
-
-    private Animation.AnimationListener mRefreshListener = new Animation.AnimationListener() {
-        @Override
-        public void onAnimationStart(Animation animation) {
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            if (mPtrFrameLayout != null) {
-                mPtrFrameLayout.setHasAniBeforeComplete(false);
-                mPtrFrameLayout.scrollBackToTop();
-            }
-        }
-    };
 
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent) {

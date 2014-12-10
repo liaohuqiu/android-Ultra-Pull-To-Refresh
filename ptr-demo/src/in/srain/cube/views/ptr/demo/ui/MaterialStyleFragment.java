@@ -16,6 +16,7 @@ import in.srain.cube.image.ImageTask;
 import in.srain.cube.image.iface.ImageLoadHandler;
 import in.srain.cube.mints.base.TitleBaseFragment;
 import in.srain.cube.util.LocalDisplay;
+import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
@@ -37,6 +38,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        PtrFrameLayout.DEBUG = true;
         View view = inflater.inflate(R.layout.fragment_materail_style, null);
         setHeaderTitle(R.string.ptr_demo_material_style);
 
@@ -51,6 +53,9 @@ public class MaterialStyleFragment extends TitleBaseFragment {
         header.setColorSchemeColors(colors);
         header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
         header.setPadding(0, LocalDisplay.dp2px(15), 0, LocalDisplay.dp2px(10));
+        header.setPtrFrameLayout(frame);
+
+        // final PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(getContext());
 
         frame.setWillNotDraw(false);
         frame.setDurationToCloseHeader(1500);
@@ -96,6 +101,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
             public void onLoadFinish(ImageTask imageTask, final CubeImageView cubeImageView, final BitmapDrawable bitmapDrawable) {
                 mImageHasLoaded = true;
                 long delay = Math.max(0, 1000 - (System.currentTimeMillis() - mStartLoadingTime));
+                delay = 0;
                 frame.postDelayed(new Runnable() {
                     @Override
                     public void run() {
