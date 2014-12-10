@@ -55,16 +55,14 @@ public class MaterialStyleFragment extends TitleBaseFragment {
         header.setPadding(0, LocalDisplay.dp2px(15), 0, LocalDisplay.dp2px(10));
         header.setPtrFrameLayout(frame);
 
-        // final PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(getContext());
-
-        frame.setWillNotDraw(false);
+        frame.setLoadingMinTime(1000);
         frame.setDurationToCloseHeader(1500);
         frame.setHeaderView(header);
         frame.addPtrUIHandler(header);
         frame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                frame.autoRefresh(false);
+                frame.autoRefresh();
             }
         }, 100);
 

@@ -145,6 +145,7 @@ public class MaterialHeader extends View implements PtrUIHandler {
      */
     @Override
     public void onUIRefreshBegin(PtrFrameLayout frame) {
+        mDrawable.setAlpha(255);
         mDrawable.start();
     }
 

@@ -113,7 +113,7 @@ public class WithGridView extends TitleBaseFragment {
                         mPtrFrame.refreshComplete();
                         mAdapter.notifyDataSetChanged();
                     }
-                }, 1000);
+                }, 00);
             }
         });
     }

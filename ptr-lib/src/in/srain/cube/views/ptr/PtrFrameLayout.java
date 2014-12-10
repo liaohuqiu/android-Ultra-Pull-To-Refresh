@@ -69,7 +69,7 @@ public class PtrFrameLayout extends ViewGroup {
 
     private PtrUIHandlerHook mRefreshCompleteHook;
 
-    private int mLoadingMinTime = 0;
+    private int mLoadingMinTime = 500;
     private long mLoadingStartTime = 0;
 
     public PtrFrameLayout(Context context) {
@@ -273,7 +273,6 @@ public class PtrFrameLayout extends ViewGroup {
                 mDownEvent = e;
                 mPtLastMove.set(e.getX(), e.getY());
 
-                CLog.d(LOG_TAG, "action down");
                 mScrollChecker.abortIfWorking();
 
                 mIsUnderTouch = true;
@@ -659,6 +658,15 @@ public class PtrFrameLayout extends ViewGroup {
      */
     public void disableWhenHorizontalMove(boolean disable) {
         mDisableWhenHorizontalMove = disable;
+    }
+
+    /**
+     * loading will last at least for so long
+     *
+     * @param time
+     */
+    public void setLoadingMinTime(int time) {
+        mLoadingStartTime = time;
     }
 
     public void setInterceptEventWhileWorking(boolean yes) {
