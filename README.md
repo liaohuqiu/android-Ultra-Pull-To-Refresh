@@ -58,7 +58,7 @@ pom.xml
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>apklib</type>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 or 
@@ -68,13 +68,13 @@ or
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>aar</type>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 
 gradle
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.4@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.5@aar'
 ```
 
 #### Config
