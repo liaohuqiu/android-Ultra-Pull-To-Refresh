@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@+id/rotate_header_grid_view_frame"
+        android:id="@+id/rotate_header_list_view_frame"
         xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,21 +16,16 @@
         cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
         cube_ptr:ptr_resistance="1.7">
 
-        <GridView
-            android:id="@+id/rotate_header_grid_view"
+        <ListView
+            android:id="@+id/rotate_header_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/cube_mints_white"
+            android:divider="@null"
             android:fadingEdge="none"
-            android:focusable="false"
-            android:horizontalSpacing="10dp"
             android:listSelector="@android:color/transparent"
-            android:numColumns="2"
-            android:paddingBottom="12dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:scrollbars="none"
-            android:stretchMode="columnWidth" />
+            android:scrollbarStyle="outsideOverlay" />
 
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 </RelativeLayout>
