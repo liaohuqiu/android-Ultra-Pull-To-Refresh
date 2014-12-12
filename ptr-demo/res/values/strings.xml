@@ -5,6 +5,8 @@
     <string name="ptr_demo_block_for_home">Ultra Pull to Refresh</string>
 
     <string name="ptr_demo_block_grid_view">Contains A GridView</string>
+    <string name="ptr_demo_block_list_view">Contains A ListView</string>
+    <string name="ptr_demo_block_web_view">Contains A WebView</string>
     <string name="ptr_demo_block_frame_layout">Contains A FrameLayout</string>
     <string name="ptr_demo_block_only_text_view">Contains Even A TextView</string>
 

@@ -5,20 +5,17 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
+import android.widget.*;
 import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
 import in.srain.cube.mints.base.TitleBaseFragment;
 import in.srain.cube.request.JsonData;
 import in.srain.cube.request.RequestFinishHandler;
+import in.srain.cube.util.CLog;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.list.ListViewDataAdapter;
 import in.srain.cube.views.list.ViewHolderBase;
-import in.srain.cube.views.list.ViewHolderCreator;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -27,9 +24,8 @@ import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.data.DemoRequestData;
 import in.srain.cube.views.ptr.demo.ui.MaterialStyleFragment;
 
-public class WithGridView extends TitleBaseFragment {
+public class WithListView extends TitleBaseFragment {
 
-    private static final int sGirdImageSize = (LocalDisplay.SCREEN_WIDTH_PIXELS - LocalDisplay.dp2px(12 + 12 + 10)) / 2;
     private ImageLoader mImageLoader;
     private ListViewDataAdapter<JsonData> mAdapter;
     private PtrClassicFrameLayout mPtrFrame;
@@ -37,13 +33,13 @@ public class WithGridView extends TitleBaseFragment {
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        setHeaderTitle(R.string.ptr_demo_block_grid_view);
+        setHeaderTitle(R.string.ptr_demo_block_list_view);
 
         mImageLoader = ImageLoaderFactory.create(getContext());
 
-        final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_gridview, null);
-        final GridView gridListView = (GridView) contentView.findViewById(R.id.rotate_header_grid_view);
-        gridListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_list_view, null);
+        final ListView listView = (ListView) contentView.findViewById(R.id.rotate_header_list_view);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position >= 0) {
@@ -55,15 +51,11 @@ public class WithGridView extends TitleBaseFragment {
             }
         });
 
-        mAdapter = new ListViewDataAdapter<JsonData>(new ViewHolderCreator<JsonData>() {
-            @Override
-            public ViewHolderBase<JsonData> createViewHolder() {
-                return new ViewHolder();
-            }
-        });
-        gridListView.setAdapter(mAdapter);
+        mAdapter = new ListViewDataAdapter<JsonData>();
+        mAdapter.setViewHolderClass(this, ViewHolder.class);
+        listView.setAdapter(mAdapter);
 
-        mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.rotate_header_grid_view_frame);
+        mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.rotate_header_list_view_frame);
         mPtrFrame.setLastUpdateTimeRelateObject(this);
         mPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
@@ -88,16 +80,10 @@ public class WithGridView extends TitleBaseFragment {
         mPtrFrame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // mPtrFrame.autoRefresh();
+                mPtrFrame.autoRefresh();
             }
         }, 100);
-        // updateData();
-        setupViews(mPtrFrame);
         return contentView;
-    }
-
-    protected void setupViews(final PtrClassicFrameLayout ptrFrame) {
-
     }
 
     protected void updateData() {
@@ -124,19 +110,16 @@ public class WithGridView extends TitleBaseFragment {
 
         @Override
         public View createView(LayoutInflater inflater) {
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.with_grid_view_item_image_list_grid, null);
-            mImageView = (CubeImageView) view.findViewById(R.id.with_grid_view_item_image);
-            mImageView.setScaleType(ScaleType.CENTER_CROP);
-
-            LinearLayout.LayoutParams lyp = new LinearLayout.LayoutParams(sGirdImageSize, sGirdImageSize);
-            mImageView.setLayoutParams(lyp);
-            return view;
+            View v = inflater.inflate(R.layout.list_view_item, null);
+            mImageView = (CubeImageView) v.findViewById(R.id.list_view_item_image_view);
+            mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            return v;
         }
 
         @Override
         public void showData(int position, JsonData itemData) {
-            String url = itemData.optString("pic");
-            mImageView.loadImage(mImageLoader, url);
+            CLog.d("test", "%s", itemData);
+            mImageView.loadImage(mImageLoader, itemData.optString("pic"));
         }
     }
 }
