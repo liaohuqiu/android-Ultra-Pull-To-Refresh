@@ -22,6 +22,7 @@
     <string name="ptr_demo_storehouse_header_using_string_array_in_title">using xml:&#160;</string>
     <string name="ptr_demo_block_storehouse_header_using_string">StoreHouse Style \n\nusing string</string>
     <string name="ptr_demo_storehouse_header_using_string_in_title">using string:&#160;</string>
+    <string name="ptr_demo_storehouse_header_using_point_list">Using Point List</string>
     <string name="ptr_demo_material_style">Material Style</string>
     <string name="ptr_demo_placeholder">To be continued</string>
 

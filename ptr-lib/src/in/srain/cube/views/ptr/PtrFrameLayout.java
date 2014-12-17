@@ -669,6 +669,11 @@ public class PtrFrameLayout extends ViewGroup {
         mLoadingStartTime = time;
     }
 
+    /**
+     * It's useful when you want to intercept event while moving the frame
+     *
+     * @param yes
+     */
     public void setInterceptEventWhileWorking(boolean yes) {
         mInterceptEventWhileWorking = yes;
     }

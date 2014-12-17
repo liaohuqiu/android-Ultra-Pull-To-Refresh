@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
@@ -39,7 +40,7 @@ public class WithLongPressFragment extends TitleBaseFragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                CLog.d("ptr-demo", "onLongClick");
+                Toast.makeText(getContext(), "Long Click", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
