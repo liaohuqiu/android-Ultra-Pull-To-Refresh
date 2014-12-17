@@ -12,6 +12,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.ui.classic.*;
+import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingPointList;
 import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingString;
 import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingStringArray;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
@@ -100,15 +101,6 @@ public class HomeFragment extends BlockMenuFragment {
             }
         }));
 
-        /*
-        itemInfos.add(newItemInfo(R.string.ptr_demo_title_with_long_press, R.color.cube_mints_4d90fe, new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                getContext().pushFragmentToBackStack(WithLongPressFragment.class, null);
-            }
-        }));
-        */
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_storehouse_header_using_string_array, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -123,6 +115,13 @@ public class HomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(StoreHouseUsingString.class, null);
             }
         }));
+        itemInfos.add(newItemInfo(R.string.ptr_demo_storehouse_header_using_point_list, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(StoreHouseUsingPointList.class, null);
+            }
+        }));
         itemInfos.add(newItemInfo(R.string.ptr_demo_material_style, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -130,10 +129,11 @@ public class HomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(MaterialStyleFragment.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_with_long_press, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                getContext().pushFragmentToBackStack(WithLongPressFragment.class, null);
             }
         }));
         itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {
