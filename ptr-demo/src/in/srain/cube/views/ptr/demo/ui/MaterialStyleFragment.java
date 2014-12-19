@@ -62,7 +62,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
         frame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                frame.autoRefresh();
+                frame.autoRefresh(false);
             }
         }, 100);
 
@@ -77,6 +77,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
                 if (mImageHasLoaded) {
                     long delay = (long) (1000 + Math.random() * 2000);
                     delay = Math.max(0, delay);
+                    delay = 0;
                     frame.postDelayed(new Runnable() {
                         @Override
                         public void run() {

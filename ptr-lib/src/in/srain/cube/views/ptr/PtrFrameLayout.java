@@ -666,7 +666,7 @@ public class PtrFrameLayout extends ViewGroup {
      * @param time
      */
     public void setLoadingMinTime(int time) {
-        mLoadingStartTime = time;
+        mLoadingMinTime = time;
     }
 
     public void setInterceptEventWhileWorking(boolean yes) {

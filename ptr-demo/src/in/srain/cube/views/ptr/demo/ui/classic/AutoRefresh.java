@@ -11,7 +11,7 @@ public class AutoRefresh extends WithGridView {
         ptrFrame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                ptrFrame.autoRefresh(false);
+                ptrFrame.autoRefresh(true);
             }
         }, 150);
     }
