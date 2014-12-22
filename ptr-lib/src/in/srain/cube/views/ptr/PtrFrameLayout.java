@@ -24,8 +24,8 @@ public class PtrFrameLayout extends ViewGroup {
     public final static byte PTR_STATUS_COMPLETE = 4;
 
     private final static int POS_START = 0;
-    public static boolean DEBUG = false;
     private static final boolean DEBUG_LAYOUT = false;
+    public static boolean DEBUG = false;
     private static int ID = 1;
     // auto refresh status
     private static byte STATUS_AUTO_SCROLL_AT_ONCE = 0x01;
@@ -521,7 +521,7 @@ public class PtrFrameLayout extends ViewGroup {
     /**
      * If at the top and not in loading, reset
      */
-    private void tryToNotifyReset() {
+    private boolean tryToNotifyReset() {
         if ((mStatus == PTR_STATUS_COMPLETE || mStatus == PTR_STATUS_PREPARE) && mCurrentPos == POS_START) {
             if (mPtrUIHandlerHolder.hasHandler()) {
                 mPtrUIHandlerHolder.onUIReset(this);
@@ -531,7 +531,9 @@ public class PtrFrameLayout extends ViewGroup {
             }
             mStatus = PTR_STATUS_INIT;
             mAutoScrollRefreshTag = 0;
+            return true;
         }
+        return false;
     }
 
     protected void onPtrScrollAbort() {
@@ -600,15 +602,18 @@ public class PtrFrameLayout extends ViewGroup {
             return;
         }
 
-        tryToNotifyReset();
         notifyUIRefreshComplete(false);
     }
 
     private void notifyUIRefreshComplete(boolean ignoreHook) {
-        if (!ignoreHook && mRefreshCompleteHook != null) {
+        /**
+         * after hook operation is done, will call {@link #notifyUIRefreshComplete} and ignore hook
+         */
+        if (mCurrentPos != POS_START && !ignoreHook && mRefreshCompleteHook != null) {
             if (DEBUG) {
                 CLog.d(LOG_TAG, "notifyUIRefreshComplete mRefreshCompleteHook run.");
             }
+
             mRefreshCompleteHook.takeOver();
             return;
         }
@@ -619,6 +624,7 @@ public class PtrFrameLayout extends ViewGroup {
             mPtrUIHandlerHolder.onUIRefreshComplete(this);
         }
         tryScrollBackToTopAfterComplete();
+        tryToNotifyReset();
     }
 
     public void autoRefresh() {
@@ -666,7 +672,7 @@ public class PtrFrameLayout extends ViewGroup {
      * @param time
      */
     public void setLoadingMinTime(int time) {
-        mLoadingStartTime = time;
+        mLoadingMinTime = time;
     }
 
     /**

@@ -5,7 +5,6 @@ android {
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
-        applicationId "in.srain.cube.views.ptr"
         minSdkVersion 8
         targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
     }
@@ -29,7 +28,7 @@ android {
     }
 }
 
-EXCLUDE_JAR_LIST = ['cube-sdk', 'support-v4-r7-source', 'ultra-ptr', 'support-annotation']
+def EXCLUDE_JAR_LIST = ['cube-sdk', 'support-v4-r7-source', 'ultra-ptr', 'support-annotation']
 
 task copyLibs << {
 
