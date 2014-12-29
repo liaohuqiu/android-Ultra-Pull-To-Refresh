@@ -58,6 +58,7 @@ public class PtrFrameLayout extends ViewGroup {
     private boolean mIsUnderTouch = false;
     private boolean mDisableWhenHorizontalMove = false;
     private int mAutoScrollRefreshTag = 0x00;
+    private int mPressedPos = 0;
 
     // disable when detect moving horizontally
     private boolean mPreventForHorizontal = false;
@@ -264,7 +265,10 @@ public class PtrFrameLayout extends ViewGroup {
                         CLog.d(LOG_TAG, "call onRelease when user release");
                     }
                     onRelease(false);
-                    return true;
+                    if (mCurrentPos != mPressedPos) {
+                        return true;
+                    }
+                    return dispatchTouchEventSupper(e);
                 } else {
                     return dispatchTouchEventSupper(e);
                 }
@@ -282,6 +286,7 @@ public class PtrFrameLayout extends ViewGroup {
                 } else {
                     dispatchTouchEventSupper(e);
                 }
+                mPressedPos = mCurrentPos;
                 return true;
 
             case MotionEvent.ACTION_MOVE:

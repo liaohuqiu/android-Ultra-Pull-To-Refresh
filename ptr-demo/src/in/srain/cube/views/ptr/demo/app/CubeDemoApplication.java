@@ -33,7 +33,7 @@ public class CubeDemoApplication extends Application {
 
         ImageLoaderFactory.setDefaultImageResizer(DemoDuiTangImageResizer.getInstance());
         String dir = "request-cache";
-        ImageLoaderFactory.init(this);
+        // ImageLoaderFactory.init(this);
         RequestCacheManager.init(this, dir, 1024 * 10, 1024 * 10);
         Cube.onCreate(this);
     }
