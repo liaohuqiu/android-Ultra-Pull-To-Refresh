@@ -1,111 +1,114 @@
+[![Build Status](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh.svg?branch=master)](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Ultra%20Pull%20To%20Refresh-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1180)
+
+# [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
+
 # Ultra Pull To Refresh
 
-这是现在已经停止维护的下拉刷新项目的替代方案。继承于ViewGroup可以包含任何View。功能比SwipeRefreshLayout强大。
+It's a replacement for the deprecated pull to refresh solution. It can contain any view you want.
 
-使用起来非常简单。良好的设计，如果你想定制自己的UI样式，非常简单，就像给ListView加一个Header View那么简单。
+It's easy to use and more powerful than SwipeRefreshLayout.
 
-支持 `API LEVEL >= 8`。
+It's well designed, you can customize the UI effect you want as easy as adding a headview to ListView.
 
-[APK下载](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo/target/ultra-ptr-demo.apk)
+Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
-**使用eclipse 无法编译demo项目的同学看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/ Intellij IDEA / Android Studio请忽略**
+[Download APK](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo/target/ultra-ptr-demo.apk)
 
-* 先上两张StoreHouse风格的截图! 感谢 [CBStoreHouseRefreshControl](https://github.com/coolbeet/CBStoreHouseRefreshControl).
+* StoreHouse Style first! Thanks to [CBStoreHouseRefreshControl](https://github.com/coolbeet/CBStoreHouseRefreshControl).
     <div class='row'>
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string-array.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
         <img src='http://srain-github.qiniudn.com/ultra-ptr/store-house-string.gif' width="300px" style='border: #f1f1f1 solid 1px'/>
     </div>
 
-* 5.0 Material 风格 2014-12-09 新增。**阴影效果，gif图看起来有些失真，看demo吧！**
+* Material Style, added @ 2014-12-09. **There is a beautiful shadow which looks terrible in gif snapshot. Please Check out the DEMO.**
     <div class='row'>
         <img src='http://srain-github.qiniudn.com/ultra-ptr/material-style.gif' width="300px"/>
     </div>
 
-* **支持所有的View**: 
-
-    ListView, GridView, ScrollView, FrameLayout, 甚至 TextView.
+* **Supports all of the views**: 
+    ListView, GridView, ScrollView, FrameLayout, or Even a single TextView.
     <div><img src='http://srain-github.qiniudn.com/ultra-ptr/contains-all-of-views.gif' width="300px" style='border: #f1f1f1 solid 1px'/></div>
 
-* 支持各种下拉刷新交互.
-    * 下拉刷新(iOS风格)
+* Supports all of the refresh types.
+    * pull to refresh
         <div><img src='http://srain-github.qiniudn.com/ultra-ptr/pull-to-refresh.gif' width="300px" style='border: #f1f1f1 solid 1px'/></div>
-
-    * 释放刷新(经典风格)
+    * release to refresh
         <div><img src='http://srain-github.qiniudn.com/ultra-ptr/release-to-refresh.gif' width="300px" style='border: #f1f1f1 solid 1px'/></div>
 
-    * 刷新时，头部保持(新浪微博)
+    * keep header when refresh 
 
         <img src='http://srain-github.qiniudn.com/ultra-ptr/keep-header.gif' width="300px"/>
 
-    * 刷新时，头部不保持(微信朋友圈)
+    * hide header when refresh
 
         <img src='http://srain-github.qiniudn.com/ultra-ptr/hide-header.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/>
 
-    * 自动刷新，进入界面时自动刷新
+    * auto refresh
 
         <img src='http://srain-github.qiniudn.com/ultra-ptr/auto-refresh.gif' width="300px" sytle='border: #f1f1f1 solid 1px'/></div>
 
-# 使用方式
+# Usage
 
-#### 中央库依赖
+#### Maven Central
 
-项目已经发布到了Maven中央库，包括`aar`和`apklib`两种格式。在Maven或者Gradle下可如下直接引入:
+This project has been pushed to Maven Central, both in `aar` and `apklib`.
 
-`pom.xml` 文件中
+pom.xml
 
 ```xml
 <dependency>
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>apklib</type>
-    <version>1.0.5</version>
+    <version>{ptr_lib_version}</version>
 </dependency>
 ```
-或者
+or 
 
 ```xml
 <dependency>
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>aar</type>
-    <version>1.0.5</version>
+    <version>{ptr_lib_version}</version>
 </dependency>
 ```
 
-gradle / Android Studio
+gradle
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.5@aar'
+compile 'in.srain.cube:ultra-ptr:{ptr_lib_version}@aar'
 ```
 
-#### 配置
+#### Config
 
-有6个参数可配置:
+There are 6 properties:
 
-* 阻尼系数
+* Resistence
 
-    默认: `1.7f`，越大，感觉下拉时越吃力。
+    This is the resistence while you are moving the frame, default is: `1.7f`.
 
-* 触发刷新时移动的位置比例
+* Ratio of the Height of the Header to Refresh
 
-    默认，`1.2f`，移动达到头部高度1.2倍时可触发刷新操作。
+    The ratio of the height of the header to trigger refresh, default is: `1.2f`.
 
-* 回弹延时
+* Duration to Close
 
-    默认 `200ms`，回弹到刷新高度所用时间
+    The duration for moving from the position you relase the view to the height of header, default is `200ms`.
 
-* 头部回弹时间
+* Duration to Close Header
 
-    默认`1000ms`
+    The default value is `1000ms`
 
-* 刷新是保持头部
+* Keep Header while Refreshing
 
-    默认值 `true`.
+    The default value is `true`.
 
-* 下拉刷新 / 释放刷新
+* Pull to Refresh / Release to Refresh
 
-    默认为释放刷新
+    The default value is Release to Refresh.
 
-##### xml中配置示例
+##### Config in xml
 
 ```xml
 <in.srain.cube.views.ptr.PtrFrameLayout
@@ -138,7 +141,7 @@ compile 'in.srain.cube:ultra-ptr:1.0.5@aar'
 </in.srain.cube.views.ptr.PtrFrameLayout>
 ```
 
-### 也可以在java代码中配置
+### Or config in java code
 
 ```java
 // the following are default settings
@@ -152,9 +155,9 @@ mPtrFrame.setPullToRefresh(false);
 mPtrFrame.setKeepHeaderWhenRefresh(true);
 ```
 
-## StoreHouse 风格
+## StoreHouse Style
 
-* 使用字符串, 支持A-Z, 0-7 以及 `-` `.`
+* Config using string:
 
 ```java
 // header
@@ -168,13 +171,13 @@ header.setPadding(0, LocalDisplay.dp2px(15), 0, 0);
 header.initWithString('Alibaba');
 ```
 
-* 使用资源文件中的路径信息
+* Config using string array from xml:
 
 ```java
 header.initWithStringArray(R.array.storehouse);
 ```
 
-资源文件 `res/values/arrays.xml` 内容如下:
+And in `res/values/arrays.xml`:
 
 ```xml
 <resources>
@@ -197,24 +200,22 @@ header.initWithStringArray(R.array.storehouse);
 </resources>
 ```
 
-# 处理刷新
+# Process Refresh
 
-通过`PtrHandler`，可以检查确定是否可以下来刷新以及在合适的时间刷新数据。
-
-检查是否可以下拉刷新在`PtrDefaultHandler.checkContentCanBePulledDown`中有默认简单的实现，你可以根据实际情况完成这个逻辑。
+There is a `PtrHandler`, by which you can refresh the data.
 
 ```
 public interface PtrHandler {
 
     /**
-     * 检查是否可以执行下来刷新，比如列表为空或者列表第一项在最上面时。
+     * Check can do refresh or not. For example the content is empty or the first child is in view.
      * <p/>
      * {@link in.srain.cube.views.ptr.PtrDefaultHandler#checkContentCanBePulledDown}
      */
     public boolean checkCanDoRefresh(final PtrFrameLayout frame, final View content, final View header);
 
     /**
-     * 需要加载数据时触发
+     * When refresh begin
      *
      * @param frame
      */
@@ -222,7 +223,7 @@ public interface PtrHandler {
 }
 ```
 
-例子:
+An example:
 
 ```java
 ptrFrame.setPtrHandler(new PtrHandler() {
@@ -238,10 +239,45 @@ ptrFrame.setPtrHandler(new PtrHandler() {
 
     @Override
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        // 默认实现，根据实际情况做改动
         return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
     }
 });
+```
+
+
+# Customize
+
+You can add a `PtrUIHandler` to `PtrFrameLayout` to implement any UI effect you want.
+
+```java
+public interface PtrUIHandler {
+
+    /**
+     * When the content view has reached top and refresh has been completed, view will be reset.
+     *
+     * @param frame
+     */
+    public void onUIReset(PtrFrameLayout frame);
+
+    /**
+     * prepare for loading
+     *
+     * @param frame
+     */
+    public void onUIRefreshPrepare(PtrFrameLayout frame);
+
+    /**
+     * perform refreshing UI
+     */
+    public void onUIRefreshBegin(PtrFrameLayout frame);
+
+    /**
+     * perform UI after refresh
+     */
+    public void onUIRefreshComplete(PtrFrameLayout frame);
+
+    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent);
+}
 ```
 
 
@@ -249,10 +285,12 @@ ptrFrame.setPtrHandler(new PtrHandler() {
 
 Apache 2
 
-# 联系方式和问题建议
+# Contact & Help
 
-* 微博: http://weibo.com/liaohuqiu 欢迎关注
-* QQ 群: 271918140
+Please fell free to contact me if there is any problem when using the library.
+
 * srain@php.net
 * twitter: https://twitter.com/liaohuqiu
+* weibo: http://weibo.com/liaohuqiu
 * blog: http://www.liaohuqiu.net
+* QQ tribe: 271918140
