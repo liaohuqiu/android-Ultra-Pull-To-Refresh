@@ -7,15 +7,6 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        jcenter()
-        maven {
-            url 'http://mvnrepo.taobao.ali.com/mvn/repository'
-        }
-    }
-}
-
 apply plugin: 'com.android.application'
 
 android {
