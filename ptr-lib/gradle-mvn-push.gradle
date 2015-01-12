@@ -6,33 +6,20 @@ def isReleaseBuild() {
 }
 
 def getReleaseRepositoryUrl() {
-    if (VERSION_NAME.contains("-ali") == true) {
-        return 'http://mvnrepo.taobao.ali.com/mvn/repository';
-    }
     return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
             : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 }
 
 def getSnapshotRepositoryUrl() {
-    // only publish to snapshots
-    if (VERSION_NAME.contains("-ali") == true) {
-        return 'http://mvnrepo.taobao.ali.com/mvn/snapshots/';
-    }
     return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
             : "https://oss.sonatype.org/content/repositories/snapshots/"
 }
 
 def getRepositoryUsername() {
-    if (VERSION_NAME.contains("-ali") == true) {
-        return ALI_USERNAME
-    }
     return hasProperty('OSS_USERNAME') ? OSS_USERNAME : ''
 }
 
 def getRepositoryPassword() {
-    if (VERSION_NAME.contains("-ali") == true) {
-        return ALI_PWD
-    }
     return hasProperty('OSS_PWD') ? OSS_PWD : ''
 }
 
