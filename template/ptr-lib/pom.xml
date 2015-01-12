@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>in.srain</groupId>
+        <artifactId>cube-parent-for-oss</artifactId>
+        <version>1.0.1</version>
+    </parent>
+
+    <groupId>in.srain.cube</groupId>
+    <artifactId>ultra-ptr</artifactId>
+    <packaging>aar</packaging>
+    <name>Ultra Pull to Refresh</name>
+    <version>{ptr_lib_version}</version>
+
+    <description>Ultra Pull to Refresh in Android</description>
+    <url>https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh</url>
+    <inceptionYear>2014</inceptionYear>
+
+    <scm>
+        <url>https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh</url>
+        <connection>scm:git:git@github.com:liaohuqiu/android-Ultra-Pull-To-Refresh.git</connection>
+        <developerConnection>scm:git:git@github.com:liaohuqiu/android-Ultra-Pull-To-Refresh.git
+        </developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Huqiu Liao</name>
+            <email>liaohuqiu@gmail.com</email>
+            <id>liaohuqiu</id>
+            <url>http://www.liaohuqiu.net</url>
+            <timezone>+8</timezone>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Huqiu Liao</name>
+        <url>http://www.liaohuqiu.net</url>
+    </organization>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/issues</url>
+    </issueManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>4.1.1.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>in.srain.cube</groupId>
+            <artifactId>clog</artifactId>
+            <version>1.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <android.maven.plugin.version>3.8.2</android.maven.plugin.version>
+        <android.compile.api_level>19</android.compile.api_level>
+    </properties>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <sourceDirectory>src/</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <excludes>
+                        <exclude>target/generated-sources/r/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <!-- compile plugin -->
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <version>${android.maven.plugin.version}</version>
+                <configuration>
+                    <sdk>
+                        <platform>${android.compile.api_level}</platform>
+                    </sdk>
+                    <sign>
+                        <debug>false</debug>
+                    </sign>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

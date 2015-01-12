@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class HomeFragment extends BlockMenuFragment {
 
     @Override
-    protected void addItemInfo(ArrayList<BlockMenuFragment.ItemInfo> itemInfos) {
+    protected void addItemInfo(ArrayList<BlockMenuFragment.MenuItemInfo> itemInfos) {
 
         // GridView
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_grid_view, R.color.cube_mints_4d90fe, new OnClickListener() {
@@ -188,7 +188,8 @@ public class HomeFragment extends BlockMenuFragment {
     }
 
     @Override
-    protected void setupViews() {
+    protected void setupViews(View view) {
+        super.setupViews(view);
         setHeaderTitle(R.string.ptr_demo_block_for_home);
     }
 }
