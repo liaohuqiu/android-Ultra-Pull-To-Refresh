@@ -266,6 +266,7 @@ public class PtrFrameLayout extends ViewGroup {
                     }
                     onRelease(false);
                     if (mCurrentPos != mPressedPos) {
+                        sendCancelEvent();
                         return true;
                     }
                     return dispatchTouchEventSupper(e);
