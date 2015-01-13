@@ -244,6 +244,12 @@ ptrFrame.setPtrHandler(new PtrHandler() {
 });
 ```
 
+# 常见问题
+
+*  ViewPager滑动冲突: `disableWhenHorizontalMove()`
+
+*  长按LongPressed, `setInterceptEventWhileWorking()`
+
 
 # License
 
