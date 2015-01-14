@@ -17,7 +17,7 @@
     <string name="ptr_demo_block_keep_header">Keep Header while Refreshing</string>
     <string name="ptr_demo_block_hide_header">Hide Header while Refreshing</string>
     <string name="ptr_demo_block_with_long_press">Long Press</string>
-    <string name="ptr_demo_block_with_view_page">ViewPager</string>
+    <string name="ptr_demo_block_with_view_pager">View Pager</string>
     <string name="ptr_demo_block_storehouse_header_using_string_array">StoreHouse Style \nusing string array from xml</string>
     <string name="ptr_demo_storehouse_header_using_string_array_in_title">using xml:&#160;</string>
     <string name="ptr_demo_block_storehouse_header_using_string">StoreHouse Style \n\nusing string</string>

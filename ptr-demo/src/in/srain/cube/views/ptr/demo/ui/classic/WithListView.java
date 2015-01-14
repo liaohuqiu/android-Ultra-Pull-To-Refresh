@@ -118,7 +118,6 @@ public class WithListView extends TitleBaseFragment {
 
         @Override
         public void showData(int position, JsonData itemData) {
-            CLog.d("test", "%s", itemData);
             mImageView.loadImage(mImageLoader, itemData.optString("pic"));
         }
     }

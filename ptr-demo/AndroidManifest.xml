@@ -27,6 +27,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.viewpager.ViewPagerActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+
     </application>
 
 </manifest>
