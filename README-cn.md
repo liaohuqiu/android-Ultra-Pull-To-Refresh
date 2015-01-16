@@ -58,7 +58,7 @@
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>apklib</type>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 或者
@@ -68,13 +68,13 @@
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>aar</type>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 
 gradle / Android Studio
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.6@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.7@aar'
 ```
 
 #### 配置
