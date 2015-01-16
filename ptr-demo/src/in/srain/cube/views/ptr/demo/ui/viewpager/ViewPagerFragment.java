@@ -16,18 +16,16 @@ import in.srain.cube.views.list.ListViewDataAdapter;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.ui.MaterialStyleFragment;
 
-import java.util.List;
-
 public class ViewPagerFragment extends CubeFragment {
 
-    private int mIndex;
+    private int mPage;
     private ListView mListView;
     private ImageLoader mImageLoader;
     private ListViewDataAdapter<JsonData> mAdapter;
 
-    public static ViewPagerFragment create(int index) {
+    public static ViewPagerFragment create(int page) {
         ViewPagerFragment fragment = new ViewPagerFragment();
-        fragment.mIndex = index;
+        fragment.mPage = page;
         return fragment;
     }
 
@@ -41,9 +39,13 @@ public class ViewPagerFragment extends CubeFragment {
         mImageLoader = ImageLoaderFactory.create(getContext()).tryToAttachToContainer(getContext());
         View view = inflater.inflate(R.layout.fragment_view_pager, null);
         mListView = (ListView) view.findViewById(R.id.view_pager_list_view);
-        TextView textView = new TextView(getContext());
-        textView.setText(mIndex + "");
-        mListView.addHeaderView(textView);
+
+        View headerView = inflater.inflate(R.layout.view_pager_fragment_list_view_header, null);
+        TextView mHeaderTextView = (TextView) headerView.findViewById(R.id.view_pager_fragment_list_view_header_title);
+        mHeaderTextView.setBackgroundColor(0xff4d90fe * mPage / 30);
+        mHeaderTextView.setText("Page: " + mPage);
+
+        mListView.addHeaderView(headerView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -66,11 +68,6 @@ public class ViewPagerFragment extends CubeFragment {
         mAdapter.getDataList().clear();
         mAdapter.getDataList().addAll(data.optJson("data").optJson("list").toArrayList());
         mAdapter.notifyDataSetChanged();
-    }
-
-
-    public int getIndex() {
-        return mIndex;
     }
 
     public void show() {

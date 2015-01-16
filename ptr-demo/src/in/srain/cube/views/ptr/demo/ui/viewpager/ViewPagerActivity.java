@@ -8,10 +8,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.TextView;
 import in.srain.cube.mints.base.TitleBaseActivity;
 import in.srain.cube.request.JsonData;
 import in.srain.cube.request.RequestFinishHandler;
+import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.pager.TabPageIndicator;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -31,6 +33,7 @@ public class ViewPagerActivity extends TitleBaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHeaderTitle(R.string.ptr_demo_block_with_view_pager);
         setContentView(R.layout.activity_view_pager);
         initCateViews();
     }
@@ -43,7 +46,7 @@ public class ViewPagerActivity extends TitleBaseActivity {
         mFragmentViewPager = (ViewPager) this.findViewById(R.id.view_pager_view_pager);
         ArrayList<ViewPagerFragment> list = new ArrayList<ViewPagerFragment>();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 1; i <= 8; i++) {
             list.add(ViewPagerFragment.create(i));
         }
         mPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), list);
@@ -78,12 +81,6 @@ public class ViewPagerActivity extends TitleBaseActivity {
             }
         });
         mFragmentViewPager.setCurrentItem(startIndex);
-        mPtrFrame.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mPtrFrame.autoRefresh();
-            }
-        }, 100);
     }
 
     @Override
@@ -108,7 +105,6 @@ public class ViewPagerActivity extends TitleBaseActivity {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            // super.destroyItem(container, position, object);
         }
 
         @Override
@@ -163,6 +159,7 @@ public class ViewPagerActivity extends TitleBaseActivity {
         @Override
         public View createView(LayoutInflater layoutInflater, int position) {
             View view = layoutInflater.inflate(R.layout.view_pager_indicator_item, null);
+            view.setLayoutParams(new AbsListView.LayoutParams(LocalDisplay.dp2px(40), -1));
             mNameView = (TextView) view.findViewById(R.id.view_pager_indicator_name);
             mTagView = view.findViewById(R.id.view_pager_indicator_tab_current);
             return view;
