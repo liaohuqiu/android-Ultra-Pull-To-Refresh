@@ -1,5 +1,6 @@
 package in.srain.cube.views.ptr.demo.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import in.srain.cube.views.ptr.demo.ui.classic.*;
 import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingPointList;
 import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingString;
 import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingStringArray;
+import in.srain.cube.views.ptr.demo.ui.viewpager.ViewPagerActivity;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 import java.util.ArrayList;
@@ -136,10 +138,13 @@ public class HomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(WithLongPressFragment.class, null);
             }
         }));
-        itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_with_view_pager, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), ViewPagerActivity.class);
+                startActivity(intent);
             }
         }));
         itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {

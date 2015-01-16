@@ -280,6 +280,11 @@ public interface PtrUIHandler {
 }
 ```
 
+# Q & A
+
+*  work with ViewPager: `disableWhenHorizontalMove()`
+
+*  work with LongPressed, `setInterceptEventWhileWorking()`
 
 # License
 
