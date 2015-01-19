@@ -2,7 +2,6 @@ package in.srain.cube.views.ptr;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.view.*;
 import android.widget.Scroller;
@@ -37,7 +36,6 @@ public class PtrFrameLayout extends ViewGroup {
     private int mHeaderId = 0;
     private int mContainerId = 0;
     // config
-    private float mResistance = 1.7f;
     private int mDurationToClose = 200;
     private int mDurationToCloseHeader = 1000;
     private float mRatioOfHeaderHeightToRefresh = 1.2f;
@@ -48,7 +46,6 @@ public class PtrFrameLayout extends ViewGroup {
     private PtrHandler mPtrHandler;
     // working parameters
     private ScrollChecker mScrollChecker;
-    private PointF mPtLastMove = new PointF();
     private int mCurrentPos = 0;
     private int mLastPos = 0;
     private int mPagingTouchSlop;
@@ -72,6 +69,7 @@ public class PtrFrameLayout extends ViewGroup {
 
     private int mLoadingMinTime = 500;
     private long mLoadingStartTime = 0;
+    private PtrResistanceSlider mPtrSliderBase;
 
     public PtrFrameLayout(Context context) {
         this(context, null);
@@ -85,13 +83,16 @@ public class PtrFrameLayout extends ViewGroup {
         super(context, attrs, defStyle);
         PtrLocalDisplay.init(getContext());
 
+        mPtrSliderBase = new PtrResistanceSlider();
+
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.PtrFrameLayout, 0, 0);
         if (arr != null) {
 
             mHeaderId = arr.getResourceId(R.styleable.PtrFrameLayout_ptr_header, mHeaderId);
             mContainerId = arr.getResourceId(R.styleable.PtrFrameLayout_ptr_content, mContainerId);
 
-            mResistance = arr.getFloat(R.styleable.PtrFrameLayout_ptr_resistance, mResistance);
+            mPtrSliderBase.setResistance(
+                    arr.getFloat(R.styleable.PtrFrameLayout_ptr_resistance, mPtrSliderBase.getResistance()));
 
             mDurationToClose = arr.getInt(R.styleable.PtrFrameLayout_ptr_duration_to_close, mDurationToClose);
             mDurationToCloseHeader = arr.getInt(R.styleable.PtrFrameLayout_ptr_duration_to_close_header, mDurationToCloseHeader);
@@ -276,7 +277,7 @@ public class PtrFrameLayout extends ViewGroup {
 
             case MotionEvent.ACTION_DOWN:
                 mDownEvent = e;
-                mPtLastMove.set(e.getX(), e.getY());
+                mPtrSliderBase.onDown(e.getX(), e.getY());
 
                 mScrollChecker.abortIfWorking();
 
@@ -292,10 +293,10 @@ public class PtrFrameLayout extends ViewGroup {
 
             case MotionEvent.ACTION_MOVE:
                 mLastMoveEvent = e;
-                float offsetX = e.getX() - mPtLastMove.x;
-                float offsetY = (int) (e.getY() - mPtLastMove.y);
+                mPtrSliderBase.onMove(e.getX(), e.getY());
+                float offsetX = mPtrSliderBase.getOffsetX();
+                float offsetY = mPtrSliderBase.getOffsetY();
 
-                mPtLastMove.set(e.getX(), e.getY());
                 if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop || Math.abs(offsetX) > 3 * Math.abs(offsetY))) {
                     if (frameIsNotMoved()) {
                         mPreventForHorizontal = true;
@@ -320,7 +321,6 @@ public class PtrFrameLayout extends ViewGroup {
                 }
 
                 if ((moveUp && canMoveUp) || moveDown) {
-                    offsetY = (float) ((double) offsetY / mResistance);
                     movePos(offsetY);
                     return true;
                 }
@@ -354,6 +354,7 @@ public class PtrFrameLayout extends ViewGroup {
 
         mCurrentPos = to;
         updatePos();
+        mPtrSliderBase.updatePos(mCurrentPos, mLastPos);
         mLastPos = mCurrentPos;
     }
 
@@ -704,15 +705,18 @@ public class PtrFrameLayout extends ViewGroup {
 
     public void removePtrUIHandler(PtrUIHandler ptrUIHandler) {
         mPtrUIHandlerHolder = PtrUIHandlerHolder.removeHandler(mPtrUIHandlerHolder, ptrUIHandler);
+    }
 
+    public void setPtrSlider(PtrResistanceSlider slider) {
+        mPtrSliderBase = slider;
     }
 
     public float getResistance() {
-        return mResistance;
+        return mPtrSliderBase.getResistance();
     }
 
     public void setResistance(float resistance) {
-        mResistance = resistance;
+        mPtrSliderBase.setResistance(resistance);
     }
 
     public float getDurationToClose() {
