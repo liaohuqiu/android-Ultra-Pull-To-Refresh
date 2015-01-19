@@ -9,6 +9,8 @@
     <string name="ptr_demo_block_web_view">Contains A WebView</string>
     <string name="ptr_demo_block_frame_layout">Contains A FrameLayout</string>
     <string name="ptr_demo_block_only_text_view">Contains Even A TextView</string>
+    <string name="ptr_demo_block_with_list_view_and_empty_view">EmptyView and ListView</string>
+    <string name="ptr_demo_block_with_list_view_and_empty_view_tip">It\' empty. \n\nClick to load data.</string>
 
     <string name="ptr_demo_block_pull_to_refresh">Pull to Refresh</string>
     <string name="ptr_demo_block_release_to_refresh">Release to Refresh</string>
