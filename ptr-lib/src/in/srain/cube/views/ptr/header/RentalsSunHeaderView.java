@@ -33,7 +33,6 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
     public void setUp(PtrFrameLayout ptrFrameLayout) {
         mPtrFrameLayout = ptrFrameLayout;
         PtrTensionSlider slider = new PtrTensionSlider();
-        slider.setTotalDragDistance(PtrLocalDisplay.designedDP2px(120));
         mPtrFrameLayout.setPtrSlider(slider);
     }
 

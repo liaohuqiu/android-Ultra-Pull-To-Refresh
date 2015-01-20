@@ -1,22 +1,21 @@
 package in.srain.cube.views.ptr;
 
+import in.srain.cube.util.CLog;
+
 public class PtrTensionSlider extends PtrResistanceSlider {
 
     private float DRAG_RATE = 0.5f;
-    private float mTotalDragDistance;
-    private float mCurrentDragPercent;
-
-    public void setTotalDragDistance(float y) {
-        mTotalDragDistance = y;
-    }
 
     @Override
     protected void processOnMove(float x, float y) {
 
+        final float mTotalDragDistance = getHeaderHeight();
+
         // distance from top
-        final float yDiff = getLastY() + y;
-        final float scrollTop = yDiff * DRAG_RATE;
-        mCurrentDragPercent = scrollTop / mTotalDragDistance;
+        final float yDiff = y - getLastY();
+        final float scrollTop = yDiff * DRAG_RATE + getCurrentPos();
+        final float mCurrentDragPercent = scrollTop / mTotalDragDistance;
+
         if (mCurrentDragPercent < 0) {
             return;
         }
@@ -32,6 +31,8 @@ public class PtrTensionSlider extends PtrResistanceSlider {
         float tensionPercent = (float) ((tensionSlingshotPercent / 4) - Math.pow((tensionSlingshotPercent / 4), 2)) * 2f;
         float extraMove = (slingshotDist) * tensionPercent / 2;
         int targetY = (int) ((slingshotDist * boundedDragPercent) + extraMove);
+
+        CLog.d("slider", "processOnMove:%s scrollTop: %s, targetY: %s", getCurrentPos(), scrollTop, targetY);
         setOffset(x, targetY - getCurrentPos());
     }
 }

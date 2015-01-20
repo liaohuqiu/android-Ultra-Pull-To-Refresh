@@ -59,7 +59,7 @@ public class RentalsStyleFragment extends TitleBaseFragment {
         frame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                frame.autoRefresh(false);
+                // frame.autoRefresh(false);
             }
         }, 100);
 
