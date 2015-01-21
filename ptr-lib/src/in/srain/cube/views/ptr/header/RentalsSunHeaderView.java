@@ -6,8 +6,9 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrTensionSlider;
+import in.srain.cube.views.ptr.indicator.PtrTensionIndicator;
 import in.srain.cube.views.ptr.PtrUIHandler;
+import in.srain.cube.views.ptr.indicator.PtrIndicator;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 public class RentalsSunHeaderView extends View implements PtrUIHandler {
@@ -32,8 +33,8 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
 
     public void setUp(PtrFrameLayout ptrFrameLayout) {
         mPtrFrameLayout = ptrFrameLayout;
-        PtrTensionSlider slider = new PtrTensionSlider();
-        mPtrFrameLayout.setPtrSlider(slider);
+        PtrTensionIndicator slider = new PtrTensionIndicator();
+        mPtrFrameLayout.setPtrIndicator(slider);
     }
 
     private void init() {
@@ -81,11 +82,12 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
     }
 
     @Override
-    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent) {
-        float percent = Math.min(1f, currentPercent);
+    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
+
+        float percent = Math.min(1f, ptrIndicator.getCurrentPercent());
 
         if (status == PtrFrameLayout.PTR_STATUS_PREPARE) {
-            mDrawable.offsetTopAndBottom(currentPosition);
+            mDrawable.offsetTopAndBottom(ptrIndicator.getCurrentPosY());
             mDrawable.setPercent(percent);
             invalidate();
         }

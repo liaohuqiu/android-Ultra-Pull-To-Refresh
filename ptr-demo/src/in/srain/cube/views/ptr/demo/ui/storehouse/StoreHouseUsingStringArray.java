@@ -15,6 +15,7 @@ import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
+import in.srain.cube.views.ptr.indicator.PtrIndicator;
 
 public class StoreHouseUsingStringArray extends TitleBaseFragment {
 
@@ -91,7 +92,7 @@ public class StoreHouseUsingStringArray extends TitleBaseFragment {
             }
 
             @Override
-            public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent) {
+            public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
 
             }
         });

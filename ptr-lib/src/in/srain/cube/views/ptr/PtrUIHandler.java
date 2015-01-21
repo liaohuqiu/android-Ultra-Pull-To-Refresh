@@ -1,5 +1,7 @@
 package in.srain.cube.views.ptr;
 
+import in.srain.cube.views.ptr.indicator.PtrIndicator;
+
 /**
  *
  */
@@ -29,5 +31,5 @@ public interface PtrUIHandler {
      */
     public void onUIRefreshComplete(PtrFrameLayout frame);
 
-    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent);
+    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator);
 }
