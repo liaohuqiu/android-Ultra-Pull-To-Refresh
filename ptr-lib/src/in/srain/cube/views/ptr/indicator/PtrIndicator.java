@@ -80,6 +80,9 @@ public class PtrIndicator {
         return mCurrentPos;
     }
 
+    /**
+     * Update current position before
+     */
     public final void setCurrentPos(int current) {
         mLastPos = mCurrentPos;
         mCurrentPos = current;
@@ -136,8 +139,12 @@ public class PtrIndicator {
         return mLastPos < mHeaderHeight && mCurrentPos >= mHeaderHeight;
     }
 
-    public boolean isOverHeaderHeight() {
-        return mCurrentPos > mHeaderHeight;
+    public boolean isOverHeightForRefresh() {
+        return mCurrentPos > getHeightForRefresh();
+    }
+
+    public int getHeightForRefresh() {
+        return mHeaderHeight;
     }
 
     public boolean isAlreadyHere(int to) {

@@ -13,7 +13,7 @@ import in.srain.cube.util.CLog;
 import in.srain.cube.views.ptr.R;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
-public class RentalsDrawable extends Drawable implements Animatable {
+public class RentalsSunDrawable extends Drawable implements Animatable {
 
     private static final float SCALE_START_PERCENT = 0.5f;
     private static final int ANIMATION_DURATION = 1000;
@@ -63,7 +63,7 @@ public class RentalsDrawable extends Drawable implements Animatable {
     private Context mContext;
     private int mTotalDragDistance;
 
-    public RentalsDrawable(Context context, View parent) {
+    public RentalsSunDrawable(Context context, View parent) {
         mContext = context;
         mParent = parent;
 
@@ -108,13 +108,6 @@ public class RentalsDrawable extends Drawable implements Animatable {
         mSun = Bitmap.createScaledBitmap(mSun, mSunSize, mSunSize, true);
     }
 
-    public void setPercent(float percent, boolean invalidate) {
-        setPercent(percent);
-        if (invalidate) {
-            setRotate(percent);
-        }
-    }
-
     public void offsetTopAndBottom(int offset) {
         mTop = offset;
         invalidateSelf();
@@ -122,13 +115,13 @@ public class RentalsDrawable extends Drawable implements Animatable {
 
     @Override
     public void draw(Canvas canvas) {
-        CLog.d("test", "draw: %s %s", mTotalDragDistance, mTop);
+        CLog.d("test", "draw: %s %s %s", mTotalDragDistance, mTop, mPercent);
         final int saveCount = canvas.save();
         canvas.translate(0, mTotalDragDistance - mTop);
 
         drawSky(canvas);
-        // drawSun(canvas);
-        // drawTown(canvas);
+        drawSun(canvas);
+        drawTown(canvas);
 
         canvas.restoreToCount(saveCount);
     }
@@ -137,12 +130,16 @@ public class RentalsDrawable extends Drawable implements Animatable {
         Matrix matrix = mMatrix;
         matrix.reset();
 
+        //  0  ~ 1
         float dragPercent = Math.min(1f, Math.abs(mPercent));
 
+        /** Change skyScale between {@link #SKY_INITIAL_SCALE} and 1.0f depending on {@link #mPercent} */
         float skyScale;
         float scalePercentDelta = dragPercent - SCALE_START_PERCENT;
+
+        /** less than {@link SCALE_START_PERCENT} will be {@link SKY_INITIAL_SCALE} */
         if (scalePercentDelta > 0) {
-            /** Change skyScale between {@link #SKY_INITIAL_SCALE} and 1.0f depending on {@link #mPercent} */
+            /** will change from 0 ~ 1 **/
             float scalePercent = scalePercentDelta / (1.0f - SCALE_START_PERCENT);
             skyScale = SKY_INITIAL_SCALE - (SKY_INITIAL_SCALE - 1.0f) * scalePercent;
         } else {
@@ -150,12 +147,17 @@ public class RentalsDrawable extends Drawable implements Animatable {
         }
 
         float offsetX = -(mScreenWidth * skyScale - mScreenWidth) / 2.0f;
-        float offsetY = (1.0f - dragPercent) * mTotalDragDistance - mSkyTopOffset // Offset canvas moving
-                - mSkyHeight * (skyScale - 1.0f) / 2 // Offset sky scaling
-                + mSkyMoveOffset * dragPercent; // Give it a little move top -> bottom
+
+        // float offsetY = (1.0f - dragPercent) * mTotalDragDistance - mSkyTopOffset // Offset canvas moving, goes lower when goes down
+        float offsetY = -mSkyTopOffset // Offset canvas moving, goes lower when goes down
+                - mSkyHeight * (skyScale - 1.0f) / 2 // Offset sky scaling, lower than 0, will go greater when goes down
+                + mSkyMoveOffset * dragPercent; // Give it a little move top -> bottom  // will go greater when goes down
+
+        // offsetY = mTotalDragDistance + dragPercent * (mSkyTopOffset - mTotalDragDistance);
+        // offsetY = -mSkyHeight * (skyScale - 1.0f) / 2;
 
         matrix.postScale(skyScale, skyScale);
-        // matrix.postTranslate(offsetX, offsetY);
+        matrix.postTranslate(offsetX, offsetY);
         CLog.d("test", "%s %s %s", offsetX, offsetY, skyScale);
         canvas.drawBitmap(mSky, matrix, null);
     }
@@ -186,8 +188,10 @@ public class RentalsDrawable extends Drawable implements Animatable {
             townMoveOffset = mTownMoveOffset * scalePercent;
         }
 
+        townTopOffset = 40;
         float offsetX = -(mScreenWidth * townScale - mScreenWidth) / 2.0f;
-        float offsetY = (1.0f - dragPercent) * mTotalDragDistance // Offset canvas moving
+        // float offsetY = (1.0f - dragPercent) * mTotalDragDistance // Offset canvas moving
+        float offsetY = 0
                 + townTopOffset
                 - mTownHeight * (townScale - 1.0f) / 2 // Offset town scaling
                 + townMoveOffset; // Give it a little move
@@ -212,8 +216,8 @@ public class RentalsDrawable extends Drawable implements Animatable {
 
         float offsetX = mSunLeftOffset;
         float offsetY = mSunTopOffset
-                + (mTotalDragDistance / 2) * (1.0f - dragPercent) // Move the sun up
-                - mTop; // Depending on Canvas position
+                + (mTotalDragDistance / 2) * (1.0f - dragPercent); // Move the sun up
+        // - mTop; // Depending on Canvas position
 
         float scalePercentDelta = dragPercent - SCALE_START_PERCENT;
         if (scalePercentDelta > 0) {
@@ -243,6 +247,7 @@ public class RentalsDrawable extends Drawable implements Animatable {
 
     public void setPercent(float percent) {
         mPercent = percent;
+        setRotate(percent);
     }
 
     public void setRotate(float rotate) {
@@ -257,8 +262,8 @@ public class RentalsDrawable extends Drawable implements Animatable {
 
     @Override
     public void setBounds(int left, int top, int right, int bottom) {
-        // super.setBounds(left, top, right, mSkyHeight + top);
-        super.setBounds(left, top, right, bottom);
+        super.setBounds(left, top, right, mSkyHeight + top);
+        // super.setBounds(left, top, right, bottom);
         CLog.d("test", "setBounds: %s %s %s %s", left, top, right, bottom);
     }
 

@@ -427,8 +427,8 @@ public class PtrFrameLayout extends ViewGroup {
             // keep header for fresh
             if (mKeepHeaderWhenRefresh) {
                 // scroll header back
-                if (mPtrIndicator.isOverHeaderHeight() && !stayForLoading) {
-                    mScrollChecker.tryToScrollTo(mHeaderHeight, mDurationToClose);
+                if (mPtrIndicator.isOverHeightForRefresh() && !stayForLoading) {
+                    mScrollChecker.tryToScrollTo(mPtrIndicator.getHeightForRefresh(), mDurationToClose);
                 } else {
                     // do nothing
                 }
@@ -496,7 +496,9 @@ public class PtrFrameLayout extends ViewGroup {
         if (mStatus != PTR_STATUS_PREPARE) {
             return false;
         }
-        if ((mPtrIndicator.isOverHeaderHeight() && mAutoScrollRefreshTag > 0) || mPtrIndicator.isOverRefreshHeight()) {
+
+        //
+        if ((mPtrIndicator.isOverHeightForRefresh() && mAutoScrollRefreshTag > 0) || mPtrIndicator.isOverRefreshHeight()) {
             mStatus = PTR_STATUS_LOADING;
             performRefresh();
         }
@@ -697,6 +699,9 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     public void setPtrIndicator(PtrIndicator slider) {
+        if (mPtrIndicator != null && mPtrIndicator != slider) {
+            slider.convertFrom(mPtrIndicator);
+        }
         mPtrIndicator = slider;
     }
 

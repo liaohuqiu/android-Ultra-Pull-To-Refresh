@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+import in.srain.cube.util.CLog;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.indicator.PtrTensionIndicator;
 import in.srain.cube.views.ptr.PtrUIHandler;
@@ -13,8 +14,9 @@ import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 public class RentalsSunHeaderView extends View implements PtrUIHandler {
 
-    private RentalsDrawable mDrawable;
+    private RentalsSunDrawable mDrawable;
     private PtrFrameLayout mPtrFrameLayout;
+    private PtrTensionIndicator mPtrTensionIndicator;
 
     public RentalsSunHeaderView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -33,12 +35,12 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
 
     public void setUp(PtrFrameLayout ptrFrameLayout) {
         mPtrFrameLayout = ptrFrameLayout;
-        PtrTensionIndicator slider = new PtrTensionIndicator();
-        mPtrFrameLayout.setPtrIndicator(slider);
+        mPtrTensionIndicator = new PtrTensionIndicator();
+        mPtrFrameLayout.setPtrIndicator(mPtrTensionIndicator);
     }
 
     private void init() {
-        mDrawable = new RentalsDrawable(getContext(), this);
+        mDrawable = new RentalsSunDrawable(getContext(), this);
     }
 
     @Override
@@ -51,7 +53,6 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        // mPtrFrameLayout.setMaxPullDistance((int) (mPtrFrameLayout.getHeaderHeight()));
         mDrawable.setTotalDragDistance(bottom - top);
         mDrawable.setBounds(0, 0, right - left, bottom - top);
     }
@@ -84,10 +85,11 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
 
-        float percent = Math.min(1f, ptrIndicator.getCurrentPercent());
-
+        float percent = Math.min(1f, mPtrTensionIndicator.getCurrentPercent());
+        percent = mPtrTensionIndicator.getCurrentPercent();
+        CLog.d("test", "onUIPositionChange:%s %s", percent, mPtrTensionIndicator.getCurrentPercent());
         if (status == PtrFrameLayout.PTR_STATUS_PREPARE) {
-            mDrawable.offsetTopAndBottom(ptrIndicator.getCurrentPosY());
+            mDrawable.offsetTopAndBottom(mPtrTensionIndicator.getCurrentPosY());
             mDrawable.setPercent(percent);
             invalidate();
         }
