@@ -97,7 +97,7 @@ public class RentalsStyleFragment extends TitleBaseFragment {
             public void onLoadFinish(ImageTask imageTask, final CubeImageView cubeImageView, final BitmapDrawable bitmapDrawable) {
                 mImageHasLoaded = true;
                 long delay = Math.max(0, 1000 - (System.currentTimeMillis() - mStartLoadingTime));
-                delay = 0;
+                delay = 100;
                 frame.postDelayed(new Runnable() {
                     @Override
                     public void run() {

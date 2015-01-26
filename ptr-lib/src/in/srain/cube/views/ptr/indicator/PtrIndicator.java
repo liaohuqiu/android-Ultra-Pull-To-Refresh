@@ -120,7 +120,7 @@ public class PtrIndicator {
     }
 
     public boolean isOverRefreshHeight() {
-        return mCurrentPos >= mOffsetToRefresh;
+        return mCurrentPos >= getOffsetToRefresh();
     }
 
     public boolean hasMovedAfterPressedDown() {
@@ -132,18 +132,18 @@ public class PtrIndicator {
     }
 
     public boolean crossRefreshLineFromTopToBottom() {
-        return mLastPos < mOffsetToRefresh && mCurrentPos >= mOffsetToRefresh;
+        return mLastPos < getOffsetToRefresh() && mCurrentPos >= getOffsetToRefresh();
     }
 
     public boolean hasJustReachedHeaderHeightFromTopToBottom() {
         return mLastPos < mHeaderHeight && mCurrentPos >= mHeaderHeight;
     }
 
-    public boolean isOverHeightForRefresh() {
-        return mCurrentPos > getHeightForRefresh();
+    public boolean isOverHeightOfHeaderWhileLoading() {
+        return mCurrentPos > getHeightOfHeaderWhileLoading();
     }
 
-    public int getHeightForRefresh() {
+    public int getHeightOfHeaderWhileLoading() {
         return mHeaderHeight;
     }
 

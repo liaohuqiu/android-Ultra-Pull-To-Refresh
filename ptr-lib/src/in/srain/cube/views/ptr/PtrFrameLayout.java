@@ -427,8 +427,8 @@ public class PtrFrameLayout extends ViewGroup {
             // keep header for fresh
             if (mKeepHeaderWhenRefresh) {
                 // scroll header back
-                if (mPtrIndicator.isOverHeightForRefresh() && !stayForLoading) {
-                    mScrollChecker.tryToScrollTo(mPtrIndicator.getHeightForRefresh(), mDurationToClose);
+                if (mPtrIndicator.isOverHeightOfHeaderWhileLoading() && !stayForLoading) {
+                    mScrollChecker.tryToScrollTo(mPtrIndicator.getHeightOfHeaderWhileLoading(), mDurationToClose);
                 } else {
                     // do nothing
                 }
@@ -498,7 +498,7 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         //
-        if ((mPtrIndicator.isOverHeightForRefresh() && mAutoScrollRefreshTag > 0) || mPtrIndicator.isOverRefreshHeight()) {
+        if ((mPtrIndicator.isOverHeightOfHeaderWhileLoading() && mAutoScrollRefreshTag > 0) || mPtrIndicator.isOverRefreshHeight()) {
             mStatus = PTR_STATUS_LOADING;
             performRefresh();
         }

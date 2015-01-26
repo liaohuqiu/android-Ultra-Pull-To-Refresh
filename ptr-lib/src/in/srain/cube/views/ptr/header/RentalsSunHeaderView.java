@@ -46,7 +46,7 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = mDrawable.getIntrinsicHeight() + getPaddingTop() + getPaddingBottom();
-        height = PtrLocalDisplay.dp2px(120);
+        height = PtrLocalDisplay.dp2px(120 * 5 / 4);
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -87,7 +87,7 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
 
         float percent = Math.min(1f, mPtrTensionIndicator.getCurrentPercent());
         percent = mPtrTensionIndicator.getCurrentPercent();
-        CLog.d("test", "onUIPositionChange:%s %s", percent, mPtrTensionIndicator.getCurrentPercent());
+        CLog.d("test", "onUIPositionChange:%s %s %s", percent, mPtrTensionIndicator.getCurrentPercent(), status);
         if (status == PtrFrameLayout.PTR_STATUS_PREPARE) {
             mDrawable.offsetTopAndBottom(mPtrTensionIndicator.getCurrentPosY());
             mDrawable.setPercent(percent);

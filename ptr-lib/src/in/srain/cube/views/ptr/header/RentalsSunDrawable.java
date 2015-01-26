@@ -15,7 +15,7 @@ import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 public class RentalsSunDrawable extends Drawable implements Animatable {
 
-    private static final float SCALE_START_PERCENT = 0.5f;
+    private static final float SCALE_START_PERCENT = 0.3f;
     private static final int ANIMATION_DURATION = 1000;
 
     private final static float SKY_RATIO = 0.65f;
@@ -117,7 +117,11 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
     public void draw(Canvas canvas) {
         CLog.d("test", "draw: %s %s %s", mTotalDragDistance, mTop, mPercent);
         final int saveCount = canvas.save();
-        canvas.translate(0, mTotalDragDistance - mTop);
+        if (mTop <= mTotalDragDistance) {
+            canvas.translate(0, mTotalDragDistance - mTop);
+        } else {
+            canvas.translate(0, mTotalDragDistance - mTop);
+        }
 
         drawSky(canvas);
         drawSun(canvas);
@@ -217,7 +221,6 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
         float offsetX = mSunLeftOffset;
         float offsetY = mSunTopOffset
                 + (mTotalDragDistance / 2) * (1.0f - dragPercent); // Move the sun up
-        // - mTop; // Depending on Canvas position
 
         float scalePercentDelta = dragPercent - SCALE_START_PERCENT;
         if (scalePercentDelta > 0) {

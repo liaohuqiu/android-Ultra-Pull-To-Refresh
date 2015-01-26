@@ -1,5 +1,7 @@
 package in.srain.cube.views.ptr.indicator;
 
+import in.srain.cube.util.CLog;
+
 public class PtrTensionIndicator extends PtrIndicator {
 
     private float DRAG_RATE = 1f;
@@ -17,7 +19,7 @@ public class PtrTensionIndicator extends PtrIndicator {
 
     @Override
     protected void processOnMove(float currentX, float currentY, float offsetX, float offsetY) {
-        final float oneHeight = getHeaderHeight() / 4 * 3;
+        final float oneHeight = getHeaderHeight() * 4 / 5;
 
         // distance from top
         final float scrollTop = (currentY - mDownY) * DRAG_RATE + mDownPos;
@@ -41,12 +43,19 @@ public class PtrTensionIndicator extends PtrIndicator {
         int targetY = (int) ((oneHeight * boundedDragPercent) + extraMove);
         int change = targetY - getCurrentPosY();
 
+        CLog.d("test-ten", "%s %s %s %s %s", mCurrentDragPercent, extraOS, tensionSlingshotPercent, extraMove, targetY);
         setOffset(currentX, change);
     }
 
     @Override
-    public int getHeightForRefresh() {
-        return getHeaderHeight() / 2;
+    public int getHeightOfHeaderWhileLoading() {
+        return getOffsetToRefresh();
+    }
+
+    @Override
+    public int getOffsetToRefresh() {
+        final float oneHeight = getHeaderHeight() * 4 / 5;
+        return (int) oneHeight;
     }
 
     @Override
