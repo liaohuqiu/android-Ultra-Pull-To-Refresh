@@ -86,6 +86,11 @@ public class PtrIndicator {
     public final void setCurrentPos(int current) {
         mLastPos = mCurrentPos;
         mCurrentPos = current;
+        onUpdatePos(current, mLastPos);
+    }
+
+    protected void onUpdatePos(int current, int last) {
+
     }
 
     public int getHeaderHeight() {

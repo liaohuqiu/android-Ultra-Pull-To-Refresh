@@ -4,7 +4,7 @@ import in.srain.cube.util.CLog;
 
 public class PtrTensionIndicator extends PtrIndicator {
 
-    private float DRAG_RATE = 1f;
+    private float DRAG_RATE = 0.5f;
     private float mDownY;
     private float mDownPos;
 
@@ -26,7 +26,7 @@ public class PtrTensionIndicator extends PtrIndicator {
         final float currentDragPercent = scrollTop / oneHeight;
 
         if (currentDragPercent < 0) {
-            setOffset(currentX, 0);
+            setOffset(offsetX, 0);
             return;
         }
 

@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import in.srain.cube.util.CLog;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.indicator.PtrTensionIndicator;
 import in.srain.cube.views.ptr.PtrUIHandler;
@@ -45,16 +44,16 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int height = mDrawable.getIntrinsicHeight() + getPaddingTop() + getPaddingBottom();
-        height = PtrLocalDisplay.dp2px(120 * 5 / 4);
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+        int height = mDrawable.getTotalDragDistance() * 5 / 4;
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height + getPaddingTop() + getPaddingBottom(), MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        mDrawable.setTotalDragDistance(bottom - top);
-        mDrawable.setBounds(0, 0, right - left, bottom - top);
+        int pl = getPaddingLeft();
+        int pt = getPaddingTop();
+        mDrawable.setBounds(pl, pt, pl + right - left, pt + bottom - top);
     }
 
     @Override
@@ -64,7 +63,9 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mDrawable.draw(canvas);
+        if (mDrawable != null) {
+            mDrawable.draw(canvas);
+        }
     }
 
     @Override
