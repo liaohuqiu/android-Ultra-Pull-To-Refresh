@@ -26,7 +26,7 @@ public class PtrIndicator {
     }
 
     protected void processOnMove(float currentX, float currentY, float offsetX, float offsetY) {
-        setOffset(currentX, offsetY / mResistance);
+        setOffset(offsetX, offsetY / mResistance);
     }
 
     public void setRatioOfHeaderHeightToRefresh(float ratio) {

@@ -43,7 +43,7 @@ public class PtrTensionIndicator extends PtrIndicator {
         int targetY = (int) ((oneHeight * boundedDragPercent) + extraMove);
         int change = targetY - getCurrentPosY();
 
-        CLog.d("test-ten", "%s %s %s %s %s", mCurrentDragPercent, extraOS, tensionSlingshotPercent, extraMove, targetY);
+        CLog.d("test-ten", "%s %s %s %s %s %s", mCurrentDragPercent, extraOS, tensionSlingshotPercent, extraMove, targetY, oneHeight);
         setOffset(currentX, change);
     }
 

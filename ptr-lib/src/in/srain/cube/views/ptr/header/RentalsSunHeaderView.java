@@ -87,7 +87,6 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
 
         float percent = Math.min(1f, mPtrTensionIndicator.getCurrentPercent());
         percent = mPtrTensionIndicator.getCurrentPercent();
-        CLog.d("test", "onUIPositionChange:%s %s %s", percent, mPtrTensionIndicator.getCurrentPercent(), status);
         if (status == PtrFrameLayout.PTR_STATUS_PREPARE) {
             mDrawable.offsetTopAndBottom(mPtrTensionIndicator.getCurrentPosY());
             mDrawable.setPercent(percent);

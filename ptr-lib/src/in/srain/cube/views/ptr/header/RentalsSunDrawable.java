@@ -79,7 +79,7 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
     }
 
     public void setTotalDragDistance(int d) {
-        mTotalDragDistance = d;
+        mTotalDragDistance = d * 4 / 5;
     }
 
     private void initiateDimens() {
@@ -115,12 +115,9 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
 
     @Override
     public void draw(Canvas canvas) {
-        CLog.d("test", "draw: %s %s %s", mTotalDragDistance, mTop, mPercent);
         final int saveCount = canvas.save();
         if (mTop <= mTotalDragDistance) {
-            canvas.translate(0, mTotalDragDistance - mTop);
-        } else {
-            canvas.translate(0, mTotalDragDistance - mTop);
+            // canvas.translate(0, mTotalDragDistance - mTop);
         }
 
         drawSky(canvas);
@@ -152,13 +149,16 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
 
         float offsetX = -(mScreenWidth * skyScale - mScreenWidth) / 2.0f;
 
-        // float offsetY = (1.0f - dragPercent) * mTotalDragDistance - mSkyTopOffset // Offset canvas moving, goes lower when goes down
         float offsetY = -mSkyTopOffset // Offset canvas moving, goes lower when goes down
                 - mSkyHeight * (skyScale - 1.0f) / 2 // Offset sky scaling, lower than 0, will go greater when goes down
                 + mSkyMoveOffset * dragPercent; // Give it a little move top -> bottom  // will go greater when goes down
 
-        // offsetY = mTotalDragDistance + dragPercent * (mSkyTopOffset - mTotalDragDistance);
-        // offsetY = -mSkyHeight * (skyScale - 1.0f) / 2;
+        /*
+        float offsetY = (1.0f - dragPercent) * mParent.getTotalDragDistance() - mSkyTopOffset // Offset canvas moving
+                - mSkyHeight * (skyScale - 1.0f) / 2 // Offset sky scaling
+                + mSkyMoveOffset * dragPercent; // Give it a little move top -> bottom
+                */
+
 
         matrix.postScale(skyScale, skyScale);
         matrix.postTranslate(offsetX, offsetY);
@@ -200,6 +200,7 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
                 - mTownHeight * (townScale - 1.0f) / 2 // Offset town scaling
                 + townMoveOffset; // Give it a little move
 
+        CLog.d("test", "townTopOffset: %s %s", townTopOffset, offsetY);
         matrix.postScale(townScale, townScale);
         matrix.postTranslate(offsetX, offsetY);
 
