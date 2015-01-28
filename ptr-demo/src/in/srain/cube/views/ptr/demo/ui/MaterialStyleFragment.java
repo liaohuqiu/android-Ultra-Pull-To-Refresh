@@ -38,7 +38,6 @@ public class MaterialStyleFragment extends TitleBaseFragment {
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        PtrFrameLayout.DEBUG = true;
         View view = inflater.inflate(R.layout.fragment_materail_style, null);
         setHeaderTitle(R.string.ptr_demo_material_style);
 

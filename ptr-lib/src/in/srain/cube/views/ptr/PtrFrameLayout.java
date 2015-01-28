@@ -50,7 +50,6 @@ public class PtrFrameLayout extends ViewGroup {
     private int mHeaderHeight;
 
     private byte mStatus = PTR_STATUS_INIT;
-    private boolean mIsUnderTouch = false;
     private boolean mDisableWhenHorizontalMove = false;
     private int mAutoScrollRefreshTag = 0x00;
 
@@ -256,7 +255,7 @@ public class PtrFrameLayout extends ViewGroup {
         switch (action) {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                mIsUnderTouch = false;
+                mPtrIndicator.onRelease();
                 if (mPtrIndicator.hasLeftStartPosition()) {
                     if (DEBUG) {
                         CLog.d(LOG_TAG, "call onRelease when user release");
@@ -277,7 +276,6 @@ public class PtrFrameLayout extends ViewGroup {
 
                 mScrollChecker.abortIfWorking();
 
-                mIsUnderTouch = true;
                 mPreventForHorizontal = false;
                 if (mInterceptEventWhileWorking && mPtrIndicator.hasLeftStartPosition()) {
                     // do nothing, intercept child event
@@ -357,6 +355,8 @@ public class PtrFrameLayout extends ViewGroup {
             return;
         }
 
+        boolean isUnderTouch = mPtrIndicator.isUnderTouch();
+
         // leave initiated position
         if (mPtrIndicator.hasJustLeftStartPosition() && mPtrUIHandlerHolder.hasHandler()) {
             if (mStatus == PTR_STATUS_INIT) {
@@ -368,7 +368,7 @@ public class PtrFrameLayout extends ViewGroup {
             }
 
             // send cancel event to children
-            if (mIsUnderTouch && mInterceptEventWhileWorking) {
+            if (isUnderTouch && mInterceptEventWhileWorking) {
                 sendCancelEvent();
             }
         }
@@ -378,7 +378,7 @@ public class PtrFrameLayout extends ViewGroup {
             tryToNotifyReset();
 
             // recover event to children
-            if (mIsUnderTouch && mInterceptEventWhileWorking) {
+            if (isUnderTouch && mInterceptEventWhileWorking) {
                 sendDownEvent();
             }
         }
@@ -386,7 +386,7 @@ public class PtrFrameLayout extends ViewGroup {
         // Pull to Refresh
         if (mStatus == PTR_STATUS_PREPARE) {
             // reach fresh height while moving from top to bottom
-            if (mIsUnderTouch && mAutoScrollRefreshTag == 0 && mPullToRefresh
+            if (isUnderTouch && mAutoScrollRefreshTag == 0 && mPullToRefresh
                     && mPtrIndicator.crossRefreshLineFromTopToBottom()) {
                 tryToPerformRefresh();
             }
@@ -406,9 +406,9 @@ public class PtrFrameLayout extends ViewGroup {
         invalidate();
 
         if (mPtrUIHandlerHolder.hasHandler()) {
-            mPtrUIHandlerHolder.onUIPositionChange(this, mIsUnderTouch, mStatus, mPtrIndicator);
+            mPtrUIHandlerHolder.onUIPositionChange(this, isUnderTouch, mStatus, mPtrIndicator);
         }
-        onPositionChange(mIsUnderTouch, mStatus, mPtrIndicator);
+        onPositionChange(isUnderTouch, mStatus, mPtrIndicator);
     }
 
     protected void onPositionChange(boolean isInTouching, byte status, PtrIndicator mPtrIndicator) {
@@ -466,7 +466,7 @@ public class PtrFrameLayout extends ViewGroup {
      * Scroll back to to if is not under touch
      */
     private void tryScrollBackToTop() {
-        if (!mIsUnderTouch) {
+        if (!mPtrIndicator.isUnderTouch()) {
             mScrollChecker.tryToScrollTo(PtrIndicator.POS_START, mDurationToCloseHeader);
         }
     }
@@ -555,7 +555,8 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     /**
-     * Call this when data is loaded
+     * Call this when data is loaded.
+     * The UI will perform complete at once or after a delay, depends on the time elapsed is greater then {@link #mLoadingMinTime} or not.
      */
     final public void refreshComplete() {
         if (DEBUG) {
@@ -585,6 +586,9 @@ public class PtrFrameLayout extends ViewGroup {
         }
     }
 
+    /**
+     * Do refresh complete work when time elapsed is greater than {@link #mLoadingMinTime}
+     */
     private void performRefreshComplete() {
         mStatus = PTR_STATUS_COMPLETE;
 
@@ -601,9 +605,14 @@ public class PtrFrameLayout extends ViewGroup {
         notifyUIRefreshComplete(false);
     }
 
+    /**
+     * Do real refresh work. If there is a hook, execute the hook first.
+     *
+     * @param ignoreHook
+     */
     private void notifyUIRefreshComplete(boolean ignoreHook) {
         /**
-         * after hook operation is done, will call {@link #notifyUIRefreshComplete} and ignore hook
+         * After hook operation is done, {@link #notifyUIRefreshComplete} will be call in resume action to ignore hook.
          */
         if (mPtrIndicator.hasLeftStartPosition() && !ignoreHook && mRefreshCompleteHook != null) {
             if (DEBUG) {
@@ -619,6 +628,7 @@ public class PtrFrameLayout extends ViewGroup {
             }
             mPtrUIHandlerHolder.onUIRefreshComplete(this);
         }
+        mPtrIndicator.onUIRefreshComplete();
         tryScrollBackToTopAfterComplete();
         tryToNotifyReset();
     }

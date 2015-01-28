@@ -10,11 +10,27 @@ public class PtrTensionIndicator extends PtrIndicator {
 
     private float mCurrentDragPercent;
 
+    private int mReleasePos;
+    private float mReleasePercent = Float.NaN;
+
     @Override
     public void onPressDown(float x, float y) {
         super.onPressDown(x, y);
         mDownY = y;
         mDownPos = getCurrentPosY();
+    }
+
+    @Override
+    public void onRelease() {
+        super.onRelease();
+        mReleasePos = getCurrentPosY();
+        mReleasePercent = mCurrentDragPercent;
+    }
+
+    @Override
+    public void onUIRefreshComplete() {
+        mReleasePos = getCurrentPosY();
+        mReleasePercent = getOverDragPercent();
     }
 
     @Override
@@ -35,6 +51,7 @@ public class PtrTensionIndicator extends PtrIndicator {
         float extraOS = scrollTop - oneHeight;
 
         // 0 ~ 2
+        // if extraOS lower than 0, which means scrollTop lower than onHeight, tensionSlingshotPercent will be 0.
         float tensionSlingshotPercent = Math.max(0,
                 Math.min(extraOS, oneHeight * 2) / oneHeight);
 
@@ -43,7 +60,7 @@ public class PtrTensionIndicator extends PtrIndicator {
         int targetY = (int) ((oneHeight * boundedDragPercent) + extraMove);
         int change = targetY - getCurrentPosY();
 
-        CLog.d("test-ten", "%s %s %s %s %s %s", mCurrentDragPercent, extraOS, tensionSlingshotPercent, extraMove, targetY, oneHeight);
+        // CLog.d("test-ten", "%s %s %s %s %s %s", mCurrentDragPercent, extraOS, tensionSlingshotPercent, extraMove, targetY, oneHeight);
         setOffset(currentX, change);
     }
 
@@ -58,8 +75,15 @@ public class PtrTensionIndicator extends PtrIndicator {
         return (int) oneHeight;
     }
 
-    @Override
-    public float getCurrentPercent() {
-        return mCurrentDragPercent;
+    public float getOverDragPercent() {
+        if (isUnderTouch()) {
+            return mCurrentDragPercent;
+        } else {
+            if (mReleasePercent == Float.NaN) {
+                return 1.0f * getCurrentPosY() / getHeightOfHeaderWhileLoading();
+            }
+            // after release
+            return mReleasePercent * getCurrentPosY() / mReleasePos;
+        }
     }
 }

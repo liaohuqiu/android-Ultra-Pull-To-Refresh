@@ -37,7 +37,6 @@ public class RentalsStyleFragment extends TitleBaseFragment {
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        PtrFrameLayout.DEBUG = true;
         View view = inflater.inflate(R.layout.fragment_materail_style, null);
         setHeaderTitle(R.string.ptr_demo_rentals_style);
 
@@ -56,10 +55,11 @@ public class RentalsStyleFragment extends TitleBaseFragment {
         frame.setDurationToCloseHeader(1500);
         frame.setHeaderView(header);
         frame.addPtrUIHandler(header);
+        frame.setPullToRefresh(true);
         frame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // frame.autoRefresh(false);
+                frame.autoRefresh(false);
             }
         }, 100);
 
@@ -72,9 +72,7 @@ public class RentalsStyleFragment extends TitleBaseFragment {
             @Override
             public void onRefreshBegin(final PtrFrameLayout frame) {
                 if (mImageHasLoaded) {
-                    long delay = (long) (1000 + Math.random() * 2000);
-                    delay = Math.max(0, delay);
-                    delay = 0;
+                    long delay = 3000;
                     frame.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -96,8 +94,7 @@ public class RentalsStyleFragment extends TitleBaseFragment {
             @Override
             public void onLoadFinish(ImageTask imageTask, final CubeImageView cubeImageView, final BitmapDrawable bitmapDrawable) {
                 mImageHasLoaded = true;
-                long delay = Math.max(0, 1000 - (System.currentTimeMillis() - mStartLoadingTime));
-                delay = 100;
+                long delay = 3000;
                 frame.postDelayed(new Runnable() {
                     @Override
                     public void run() {

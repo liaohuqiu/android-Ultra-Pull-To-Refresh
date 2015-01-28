@@ -16,6 +16,11 @@ public class PtrIndicator {
 
     private float mRatioOfHeaderHeightToRefresh = 1.2f;
     private float mResistance = 1.7f;
+    private boolean mIsUnderTouch = false;
+
+    public boolean isUnderTouch() {
+        return mIsUnderTouch;
+    }
 
     public float getResistance() {
         return mResistance;
@@ -23,6 +28,14 @@ public class PtrIndicator {
 
     public void setResistance(float resistance) {
         mResistance = resistance;
+    }
+
+    public void onRelease() {
+        mIsUnderTouch = false;
+    }
+
+    public void onUIRefreshComplete() {
+
     }
 
     protected void processOnMove(float currentX, float currentY, float offsetX, float offsetY) {
@@ -48,6 +61,7 @@ public class PtrIndicator {
     }
 
     public void onPressDown(float x, float y) {
+        mIsUnderTouch = true;
         mPressedPos = mCurrentPos;
         mPtLastMove.set(x, y);
     }
@@ -81,7 +95,7 @@ public class PtrIndicator {
     }
 
     /**
-     * Update current position before
+     * Update current position before update the UI
      */
     public final void setCurrentPos(int current) {
         mLastPos = mCurrentPos;
