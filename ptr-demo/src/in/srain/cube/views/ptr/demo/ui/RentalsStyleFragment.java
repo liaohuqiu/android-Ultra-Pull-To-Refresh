@@ -55,11 +55,11 @@ public class RentalsStyleFragment extends TitleBaseFragment {
         frame.setDurationToCloseHeader(1500);
         frame.setHeaderView(header);
         frame.addPtrUIHandler(header);
-        frame.setPullToRefresh(true);
+        // frame.setPullToRefresh(true);
         frame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                frame.autoRefresh(false);
+                frame.autoRefresh(true);
             }
         }, 100);
 

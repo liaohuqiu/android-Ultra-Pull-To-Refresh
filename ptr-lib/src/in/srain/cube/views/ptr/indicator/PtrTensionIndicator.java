@@ -1,7 +1,5 @@
 package in.srain.cube.views.ptr.indicator;
 
-import in.srain.cube.util.CLog;
-
 public class PtrTensionIndicator extends PtrIndicator {
 
     private float DRAG_RATE = 0.5f;
@@ -11,7 +9,7 @@ public class PtrTensionIndicator extends PtrIndicator {
     private float mCurrentDragPercent;
 
     private int mReleasePos;
-    private float mReleasePercent = Float.NaN;
+    private float mReleasePercent = -1;
 
     @Override
     public void onPressDown(float x, float y) {
@@ -60,7 +58,6 @@ public class PtrTensionIndicator extends PtrIndicator {
         int targetY = (int) ((oneHeight * boundedDragPercent) + extraMove);
         int change = targetY - getCurrentPosY();
 
-        // CLog.d("test-ten", "%s %s %s %s %s %s", mCurrentDragPercent, extraOS, tensionSlingshotPercent, extraMove, targetY, oneHeight);
         setOffset(currentX, change);
     }
 
@@ -79,7 +76,7 @@ public class PtrTensionIndicator extends PtrIndicator {
         if (isUnderTouch()) {
             return mCurrentDragPercent;
         } else {
-            if (mReleasePercent == Float.NaN) {
+            if (mReleasePercent <= 0) {
                 return 1.0f * getCurrentPosY() / getHeightOfHeaderWhileLoading();
             }
             // after release

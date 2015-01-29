@@ -9,7 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
-import in.srain.cube.util.CLog;
 import in.srain.cube.views.ptr.R;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
@@ -153,7 +152,6 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
 
         matrix.postScale(skyScale, skyScale);
         matrix.postTranslate(offsetX, offsetY);
-        CLog.d("test", "drawSky: offsetX: %s offsetY:%s skyScale: %s", offsetX, offsetY, skyScale);
         canvas.drawBitmap(mSky, matrix, null);
     }
 
@@ -191,7 +189,6 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
                 - mTownHeight * (townScale - 1.0f) / 2 // Offset town scaling
                 + townMoveOffset; // Give it a little move
 
-        CLog.d("test", "drawTown, townTopOffset: %s %s", townTopOffset, offsetY);
         matrix.postScale(townScale, townScale);
         matrix.postTranslate(offsetX, offsetY);
 
@@ -233,7 +230,6 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
         }
 
         float r = (isRefreshing ? -360 : 360) * mRotate * (isRefreshing ? 1 : sunRotateGrowth);
-        CLog.d("test", "drawSun, isRefreshing: %s, r: %s, offsetX: %s, offsetY: %s, %s %s", isRefreshing, r, offsetX, offsetY, mTop, mTotalDragDistance);
         matrix.postRotate(r, offsetX, offsetY);
 
         canvas.drawBitmap(mSun, matrix, null);
