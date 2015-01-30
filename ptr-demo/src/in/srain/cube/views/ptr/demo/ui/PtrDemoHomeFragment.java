@@ -31,8 +31,7 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
 
             @Override
             public void onClick(View v) {
-                getContext().pushFragmentToBackStack(RentalsStyleFragment.class, null);
-                // getContext().pushFragmentToBackStack(WithGridView.class, null);
+                getContext().pushFragmentToBackStack(WithGridView.class, null);
             }
         }));
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_frame_layout, R.color.cube_mints_4d90fe, new OnClickListener() {

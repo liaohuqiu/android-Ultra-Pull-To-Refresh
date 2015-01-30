@@ -23,7 +23,7 @@ import in.srain.cube.views.ptr.header.RentalsSunHeaderView;
 
 public class RentalsStyleFragment extends TitleBaseFragment {
 
-    private String mUrl = "http://img5.duitang.com/uploads/blog/201407/17/20140717113117_mUssJ.thumb.jpeg";
+    private String mUrl = "http://img4.duitang.com/uploads/blog/201407/07/20140707113856_hBf3R.thumb.jpeg";
     private long mStartLoadingTime = -1;
     private boolean mImageHasLoaded = false;
 
@@ -72,7 +72,7 @@ public class RentalsStyleFragment extends TitleBaseFragment {
             @Override
             public void onRefreshBegin(final PtrFrameLayout frame) {
                 if (mImageHasLoaded) {
-                    long delay = 3000;
+                    long delay = 1500;
                     frame.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -94,7 +94,7 @@ public class RentalsStyleFragment extends TitleBaseFragment {
             @Override
             public void onLoadFinish(ImageTask imageTask, final CubeImageView cubeImageView, final BitmapDrawable bitmapDrawable) {
                 mImageHasLoaded = true;
-                long delay = 3000;
+                long delay = 1500;
                 frame.postDelayed(new Runnable() {
                     @Override
                     public void run() {
