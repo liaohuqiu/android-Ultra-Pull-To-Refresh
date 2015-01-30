@@ -138,7 +138,7 @@ public class PtrIndicator {
         return mLastPos != POS_START && isInStartPosition();
     }
 
-    public boolean isOverRefreshHeight() {
+    public boolean isOverOffsetToRefresh() {
         return mCurrentPos >= getOffsetToRefresh();
     }
 
@@ -158,11 +158,11 @@ public class PtrIndicator {
         return mLastPos < mHeaderHeight && mCurrentPos >= mHeaderHeight;
     }
 
-    public boolean isOverHeightOfHeaderWhileLoading() {
-        return mCurrentPos > getHeightOfHeaderWhileLoading();
+    public boolean isOverOffsetToKeepHeaderWhileLoading() {
+        return mCurrentPos > getOffsetToKeepHeaderWhileLoading();
     }
 
-    public int getHeightOfHeaderWhileLoading() {
+    public int getOffsetToKeepHeaderWhileLoading() {
         return mHeaderHeight;
     }
 

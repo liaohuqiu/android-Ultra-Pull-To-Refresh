@@ -62,7 +62,7 @@ public class PtrTensionIndicator extends PtrIndicator {
     }
 
     @Override
-    public int getHeightOfHeaderWhileLoading() {
+    public int getOffsetToKeepHeaderWhileLoading() {
         return getOffsetToRefresh();
     }
 
@@ -77,7 +77,7 @@ public class PtrTensionIndicator extends PtrIndicator {
             return mCurrentDragPercent;
         } else {
             if (mReleasePercent <= 0) {
-                return 1.0f * getCurrentPosY() / getHeightOfHeaderWhileLoading();
+                return 1.0f * getCurrentPosY() / getOffsetToKeepHeaderWhileLoading();
             }
             // after release
             return mReleasePercent * getCurrentPosY() / mReleasePos;
