@@ -8,4 +8,4 @@ android:
 jdk: oraclejdk7
 
 script:
-    - ./gradlew check
+    - ./gradlew check --refresh-dependencies

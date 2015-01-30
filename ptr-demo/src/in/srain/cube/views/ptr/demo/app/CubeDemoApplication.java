@@ -29,7 +29,8 @@ public class CubeDemoApplication extends Application {
         }
 
         // Debug.DEBUG_IMAGE = true;
-        PtrFrameLayout.DEBUG = true;
+        // PtrFrameLayout.DEBUG = true;
+        PtrFrameLayout.DEBUG = false;
 
         ImageLoaderFactory.setDefaultImageResizer(DemoDuiTangImageResizer.getInstance());
         String dir = "request-cache";

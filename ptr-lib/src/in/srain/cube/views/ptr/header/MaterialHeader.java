@@ -12,6 +12,7 @@ import android.view.animation.Transformation;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandlerHook;
 import in.srain.cube.views.ptr.PtrUIHandler;
+import in.srain.cube.views.ptr.indicator.PtrIndicator;
 
 public class MaterialHeader extends View implements PtrUIHandler {
 
@@ -160,8 +161,9 @@ public class MaterialHeader extends View implements PtrUIHandler {
     }
 
     @Override
-    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent) {
-        float percent = Math.min(1f, currentPercent);
+    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
+
+        float percent = Math.min(1f, ptrIndicator.getCurrentPercent());
 
         if (status == PtrFrameLayout.PTR_STATUS_PREPARE) {
             mDrawable.setAlpha((int) (255 * percent));
