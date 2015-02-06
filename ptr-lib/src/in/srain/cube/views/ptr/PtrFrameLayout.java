@@ -23,7 +23,7 @@ public class PtrFrameLayout extends ViewGroup {
     public final static byte PTR_STATUS_LOADING = 3;
     public final static byte PTR_STATUS_COMPLETE = 4;
 
-    private static final boolean DEBUG_LAYOUT = false;
+    private static final boolean DEBUG_LAYOUT = true;
     public static boolean DEBUG = false;
     private static int ID = 1;
     // auto refresh status
@@ -66,6 +66,7 @@ public class PtrFrameLayout extends ViewGroup {
     private int mLoadingMinTime = 500;
     private long mLoadingStartTime = 0;
     private PtrIndicator mPtrIndicator;
+    private boolean mHasSendCancelEvent = false;
 
     public PtrFrameLayout(Context context) {
         this(context, null);
@@ -271,6 +272,7 @@ public class PtrFrameLayout extends ViewGroup {
                 }
 
             case MotionEvent.ACTION_DOWN:
+                mHasSendCancelEvent = false;
                 mDownEvent = e;
                 mPtrIndicator.onPressDown(e.getX(), e.getY());
 
@@ -356,6 +358,10 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         boolean isUnderTouch = mPtrIndicator.isUnderTouch();
+        if (isUnderTouch && !mHasSendCancelEvent && mPtrIndicator.hasMovedAfterPressedDown()) {
+            mHasSendCancelEvent = true;
+            sendCancelEvent();
+        }
 
         // leave initiated position
         if (mPtrIndicator.hasJustLeftStartPosition() && mPtrUIHandlerHolder.hasHandler()) {
@@ -379,6 +385,9 @@ public class PtrFrameLayout extends ViewGroup {
 
             // recover event to children
             if (isUnderTouch && mInterceptEventWhileWorking) {
+                // sendDownEvent();
+            }
+            if (isUnderTouch) {
                 sendDownEvent();
             }
         }
@@ -819,7 +828,9 @@ public class PtrFrameLayout extends ViewGroup {
         if (DEBUG) {
             CLog.d(LOG_TAG, "send cancel event");
         }
-        MotionEvent e = MotionEvent.obtain(mDownEvent.getDownTime(), mDownEvent.getEventTime() + ViewConfiguration.getLongPressTimeout(), MotionEvent.ACTION_CANCEL, mDownEvent.getX(), mDownEvent.getY(), mDownEvent.getMetaState());
+        MotionEvent last = mDownEvent;
+        last = mLastMoveEvent;
+        MotionEvent e = MotionEvent.obtain(last.getDownTime(), last.getEventTime() + ViewConfiguration.getLongPressTimeout(), MotionEvent.ACTION_CANCEL, last.getX(), last.getY(), last.getMetaState());
         dispatchTouchEventSupper(e);
     }
 

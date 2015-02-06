@@ -5,6 +5,7 @@ import in.srain.cube.Cube;
 import in.srain.cube.image.ImageLoaderFactory;
 import in.srain.cube.request.RequestCacheManager;
 import in.srain.cube.util.CLog;
+import in.srain.cube.util.Debug;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.demo.image.DemoDuiTangImageResizer;
 
@@ -28,9 +29,9 @@ public class CubeDemoApplication extends Application {
             CLog.setLogLevel(CLog.LEVEL_VERBOSE);
         }
 
-        // Debug.DEBUG_IMAGE = true;
-        // PtrFrameLayout.DEBUG = true;
-        PtrFrameLayout.DEBUG = false;
+        Debug.DEBUG_IMAGE = true;
+        PtrFrameLayout.DEBUG = true;
+        // PtrFrameLayout.DEBUG = false;
 
         ImageLoaderFactory.setDefaultImageResizer(DemoDuiTangImageResizer.getInstance());
         String dir = "request-cache";

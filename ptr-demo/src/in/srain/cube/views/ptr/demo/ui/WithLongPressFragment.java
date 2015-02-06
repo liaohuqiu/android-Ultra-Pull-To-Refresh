@@ -35,7 +35,8 @@ public class WithLongPressFragment extends TitleBaseFragment {
         setHeaderTitle(R.string.ptr_demo_block_with_long_press);
 
         final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.with_long_press_list_view_frame);
-        ptrFrameLayout.setInterceptEventWhileWorking(true);
+        // ptrFrameLayout.setInterceptEventWhileWorking(true);
+
         ListView listView = (ListView) view.findViewById(R.id.with_long_press_list_view);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
