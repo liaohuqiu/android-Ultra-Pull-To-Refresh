@@ -46,6 +46,7 @@ public class PtrFrameLayout extends ViewGroup {
     private View mHeaderView;
     private PtrUIHandlerHolder mPtrUIHandlerHolder = PtrUIHandlerHolder.create();
     private PtrHandler mPtrHandler;
+    private int mHeaderRetainHeightOnRefresh = -1;
     // working parameters
     private ScrollChecker mScrollChecker;
     private PointF mPtLastMove = new PointF();
@@ -436,7 +437,8 @@ public class PtrFrameLayout extends ViewGroup {
             if (mKeepHeaderWhenRefresh) {
                 // scroll header back
                 if (mCurrentPos > mHeaderHeight && !stayForLoading) {
-                    mScrollChecker.tryToScrollTo(mHeaderHeight, mDurationToClose);
+                	int scrollHeight = mHeaderRetainHeightOnRefresh >= 0 ? mHeaderRetainHeightOnRefresh : mHeaderHeight;
+                    mScrollChecker.tryToScrollTo(scrollHeight, mDurationToClose);
                 } else {
                     // do nothing
                 }
@@ -746,6 +748,14 @@ public class PtrFrameLayout extends ViewGroup {
 
     public float getRatioOfHeaderToHeightRefresh() {
         return mRatioOfHeaderHeightToRefresh;
+    }
+
+    public void setHeaderRetainHeightOnRefresh(int headerRetainHeightOnRefresh) {
+    	mHeaderRetainHeightOnRefresh = headerRetainHeightOnRefresh;
+    }
+
+    public int getHeaderRetainHeightOnRefresh() {
+    	return mHeaderRetainHeightOnRefresh;
     }
 
     public boolean isKeepHeaderWhenRefresh() {
