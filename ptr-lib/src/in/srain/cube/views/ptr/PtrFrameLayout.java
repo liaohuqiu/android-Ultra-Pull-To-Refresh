@@ -435,9 +435,9 @@ public class PtrFrameLayout extends ViewGroup {
         if (mStatus == PTR_STATUS_LOADING) {
             // keep header for fresh
             if (mKeepHeaderWhenRefresh) {
+                int scrollHeight = mHeaderRetainHeightOnRefresh >= 0 ? mHeaderRetainHeightOnRefresh : mHeaderHeight;
                 // scroll header back
-                if (mCurrentPos > mHeaderHeight && !stayForLoading) {
-                	int scrollHeight = mHeaderRetainHeightOnRefresh >= 0 ? mHeaderRetainHeightOnRefresh : mHeaderHeight;
+                if (mCurrentPos > scrollHeight && !stayForLoading) {
                     mScrollChecker.tryToScrollTo(scrollHeight, mDurationToClose);
                 } else {
                     // do nothing
