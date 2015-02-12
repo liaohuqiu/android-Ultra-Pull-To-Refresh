@@ -257,8 +257,14 @@ Apache 2
 
 # 联系方式和问题建议
 
-* 微博: http://weibo.com/liaohuqiu 欢迎关注
-* QQ 群: 271918140
+* 微博: http://weibo.com/liaohuqiu
+* QQ 群: 
+
+    加群前请先阅读群约定: https://github.com/liaohuqiu/qq-tribe-rule
+
+    1. cube系列开源项目使用交流，问题解答: 271918140 (cube-sdk)
+    2. 如果你会通过google解决问题，喜欢独立思考，喜欢和优秀却又温和的人成为朋友，欢迎加入技术交流群: 417208555 (cube-core)
+
 * srain@php.net
 * twitter: https://twitter.com/liaohuqiu
 * blog: http://www.liaohuqiu.net

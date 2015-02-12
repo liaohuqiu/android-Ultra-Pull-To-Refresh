@@ -5,7 +5,7 @@ import in.srain.cube.mints.base.MintsBaseActivity;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.ui.PtrDemoHomeFragment;
 
-public class HomeActivity extends MintsBaseActivity {
+public class PtrDemoHomeActivity extends MintsBaseActivity {
 
     @Override
     protected void onCreate(Bundle bundle) {

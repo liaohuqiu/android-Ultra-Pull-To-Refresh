@@ -298,4 +298,4 @@ Please fell free to contact me if there is any problem when using the library.
 * twitter: https://twitter.com/liaohuqiu
 * weibo: http://weibo.com/liaohuqiu
 * blog: http://www.liaohuqiu.net
-* QQ tribe: 271918140
+* QQ tribe: 417208555, this the rule for this tribe, please read it before you request to join: https://github.com/liaohuqiu/qq-tribe-rule

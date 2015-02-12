@@ -17,6 +17,7 @@ public class PtrIndicator {
     private float mRatioOfHeaderHeightToRefresh = 1.2f;
     private float mResistance = 1.7f;
     private boolean mIsUnderTouch = false;
+    private int mOffsetToKeepHeaderWhileLoading = -1;
 
     public boolean isUnderTouch() {
         return mIsUnderTouch;
@@ -162,8 +163,12 @@ public class PtrIndicator {
         return mCurrentPos > getOffsetToKeepHeaderWhileLoading();
     }
 
+    public void setOffsetToKeepHeaderWhileLoading(int offset) {
+        mOffsetToKeepHeaderWhileLoading = offset;
+    }
+
     public int getOffsetToKeepHeaderWhileLoading() {
-        return mHeaderHeight;
+        return mOffsetToKeepHeaderWhileLoading >= 0 ? mOffsetToKeepHeaderWhileLoading : mHeaderHeight;
     }
 
     public boolean isAlreadyHere(int to) {

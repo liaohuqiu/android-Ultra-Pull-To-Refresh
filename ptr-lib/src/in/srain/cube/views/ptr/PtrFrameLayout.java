@@ -56,8 +56,6 @@ public class PtrFrameLayout extends ViewGroup {
     // disable when detect moving horizontally
     private boolean mPreventForHorizontal = false;
 
-    // intercept child event while working
-    private boolean mInterceptEventWhileWorking = false;
     private MotionEvent mDownEvent;
     private MotionEvent mLastMoveEvent;
 
@@ -279,7 +277,7 @@ public class PtrFrameLayout extends ViewGroup {
                 mScrollChecker.abortIfWorking();
 
                 mPreventForHorizontal = false;
-                if (mInterceptEventWhileWorking && mPtrIndicator.hasLeftStartPosition()) {
+                if (mPtrIndicator.hasLeftStartPosition()) {
                     // do nothing, intercept child event
                 } else {
                     dispatchTouchEventSupper(e);
@@ -358,6 +356,8 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         boolean isUnderTouch = mPtrIndicator.isUnderTouch();
+
+        // once moved, cancel event will be sent to child
         if (isUnderTouch && !mHasSendCancelEvent && mPtrIndicator.hasMovedAfterPressedDown()) {
             mHasSendCancelEvent = true;
             sendCancelEvent();
@@ -372,11 +372,6 @@ public class PtrFrameLayout extends ViewGroup {
                     CLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshPrepare, mAutoScrollRefreshTag %s", mAutoScrollRefreshTag);
                 }
             }
-
-            // send cancel event to children
-            if (isUnderTouch && mInterceptEventWhileWorking) {
-                sendCancelEvent();
-            }
         }
 
         // back to initiated position
@@ -384,9 +379,6 @@ public class PtrFrameLayout extends ViewGroup {
             tryToNotifyReset();
 
             // recover event to children
-            if (isUnderTouch && mInterceptEventWhileWorking) {
-                // sendDownEvent();
-            }
             if (isUnderTouch) {
                 sendDownEvent();
             }
@@ -458,6 +450,7 @@ public class PtrFrameLayout extends ViewGroup {
      *
      * @param hook
      */
+
     public void setRefreshCompleteHook(PtrUIHandlerHook hook) {
         mRefreshCompleteHook = hook;
         hook.setResumeAction(new Runnable() {
@@ -691,12 +684,12 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     /**
-     * It's useful when you want to intercept event while moving the frame
+     * Not necessary any longer. Once moved, cancel event will be sent to child.
      *
      * @param yes
      */
+    @Deprecated
     public void setInterceptEventWhileWorking(boolean yes) {
-        mInterceptEventWhileWorking = yes;
     }
 
     @SuppressWarnings({"unused"})
@@ -767,6 +760,16 @@ public class PtrFrameLayout extends ViewGroup {
     @SuppressWarnings({"unused"})
     public float getRatioOfHeaderToHeightRefresh() {
         return mPtrIndicator.getRatioOfHeaderToHeightRefresh();
+    }
+
+    @SuppressWarnings({"unused"})
+    public void setOffsetToKeepHeaderWhileLoading(int offset) {
+        mPtrIndicator.setOffsetToKeepHeaderWhileLoading(offset);
+    }
+
+    @SuppressWarnings({"unused"})
+    public int getOffsetToKeepHeaderWhileLoading() {
+        return mPtrIndicator.getOffsetToKeepHeaderWhileLoading();
     }
 
     @SuppressWarnings({"unused"})
@@ -932,7 +935,11 @@ public class PtrFrameLayout extends ViewGroup {
             removeCallbacks(this);
 
             mLastFlingY = 0;
-            mScroller = new Scroller(getContext());
+
+            // fix #47: Scroller should be reused, https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/issues/47
+            if (!mScroller.isFinished()) {
+                mScroller.forceFinished(true);
+            }
             mScroller.startScroll(0, 0, 0, distance, duration);
             post(this);
             mIsRunning = true;

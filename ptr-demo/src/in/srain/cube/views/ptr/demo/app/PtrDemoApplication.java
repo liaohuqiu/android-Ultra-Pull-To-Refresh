@@ -8,10 +8,11 @@ import in.srain.cube.util.CLog;
 import in.srain.cube.util.Debug;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.demo.image.DemoDuiTangImageResizer;
+import in.srain.cube.views.ptr.demo.image.PtrImageLoadHandler;
 
-public class CubeDemoApplication extends Application {
+public class PtrDemoApplication extends Application {
 
-    public static CubeDemoApplication instance;
+    public static PtrDemoApplication instance;
 
     @Override
     public void onCreate() {
@@ -34,6 +35,7 @@ public class CubeDemoApplication extends Application {
         // PtrFrameLayout.DEBUG = false;
 
         ImageLoaderFactory.setDefaultImageResizer(DemoDuiTangImageResizer.getInstance());
+        ImageLoaderFactory.setDefaultImageLoadHandler(new PtrImageLoadHandler());
         String dir = "request-cache";
         // ImageLoaderFactory.init(this);
         RequestCacheManager.init(this, dir, 1024 * 10, 1024 * 10);
