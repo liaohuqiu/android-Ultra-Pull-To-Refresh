@@ -54,28 +54,54 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
 This project has been pushed to Maven Central, both in `aar` and `apklib`.
 
-pom.xml
+The latest version: 1.0.8.1-SNAPSHOT, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
 
-```xml
-<dependency>
-    <groupId>in.srain.cube</groupId>
-    <artifactId>ultra-ptr</artifactId>
-    <type>apklib</type>
-    <version>1.0.7</version>
-</dependency>
 ```
-or 
+maven {
+    url 'https://oss.sonatype.org/content/repositories/snapshots'
+}
+```
+
+The stable version: 1.0.7, https://oss.sonatype.org/content/repositories/releases, in gradle:
+
+```
+mavenCentral()
+```
+
+pom.xml, latest version:
 
 ```xml
 <dependency>
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>aar</type>
+    <!-- or apklib format, if you want -->
+    <!-- <type>apklib</type> -->
+    <version>1.0.8.1-SNAPSHOT</version>
+</dependency>
+```
+
+pom.xml, stable version:
+
+```xml
+<dependency>
+    <groupId>in.srain.cube</groupId>
+    <artifactId>ultra-ptr</artifactId>
+    <type>aar</type>
+    <!-- or apklib format, if you want -->
+    <!-- <type>apklib</type> -->
     <version>1.0.7</version>
 </dependency>
 ```
 
-gradle
+gradle, latest version:
+
+```
+compile 'in.srain.cube:ultra-ptr:1.0.8.1-SNAPSHOT@aar'
+```
+
+gradle, stable version:
+
 ```
 compile 'in.srain.cube:ultra-ptr:1.0.7@aar'
 ```
@@ -298,4 +324,4 @@ Please fell free to contact me if there is any problem when using the library.
 * twitter: https://twitter.com/liaohuqiu
 * weibo: http://weibo.com/liaohuqiu
 * blog: http://www.liaohuqiu.net
-* QQ tribe: 271918140
+* QQ tribe: 417208555, this the rule for this tribe, please read it before you request to join: https://github.com/liaohuqiu/qq-tribe-rule

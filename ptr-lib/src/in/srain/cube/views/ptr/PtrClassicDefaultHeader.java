@@ -11,6 +11,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import in.srain.cube.views.ptr.indicator.PtrIndicator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -223,8 +224,12 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
     }
 
     @Override
-    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int lastPos, int currentPos, float oldPercent, float currentPercent) {
+    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
+
         final int mOffsetToRefresh = frame.getOffsetToRefresh();
+        final int currentPos = ptrIndicator.getCurrentPosY();
+        final int lastPos = ptrIndicator.getLastPosY();
+
         if (currentPos < mOffsetToRefresh && lastPos >= mOffsetToRefresh) {
             if (isUnderTouch && status == PtrFrameLayout.PTR_STATUS_PREPARE) {
                 crossRotateLineFromBottomUnderTouch(frame);

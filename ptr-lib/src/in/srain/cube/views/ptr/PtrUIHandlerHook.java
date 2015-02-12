@@ -45,6 +45,11 @@ public abstract class PtrUIHandlerHook implements Runnable {
         mStatus = STATUS_RESUMED;
     }
 
+    /**
+     * Hook should always have a resume action, which is hooked by this hook.
+     *
+     * @param runnable
+     */
     public void setResumeAction(Runnable runnable) {
         mResumeAction = runnable;
     }

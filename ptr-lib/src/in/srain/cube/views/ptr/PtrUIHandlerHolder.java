@@ -1,8 +1,6 @@
 package in.srain.cube.views.ptr;
 
-import in.srain.cube.util.CLog;
-
-import java.lang.ref.WeakReference;
+import in.srain.cube.views.ptr.indicator.PtrIndicator;
 
 /**
  * A single linked list to wrap PtrUIHandler
@@ -146,12 +144,12 @@ class PtrUIHandlerHolder implements PtrUIHandler {
     }
 
     @Override
-    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent) {
+    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
         PtrUIHandlerHolder current = this;
         do {
             final PtrUIHandler handler = current.getHandler();
             if (null != handler) {
-                handler.onUIPositionChange(frame, isUnderTouch, status, oldPosition, currentPosition, oldPercent, currentPercent);
+                handler.onUIPositionChange(frame, isUnderTouch, status, ptrIndicator);
             }
         } while ((current = current.mNext) != null);
     }

@@ -12,6 +12,7 @@ import in.srain.cube.app.CubeFragment;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
 import in.srain.cube.request.JsonData;
+import in.srain.cube.util.CLog;
 import in.srain.cube.views.list.ListViewDataAdapter;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.ui.MaterialStyleFragment;
@@ -82,6 +83,7 @@ public class ViewPagerFragment extends CubeFragment {
         if (mAdapter.getCount() == 0 || mListView == null) {
             return true;
         }
+        CLog.d("test", "checkCanDoRefresh: %s %s", mListView.getFirstVisiblePosition(), mListView.getChildAt(0).getTop());
         return mListView.getFirstVisiblePosition() == 0 && mListView.getChildAt(0).getTop() == 0;
     }
 

@@ -21,7 +21,7 @@ import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends BlockMenuFragment {
+public class PtrDemoHomeFragment extends BlockMenuFragment {
 
     @Override
     protected void addItemInfo(ArrayList<BlockMenuFragment.MenuItemInfo> itemInfos) {
@@ -62,7 +62,13 @@ public class HomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(WithWebView.class, null);
             }
         }));
-        itemInfos.add(null);
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_with_list_view_and_empty_view, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(WithListViewAndEmptyView.class, null);
+            }
+        }));
 
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_keep_header, R.color.cube_mints_4d90fe, new OnClickListener() {
 
@@ -145,6 +151,13 @@ public class HomeFragment extends BlockMenuFragment {
                 Intent intent = new Intent();
                 intent.setClass(getContext(), ViewPagerActivity.class);
                 startActivity(intent);
+            }
+        }));
+        itemInfos.add(newItemInfo(R.string.ptr_demo_rentals_style, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(RentalsStyleFragment.class, null);
             }
         }));
         itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {

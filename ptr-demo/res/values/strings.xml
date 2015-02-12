@@ -9,6 +9,8 @@
     <string name="ptr_demo_block_web_view">Contains A WebView</string>
     <string name="ptr_demo_block_frame_layout">Contains A FrameLayout</string>
     <string name="ptr_demo_block_only_text_view">Contains Even A TextView</string>
+    <string name="ptr_demo_block_with_list_view_and_empty_view">EmptyView and ListView</string>
+    <string name="ptr_demo_block_with_list_view_and_empty_view_tip">It\' empty. \n\nClick to load data.</string>
 
     <string name="ptr_demo_block_pull_to_refresh">Pull to Refresh</string>
     <string name="ptr_demo_block_release_to_refresh">Release to Refresh</string>
@@ -24,6 +26,7 @@
     <string name="ptr_demo_storehouse_header_using_string_in_title">using string:&#160;</string>
     <string name="ptr_demo_storehouse_header_using_point_list">Using Point List</string>
     <string name="ptr_demo_material_style">Material Style</string>
+    <string name="ptr_demo_rentals_style">Rentals Style</string>
     <string name="ptr_demo_placeholder">To be continued</string>
 
 </resources>

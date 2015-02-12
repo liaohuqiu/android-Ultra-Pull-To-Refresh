@@ -51,28 +51,57 @@
 
 项目已经发布到了Maven中央库，包括`aar`和`apklib`两种格式。在Maven或者Gradle下可如下直接引入:
 
+最新版版本号: 1.0.8.1-SNAPSHOT, 发布到了: https://oss.sonatype.org/content/repositories/snapshots
+
+在gradle中:
+
+```
+maven {
+    url 'https://oss.sonatype.org/content/repositories/snapshots'
+}
+```
+
+The stable version: 1.0.7, https://oss.sonatype.org/content/repositories/releases, in gradle:
+
+```
+mavenCentral()
+```
+
 `pom.xml` 文件中
 
-```xml
-<dependency>
-    <groupId>in.srain.cube</groupId>
-    <artifactId>ultra-ptr</artifactId>
-    <type>apklib</type>
-    <version>1.0.7</version>
-</dependency>
-```
-或者
+最新版:
 
 ```xml
 <dependency>
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>aar</type>
+    <!-- or apklib format, if you want -->
+    <!-- <type>apklib</type> -->
+    <version>1.0.8.1-SNAPSHOT</version>
+</dependency>
+
+稳定版
+
+```xml
+<dependency>
+    <groupId>in.srain.cube</groupId>
+    <artifactId>ultra-ptr</artifactId>
+    <type>aar</type>
+    <!-- or apklib format, if you want -->
+    <!-- <type>apklib</type> -->
     <version>1.0.7</version>
 </dependency>
 ```
 
-gradle / Android Studio
+gradle / Android Studio, 最新版
+
+```
+compile 'in.srain.cube:ultra-ptr:1.0.8.1-SNAPSHOT@aar'
+```
+
+gradle / Android Studio, 稳定版
+
 ```
 compile 'in.srain.cube:ultra-ptr:1.0.7@aar'
 ```
@@ -257,8 +286,14 @@ Apache 2
 
 # 联系方式和问题建议
 
-* 微博: http://weibo.com/liaohuqiu 欢迎关注
-* QQ 群: 271918140
+* 微博: http://weibo.com/liaohuqiu
+* QQ 群: 
+
+    加群前请先阅读群约定: https://github.com/liaohuqiu/qq-tribe-rule
+
+    1. cube系列开源项目使用交流，问题解答: 271918140 (cube-sdk)
+    2. 如果你会通过google解决问题，喜欢独立思考，喜欢和优秀却又温和的人成为朋友，欢迎加入技术交流群: 417208555 (cube-core)
+
 * srain@php.net
 * twitter: https://twitter.com/liaohuqiu
 * blog: http://www.liaohuqiu.net

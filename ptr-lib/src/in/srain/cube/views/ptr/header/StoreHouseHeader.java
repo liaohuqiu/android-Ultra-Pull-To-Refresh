@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Transformation;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandler;
+import in.srain.cube.views.ptr.indicator.PtrIndicator;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 import java.util.ArrayList;
@@ -266,8 +267,9 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
     }
 
     @Override
-    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, int oldPosition, int currentPosition, float oldPercent, float currentPercent) {
-        currentPercent = Math.min(1f, currentPercent);
+    public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
+
+        float currentPercent = Math.min(1f, ptrIndicator.getCurrentPercent());
         setProgress(currentPercent);
         invalidate();
     }

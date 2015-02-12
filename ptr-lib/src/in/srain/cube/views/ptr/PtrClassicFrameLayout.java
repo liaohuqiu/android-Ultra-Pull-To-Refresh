@@ -1,11 +1,7 @@
 package in.srain.cube.views.ptr;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 
 public class PtrClassicFrameLayout extends PtrFrameLayout {
 
