@@ -51,30 +51,59 @@
 
 项目已经发布到了Maven中央库，包括`aar`和`apklib`两种格式。在Maven或者Gradle下可如下直接引入:
 
+最新版版本号: {ptr_lib_version}, 发布到了: https://oss.sonatype.org/content/repositories/snapshots
+
+在gradle中:
+
+```
+maven {
+    url 'https://oss.sonatype.org/content/repositories/snapshots'
+}
+```
+
+The stable version: {ptr_lib_stable_version}, https://oss.sonatype.org/content/repositories/releases, in gradle:
+
+```
+mavenCentral()
+```
+
 `pom.xml` 文件中
 
-```xml
-<dependency>
-    <groupId>in.srain.cube</groupId>
-    <artifactId>ultra-ptr</artifactId>
-    <type>apklib</type>
-    <version>{ptr_lib_version}</version>
-</dependency>
-```
-或者
+最新版:
 
 ```xml
 <dependency>
     <groupId>in.srain.cube</groupId>
     <artifactId>ultra-ptr</artifactId>
     <type>aar</type>
+    <!-- or apklib format, if you want -->
+    <!-- <type>apklib</type> -->
     <version>{ptr_lib_version}</version>
+</dependency>
+
+稳定版
+
+```xml
+<dependency>
+    <groupId>in.srain.cube</groupId>
+    <artifactId>ultra-ptr</artifactId>
+    <type>aar</type>
+    <!-- or apklib format, if you want -->
+    <!-- <type>apklib</type> -->
+    <version>{ptr_lib_stable_version}</version>
 </dependency>
 ```
 
-gradle / Android Studio
+gradle / Android Studio, 最新版
+
 ```
 compile 'in.srain.cube:ultra-ptr:{ptr_lib_version}@aar'
+```
+
+gradle / Android Studio, 稳定版
+
+```
+compile 'in.srain.cube:ultra-ptr:{ptr_lib_stable_version}@aar'
 ```
 
 #### 配置
