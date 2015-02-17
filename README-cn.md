@@ -6,7 +6,7 @@
 
 支持 `API LEVEL >= 8`。
 
-[APK下载](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo/target/ultra-ptr-demo.apk)
+[APK下载](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo.apk)
 
 **使用eclipse 无法编译demo项目的同学看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/ Intellij IDEA / Android Studio请忽略**
 
@@ -51,7 +51,7 @@
 
 项目已经发布到了Maven中央库，包括`aar`和`apklib`两种格式。在Maven或者Gradle下可如下直接引入:
 
-最新版版本号: 1.0.8.1-SNAPSHOT, 发布到了: https://oss.sonatype.org/content/repositories/snapshots
+最新版版本号: `1.0.8.1-SNAPSHOT`, 发布到了: https://oss.sonatype.org/content/repositories/snapshots
 
 在gradle中:
 
@@ -61,7 +61,7 @@ maven {
 }
 ```
 
-The stable version: 1.0.7, https://oss.sonatype.org/content/repositories/releases, in gradle:
+稳定版: `1.0.7`, https://oss.sonatype.org/content/repositories/releases, in gradle:
 
 ```
 mavenCentral()

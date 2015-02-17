@@ -13,7 +13,7 @@ It's well designed, you can customize the UI effect you want as easy as adding a
 
 Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
-[Download APK](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo/target/ultra-ptr-demo.apk)
+[Download APK](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo.apk)
 
 * StoreHouse Style first! Thanks to [CBStoreHouseRefreshControl](https://github.com/coolbeet/CBStoreHouseRefreshControl).
     <div class='row'>
@@ -54,7 +54,7 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
 This project has been pushed to Maven Central, both in `aar` and `apklib`.
 
-The latest version: {ptr_lib_version}, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
+The latest version: `{ptr_lib_version}`, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
 
 ```
 maven {
@@ -62,7 +62,7 @@ maven {
 }
 ```
 
-The stable version: {ptr_lib_stable_version}, https://oss.sonatype.org/content/repositories/releases, in gradle:
+The stable version: `{ptr_lib_stable_version}`, https://oss.sonatype.org/content/repositories/releases, in gradle:
 
 ```
 mavenCentral()
