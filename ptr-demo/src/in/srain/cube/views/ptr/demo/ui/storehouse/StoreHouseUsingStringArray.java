@@ -8,7 +8,7 @@ import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
 import in.srain.cube.mints.base.TitleBaseFragment;
-import in.srain.cube.util.Debug;
+import in.srain.cube.util.CubeDebug;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
@@ -35,8 +35,6 @@ public class StoreHouseUsingStringArray extends TitleBaseFragment {
         ImageLoader imageLoader = ImageLoaderFactory.create(getContext());
         String pic = "http://img5.duitang.com/uploads/item/201406/28/20140628122218_fLQyP.thumb.jpeg";
         imageView.loadImage(imageLoader, pic);
-
-        Debug.DEBUG_PTR_FRAME = true;
 
         final PtrFrameLayout frame = (PtrFrameLayout) view.findViewById(R.id.store_house_ptr_frame);
         final StoreHouseHeader header = new StoreHouseHeader(getContext());

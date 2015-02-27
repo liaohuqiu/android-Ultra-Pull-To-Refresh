@@ -96,6 +96,6 @@ dependencies {
     compile(project(':ptr-lib')) {
     }
     compile 'in.srain.cube:clog:1.0.2'
-    compile 'in.srain.cube:cube-sdk:1.0.43-SNAPSHOT@aar'
+    compile 'in.srain.cube:cube-sdk:1.0.44.9-SNAPSHOT@aar'
     compile 'com.google.android:support-v4:r7'
 }
