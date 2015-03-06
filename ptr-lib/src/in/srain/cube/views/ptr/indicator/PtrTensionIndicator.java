@@ -1,10 +1,13 @@
 package in.srain.cube.views.ptr.indicator;
 
+import in.srain.cube.util.CLog;
+
 public class PtrTensionIndicator extends PtrIndicator {
 
     private float DRAG_RATE = 0.5f;
     private float mDownY;
     private float mDownPos;
+    private float mOneHeight = 0;
 
     private float mCurrentDragPercent;
 
@@ -32,12 +35,24 @@ public class PtrTensionIndicator extends PtrIndicator {
     }
 
     @Override
+    public void setHeaderHeight(int height) {
+        super.setHeaderHeight(height);
+        mOneHeight = height * 4f / 5;
+    }
+
+    @Override
     protected void processOnMove(float currentX, float currentY, float offsetX, float offsetY) {
-        final float oneHeight = getHeaderHeight() * 4 / 5;
+
+        if (currentY < mDownY) {
+            super.processOnMove(currentX, currentY, offsetX, offsetY);
+            return;
+        }
+
 
         // distance from top
         final float scrollTop = (currentY - mDownY) * DRAG_RATE + mDownPos;
-        final float currentDragPercent = scrollTop / oneHeight;
+        final float currentDragPercent = scrollTop / mOneHeight;
+        CLog.d("test", "processOnMove: %s %s %s", currentDragPercent, scrollTop, mDownPos);
 
         if (currentDragPercent < 0) {
             setOffset(offsetX, 0);
@@ -45,20 +60,43 @@ public class PtrTensionIndicator extends PtrIndicator {
         }
 
         mCurrentDragPercent = currentDragPercent;
+
+        // 0 ~ 1
         float boundedDragPercent = Math.min(1f, Math.abs(currentDragPercent));
-        float extraOS = scrollTop - oneHeight;
+        float extraOS = scrollTop - mOneHeight;
 
         // 0 ~ 2
         // if extraOS lower than 0, which means scrollTop lower than onHeight, tensionSlingshotPercent will be 0.
-        float tensionSlingshotPercent = Math.max(0,
-                Math.min(extraOS, oneHeight * 2) / oneHeight);
+        float tensionSlingshotPercent = Math.max(0, Math.min(extraOS, mOneHeight * 2) / mOneHeight);
 
         float tensionPercent = (float) ((tensionSlingshotPercent / 4) - Math.pow((tensionSlingshotPercent / 4), 2)) * 2f;
-        float extraMove = (oneHeight) * tensionPercent / 2;
-        int targetY = (int) ((oneHeight * boundedDragPercent) + extraMove);
+        float extraMove = (mOneHeight) * tensionPercent / 2;
+        int targetY = (int) ((mOneHeight * boundedDragPercent) + extraMove);
         int change = targetY - getCurrentPosY();
 
         setOffset(currentX, change);
+    }
+
+    private float offsetToTarget(float scrollTop) {
+
+        // distance from top
+        final float currentDragPercent = scrollTop / mOneHeight;
+
+        mCurrentDragPercent = currentDragPercent;
+
+        // 0 ~ 1
+        float boundedDragPercent = Math.min(1f, Math.abs(currentDragPercent));
+        float extraOS = scrollTop - mOneHeight;
+
+        // 0 ~ 2
+        // if extraOS lower than 0, which means scrollTop lower than mOneHeight, tensionSlingshotPercent will be 0.
+        float tensionSlingshotPercent = Math.max(0, Math.min(extraOS, mOneHeight * 2) / mOneHeight);
+
+        float tensionPercent = (float) ((tensionSlingshotPercent / 4) - Math.pow((tensionSlingshotPercent / 4), 2)) * 2f;
+        float extraMove = (mOneHeight) * tensionPercent / 2;
+        int targetY = (int) ((mOneHeight * boundedDragPercent) + extraMove);
+
+        return 0;
     }
 
     @Override
@@ -68,8 +106,7 @@ public class PtrTensionIndicator extends PtrIndicator {
 
     @Override
     public int getOffsetToRefresh() {
-        final float oneHeight = getHeaderHeight() * 4 / 5;
-        return (int) oneHeight;
+        return (int) mOneHeight;
     }
 
     public float getOverDragPercent() {
