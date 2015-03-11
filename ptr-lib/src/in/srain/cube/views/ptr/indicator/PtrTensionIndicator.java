@@ -48,7 +48,6 @@ public class PtrTensionIndicator extends PtrIndicator {
             return;
         }
 
-
         // distance from top
         final float scrollTop = (currentY - mDownY) * DRAG_RATE + mDownPos;
         final float currentDragPercent = scrollTop / mOneHeight;

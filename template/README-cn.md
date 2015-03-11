@@ -181,6 +181,12 @@ mPtrFrame.setPullToRefresh(false);
 mPtrFrame.setKeepHeaderWhenRefresh(true);
 ```
 
+### 其他配置
+
+*  刷新时，保持内容不动，仅头部下移, `setPinContent()`
+
+    `Material` 风格时，效果不错，其他风格的头部，效果不好。issue #29
+
 ## StoreHouse 风格
 
 * 使用字符串, 支持A-Z, 0-7 以及 `-` `.`

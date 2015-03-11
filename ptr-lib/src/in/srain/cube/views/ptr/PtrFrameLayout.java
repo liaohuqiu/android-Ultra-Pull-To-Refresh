@@ -65,6 +65,7 @@ public class PtrFrameLayout extends ViewGroup {
     private long mLoadingStartTime = 0;
     private PtrIndicator mPtrIndicator;
     private boolean mHasSendCancelEvent = false;
+    private boolean mPinContent = false;
 
     public PtrFrameLayout(Context context) {
         this(context, null);
@@ -160,6 +161,9 @@ public class PtrFrameLayout extends ViewGroup {
             mContent = errorView;
             addView(mContent);
         }
+        if (mHeaderView != null) {
+            mHeaderView.bringToFront();
+        }
         super.onFinishInflate();
     }
 
@@ -229,6 +233,9 @@ public class PtrFrameLayout extends ViewGroup {
             }
         }
         if (mContent != null) {
+            if (mPinContent) {
+                offsetX = 0;
+            }
             MarginLayoutParams lp = (MarginLayoutParams) mContent.getLayoutParams();
             final int left = paddingLeft + lp.leftMargin;
             final int top = paddingTop + lp.topMargin + offsetX;
@@ -403,7 +410,9 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         mHeaderView.offsetTopAndBottom(change);
-        mContent.offsetTopAndBottom(change);
+        if (!mPinContent) {
+            mContent.offsetTopAndBottom(change);
+        }
         invalidate();
 
         if (mPtrUIHandlerHolder.hasHandler()) {
@@ -663,6 +672,15 @@ public class PtrFrameLayout extends ViewGroup {
             mStatus = PTR_STATUS_LOADING;
             performRefresh();
         }
+    }
+
+    /**
+     * The content view will now move when {@param pinContent} set to true.
+     *
+     * @param pinContent
+     */
+    public void setPinContent(boolean pinContent) {
+        mPinContent = pinContent;
     }
 
     /**

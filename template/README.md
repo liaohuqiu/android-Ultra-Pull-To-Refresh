@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh.svg?branch=master)](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Ultra%20Pull%20To%20Refresh-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1180)
 
-# [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
+#### [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
 
 # Ultra Pull To Refresh
 
@@ -180,6 +180,12 @@ mPtrFrame.setPullToRefresh(false);
 // default is true
 mPtrFrame.setKeepHeaderWhenRefresh(true);
 ```
+
+### Other Config
+
+*  `setPinContent`. Pin the content, only the `HeaderView` will be moved. 
+
+    This's the the performance of material style in support package v19.
 
 ## StoreHouse Style
 
