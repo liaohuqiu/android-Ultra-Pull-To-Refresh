@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh.svg?branch=master)](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Ultra%20Pull%20To%20Refresh-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1180)
 
-# [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
+#### [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
 
 # Ultra Pull To Refresh
 
@@ -54,7 +54,7 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
 This project has been pushed to Maven Central, both in `aar` and `apklib`.
 
-The latest version: `1.0.8.1-SNAPSHOT`, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
+The latest version: `1.0.8.2-SNAPSHOT`, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
 
 ```
 maven {
@@ -77,7 +77,7 @@ pom.xml, latest version:
     <type>aar</type>
     <!-- or apklib format, if you want -->
     <!-- <type>apklib</type> -->
-    <version>1.0.8.1-SNAPSHOT</version>
+    <version>1.0.8.2-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -97,7 +97,7 @@ pom.xml, stable version:
 gradle, latest version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.8.1-SNAPSHOT@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.8.2-SNAPSHOT@aar'
 ```
 
 gradle, stable version:
@@ -180,6 +180,12 @@ mPtrFrame.setPullToRefresh(false);
 // default is true
 mPtrFrame.setKeepHeaderWhenRefresh(true);
 ```
+
+### Other Config
+
+*  `setPinContent`. Pin the content, only the `HeaderView` will be moved. 
+
+    This's the the performance of material style in support package v19.
 
 ## StoreHouse Style
 

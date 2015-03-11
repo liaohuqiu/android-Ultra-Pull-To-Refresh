@@ -1,2 +1,2 @@
-python build-template.py
-./gradlew clean :core:uploadArchives
+python update-project.py
+./gradlew clean :ptr-lib:uploadArchives
