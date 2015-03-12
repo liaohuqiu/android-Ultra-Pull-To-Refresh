@@ -51,7 +51,7 @@
 
 项目已经发布到了Maven中央库，包括`aar`和`apklib`两种格式。在Maven或者Gradle下可如下直接引入:
 
-最新版版本号: `1.0.8.2-SNAPSHOT`, 发布到了: https://oss.sonatype.org/content/repositories/snapshots
+最新版版本号: `1.0.8.3-SNAPSHOT`, 发布到了: https://oss.sonatype.org/content/repositories/snapshots
 
 在gradle中:
 
@@ -78,7 +78,7 @@ mavenCentral()
     <type>aar</type>
     <!-- or apklib format, if you want -->
     <!-- <type>apklib</type> -->
-    <version>1.0.8.2-SNAPSHOT</version>
+    <version>1.0.8.3-SNAPSHOT</version>
 </dependency>
 
 稳定版
@@ -97,7 +97,7 @@ mavenCentral()
 gradle / Android Studio, 最新版
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.8.2-SNAPSHOT@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.8.3-SNAPSHOT@aar'
 ```
 
 gradle / Android Studio, 稳定版

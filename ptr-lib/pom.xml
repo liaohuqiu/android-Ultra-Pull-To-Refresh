@@ -13,7 +13,7 @@
     <artifactId>ultra-ptr</artifactId>
     <packaging>aar</packaging>
     <name>Ultra Pull to Refresh</name>
-    <version>1.0.8.2-SNAPSHOT</version>
+    <version>1.0.8.3-SNAPSHOT</version>
 
     <description>Ultra Pull to Refresh in Android</description>
     <url>https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh</url>
