@@ -54,7 +54,7 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
 This project has been pushed to Maven Central, both in `aar` and `apklib`.
 
-The latest version: `1.0.8`, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
+The latest version: `1.0.8.3-SNAPSHOT`, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
 
 ```
 maven {
@@ -62,7 +62,7 @@ maven {
 }
 ```
 
-The stable version: `1.0.7`, https://oss.sonatype.org/content/repositories/releases, in gradle:
+The stable version: `1.0.8`, https://oss.sonatype.org/content/repositories/releases, in gradle:
 
 ```
 mavenCentral()
@@ -77,7 +77,7 @@ pom.xml, latest version:
     <type>aar</type>
     <!-- or apklib format, if you want -->
     <!-- <type>apklib</type> -->
-    <version>1.0.8</version>
+    <version>1.0.8.3-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -90,20 +90,20 @@ pom.xml, stable version:
     <type>aar</type>
     <!-- or apklib format, if you want -->
     <!-- <type>apklib</type> -->
-    <version>1.0.7</version>
+    <version>1.0.8</version>
 </dependency>
 ```
 
 gradle, latest version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.8@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.8.3-SNAPSHOT@aar'
 ```
 
 gradle, stable version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.7@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.8@aar'
 ```
 
 #### Config

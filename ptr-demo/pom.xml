@@ -37,13 +37,13 @@
             <groupId>in.srain.cube</groupId>
             <artifactId>ultra-ptr</artifactId>
             <type>aar</type>
-            <version>1.0.8</version>
+            <version>1.0.8.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>in.srain.cube</groupId>
             <artifactId>cube-sdk</artifactId>
             <type>aar</type>
-            <version>1.0.44.14-SNAPSHOT</version>
+            <version>1.0.44</version>
         </dependency>
     </dependencies>
 
