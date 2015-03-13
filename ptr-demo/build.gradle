@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.android.tools.build:gradle:1.0.+'
     }
 }
 
@@ -17,6 +17,7 @@ android {
         applicationId "in.srain.cube.views.ptr.demo"
         minSdkVersion 8
         targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+        proguardFile getDefaultProguardFile('proguard-android.txt')
     }
 
     lintOptions {
