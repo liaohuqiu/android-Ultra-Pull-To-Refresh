@@ -8,7 +8,9 @@
 
 [APK下载](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo.apk)
 
-**使用eclipse 无法编译demo项目的同学看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/ Intellij IDEA / Android Studio请忽略**
+#### 使用eclipse的同学请注意, Intellij IDEA / Android Studio 请忽略
+
+**demo可以直接在eclipse中运行, 编译demo项目的同学看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/**
 
 * 先上两张StoreHouse风格的截图! 感谢 [CBStoreHouseRefreshControl](https://github.com/coolbeet/CBStoreHouseRefreshControl).
     <div class='row'>
