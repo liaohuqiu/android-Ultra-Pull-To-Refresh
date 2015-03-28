@@ -288,10 +288,6 @@ ptrFrame.setPtrHandler(new PtrHandler() {
 *  长按LongPressed, `setInterceptEventWhileWorking()`
 
 
-# License
-
-Apache 2
-
 # 联系方式和问题建议
 
 * 微博: http://weibo.com/liaohuqiu

@@ -1,7 +1,5 @@
 package in.srain.cube.views.ptr.indicator;
 
-import in.srain.cube.util.CLog;
-
 public class PtrTensionIndicator extends PtrIndicator {
 
     private float DRAG_RATE = 0.5f;
@@ -51,7 +49,6 @@ public class PtrTensionIndicator extends PtrIndicator {
         // distance from top
         final float scrollTop = (currentY - mDownY) * DRAG_RATE + mDownPos;
         final float currentDragPercent = scrollTop / mOneHeight;
-        CLog.d("test", "processOnMove: %s %s %s", currentDragPercent, scrollTop, mDownPos);
 
         if (currentDragPercent < 0) {
             setOffset(offsetX, 0);

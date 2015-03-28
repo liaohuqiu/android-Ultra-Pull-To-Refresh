@@ -318,10 +318,6 @@ public interface PtrUIHandler {
 
 *  work with LongPressed, `setInterceptEventWhileWorking()`
 
-# License
-
-Apache 2
-
 # Contact & Help
 
 Please fell free to contact me if there is any problem when using the library.

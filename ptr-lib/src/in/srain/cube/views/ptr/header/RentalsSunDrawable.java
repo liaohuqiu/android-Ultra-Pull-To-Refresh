@@ -79,6 +79,7 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
 
 
     private void initiateDimens() {
+        PtrLocalDisplay.init(mContext);
         mTotalDragDistance = PtrLocalDisplay.dp2px(120);
 
         mScreenWidth = getContext().getResources().getDisplayMetrics().widthPixels;

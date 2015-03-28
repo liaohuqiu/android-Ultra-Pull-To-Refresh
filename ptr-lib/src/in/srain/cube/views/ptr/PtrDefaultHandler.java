@@ -1,16 +1,23 @@
 package in.srain.cube.views.ptr;
 
-import android.os.Build;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ScrollView;
 
 public abstract class PtrDefaultHandler implements PtrHandler {
 
-    @Override
-    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return checkContentCanBePulledDown(frame, content, header);
+    public static boolean canChildScrollUp(View mTarget) {
+        if (android.os.Build.VERSION.SDK_INT < 14) {
+            if (mTarget instanceof AbsListView) {
+                final AbsListView absListView = (AbsListView) mTarget;
+                return absListView.getChildCount() > 0
+                        && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0)
+                        .getTop() < absListView.getPaddingTop());
+            } else {
+                return mTarget.getScrollY() > 0;
+            }
+        } else {
+            return mTarget.canScrollVertically(-1);
+        }
     }
 
     /**
@@ -22,6 +29,26 @@ public abstract class PtrDefaultHandler implements PtrHandler {
      * @return
      */
     public static boolean checkContentCanBePulledDown(PtrFrameLayout frame, View content, View header) {
+        return !canChildScrollUp(content);
+        /*
+        if (android.os.Build.VERSION.SDK_INT < 14) {
+            if (content instanceof AbsListView) {
+                final AbsListView absListView = (AbsListView) content;
+                if (absListView.getChildCount() == 0) {
+                    return true;
+                }
+                if (absListView.getFirstVisiblePosition() == 0 && absListView.getChildAt(0).getTop() >= absListView.getPaddingTop()) {
+                    return true;
+                }
+                return false;
+            } else {
+                return content.getScrollY() <= 0;
+            }
+        } else {
+            return content.canScrollVertically(1);
+        }
+        */
+        /*
         if (!(content instanceof ViewGroup)) {
             return true;
         }
@@ -55,5 +82,11 @@ public abstract class PtrDefaultHandler implements PtrHandler {
         } else {
             return top == viewGroup.getPaddingTop();
         }
+        */
+    }
+
+    @Override
+    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+        return checkContentCanBePulledDown(frame, content, header);
     }
 }

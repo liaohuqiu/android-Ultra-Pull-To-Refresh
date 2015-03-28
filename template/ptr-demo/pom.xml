@@ -29,12 +29,6 @@
         </dependency>
         <dependency>
             <groupId>in.srain.cube</groupId>
-            <artifactId>clog</artifactId>
-            <type>jar</type>
-            <version>1.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>in.srain.cube</groupId>
             <artifactId>ultra-ptr</artifactId>
             <type>aar</type>
             <version>{ptr_lib_version}</version>

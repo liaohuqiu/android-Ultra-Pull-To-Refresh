@@ -60,6 +60,11 @@ afterEvaluate { project ->
                         }
                     }
 
+                    issueManagement {
+                        system POM_ISSUE_SYSTEM
+                        url POM_ISSUE_URL
+                    }
+
                     developers {
                         developer {
                             id POM_DEVELOPER_ID
