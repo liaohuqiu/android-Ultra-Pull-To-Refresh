@@ -11,7 +11,7 @@ public class MaterialStylePinContentFragment extends MaterialStyleFragment {
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.createView(inflater, container, savedInstanceState);
         // close at once
-        mPtrFrameLayout.setDurationToCloseHeader(1);
+        mPtrFrameLayout.setDurationToClose(100);
         mPtrFrameLayout.setPinContent(true);
         return view;
     }
