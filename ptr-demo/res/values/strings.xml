@@ -29,4 +29,7 @@
     <string name="ptr_demo_rentals_style">Rentals Style</string>
     <string name="ptr_demo_placeholder">To be continued</string>
 
+    <string name="ptr_demo_material_style_pin_content">Material Style\nPin Content\n v4 style</string>
+    <string name="ptr_demo_enable_next_ptr_at_once">Enable Next PTR at once</string>
+
 </resources>

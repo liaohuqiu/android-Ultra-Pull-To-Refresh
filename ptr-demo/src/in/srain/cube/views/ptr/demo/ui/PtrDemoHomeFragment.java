@@ -2,7 +2,6 @@ package in.srain.cube.views.ptr.demo.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -138,6 +137,13 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(MaterialStyleFragment.class, null);
             }
         }));
+        itemInfos.add(newItemInfo(R.string.ptr_demo_material_style_pin_content, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(MaterialStylePinContentFragment.class, null);
+            }
+        }));
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_with_long_press, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -159,6 +165,26 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
             @Override
             public void onClick(View v) {
                 getContext().pushFragmentToBackStack(RentalsStyleFragment.class, null);
+            }
+        }));
+        itemInfos.add(newItemInfo(R.string.ptr_demo_enable_next_ptr_at_once, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(EnableNextPTRAtOnce.class, null);
+            }
+        }));
+
+        itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+            }
+        }));
+        itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
             }
         }));
         itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {

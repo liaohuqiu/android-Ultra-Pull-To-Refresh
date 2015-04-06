@@ -14,4 +14,7 @@
     <string name="ptr_demo_storehouse_header_using_string_array_in_title">使用xml: &#160;</string>
     <string name="ptr_demo_block_storehouse_header_using_string">StoreHouse Style \n\n使用字符串</string>
     <string name="ptr_demo_storehouse_header_using_string_in_title">使用字符串:&#160;</string>
+
+    <string name="ptr_demo_material_style_pin_content">Material Style\n内容不动，原生风格</string>
+    <string name="ptr_demo_enable_next_ptr_at_once">立即下拉刷新，不等UIReset</string>
 </resources>

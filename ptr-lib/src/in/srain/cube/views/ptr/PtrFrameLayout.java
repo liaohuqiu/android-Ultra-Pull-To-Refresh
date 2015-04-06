@@ -25,9 +25,15 @@ public class PtrFrameLayout extends ViewGroup {
     private static final boolean DEBUG_LAYOUT = true;
     public static boolean DEBUG = false;
     private static int ID = 1;
+
     // auto refresh status
-    private static byte STATUS_AUTO_SCROLL_AT_ONCE = 0x01;
-    private static byte STATUS_AUTO_SCROLL_LATER = 0x02;
+    private static byte FLAG_AUTO_REFRESH_AT_ONCE = 0x01;
+    private static byte FLAG_AUTO_REFRESH_BUT_LATER = 0x01 << 1;
+    private static byte FLAG_ENABLE_NEXT_PTR_AT_ONCE = 0x01 << 2;
+    private static byte FLAG_PIN_CONTENT = 0x01 << 3;
+
+    private static byte MASK_AUTO_REFRESH = 0x03;
+
     protected final String LOG_TAG = "ptr-frame-" + ++ID;
     protected View mContent;
     // optional config for define header and content in xml file
@@ -50,7 +56,7 @@ public class PtrFrameLayout extends ViewGroup {
 
     private byte mStatus = PTR_STATUS_INIT;
     private boolean mDisableWhenHorizontalMove = false;
-    private int mAutoScrollRefreshTag = 0x00;
+    private int mFlag = 0x00;
 
     // disable when detect moving horizontally
     private boolean mPreventForHorizontal = false;
@@ -64,7 +70,6 @@ public class PtrFrameLayout extends ViewGroup {
     private long mLoadingStartTime = 0;
     private PtrIndicator mPtrIndicator;
     private boolean mHasSendCancelEvent = false;
-    private boolean mPinContent = false;
 
     public PtrFrameLayout(Context context) {
         this(context, null);
@@ -231,7 +236,7 @@ public class PtrFrameLayout extends ViewGroup {
             }
         }
         if (mContent != null) {
-            if (mPinContent) {
+            if (isPinContent()) {
                 offsetX = 0;
             }
             MarginLayoutParams lp = (MarginLayoutParams) mContent.getLayoutParams();
@@ -368,14 +373,14 @@ public class PtrFrameLayout extends ViewGroup {
             sendCancelEvent();
         }
 
-        // leave initiated position
-        if (mPtrIndicator.hasJustLeftStartPosition() && mPtrUIHandlerHolder.hasHandler()) {
-            if (mStatus == PTR_STATUS_INIT) {
-                mStatus = PTR_STATUS_PREPARE;
-                mPtrUIHandlerHolder.onUIRefreshPrepare(this);
-                if (DEBUG) {
-                    PtrCLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshPrepare, mAutoScrollRefreshTag %s", mAutoScrollRefreshTag);
-                }
+        // leave initiated position or just refresh complete
+        if ((mPtrIndicator.hasJustLeftStartPosition() && mStatus == PTR_STATUS_INIT) ||
+                (mPtrIndicator.goDownCrossFinishPosition() && mStatus == PTR_STATUS_COMPLETE && !isEnabledNextPtrAtOnce())) {
+
+            mStatus = PTR_STATUS_PREPARE;
+            mPtrUIHandlerHolder.onUIRefreshPrepare(this);
+            if (DEBUG) {
+                PtrCLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshPrepare, mFlag %s", mFlag);
             }
         }
 
@@ -392,12 +397,12 @@ public class PtrFrameLayout extends ViewGroup {
         // Pull to Refresh
         if (mStatus == PTR_STATUS_PREPARE) {
             // reach fresh height while moving from top to bottom
-            if (isUnderTouch && mAutoScrollRefreshTag == 0 && mPullToRefresh
+            if (isUnderTouch && !isAutoRefresh() && mPullToRefresh
                     && mPtrIndicator.crossRefreshLineFromTopToBottom()) {
                 tryToPerformRefresh();
             }
             // reach header height while auto refresh
-            if (mAutoScrollRefreshTag == STATUS_AUTO_SCROLL_LATER && mPtrIndicator.hasJustReachedHeaderHeightFromTopToBottom()) {
+            if (performAutoRefreshButLater() && mPtrIndicator.hasJustReachedHeaderHeightFromTopToBottom()) {
                 tryToPerformRefresh();
             }
         }
@@ -408,7 +413,7 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         mHeaderView.offsetTopAndBottom(change);
-        if (!mPinContent) {
+        if (!isPinContent()) {
             mContent.offsetTopAndBottom(change);
         }
         invalidate();
@@ -507,7 +512,7 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         //
-        if ((mPtrIndicator.isOverOffsetToKeepHeaderWhileLoading() && mAutoScrollRefreshTag > 0) || mPtrIndicator.isOverOffsetToRefresh()) {
+        if ((mPtrIndicator.isOverOffsetToKeepHeaderWhileLoading() && isAutoRefresh()) || mPtrIndicator.isOverOffsetToRefresh()) {
             mStatus = PTR_STATUS_LOADING;
             performRefresh();
         }
@@ -539,14 +544,14 @@ public class PtrFrameLayout extends ViewGroup {
                 }
             }
             mStatus = PTR_STATUS_INIT;
-            mAutoScrollRefreshTag = 0;
+            clearFlag();
             return true;
         }
         return false;
     }
 
     protected void onPtrScrollAbort() {
-        if (mPtrIndicator.hasLeftStartPosition() && mAutoScrollRefreshTag > 0) {
+        if (mPtrIndicator.hasLeftStartPosition() && isAutoRefresh()) {
             if (DEBUG) {
                 PtrCLog.d(LOG_TAG, "call onRelease after scroll abort");
             }
@@ -555,7 +560,7 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     protected void onPtrScrollFinish() {
-        if (mPtrIndicator.hasLeftStartPosition() && mAutoScrollRefreshTag > 0) {
+        if (mPtrIndicator.hasLeftStartPosition() && isAutoRefresh()) {
             if (DEBUG) {
                 PtrCLog.d(LOG_TAG, "call onRelease after scroll finish");
             }
@@ -602,11 +607,11 @@ public class PtrFrameLayout extends ViewGroup {
         mStatus = PTR_STATUS_COMPLETE;
 
         // if is auto refresh do nothing, wait scroller stop
-        if (mScrollChecker.mIsRunning && mAutoScrollRefreshTag > 0) {
+        if (mScrollChecker.mIsRunning && isAutoRefresh()) {
             // do nothing
             if (DEBUG) {
                 PtrCLog.d(LOG_TAG, "performRefreshComplete do nothing, scrolling: %s, auto refresh: %s",
-                        mScrollChecker.mIsRunning, mAutoScrollRefreshTag);
+                        mScrollChecker.mIsRunning, mFlag);
             }
             return;
         }
@@ -650,19 +655,24 @@ public class PtrFrameLayout extends ViewGroup {
         autoRefresh(atOnce, mDurationToCloseHeader);
     }
 
+    private void clearFlag() {
+        // remove auto fresh flag
+        mFlag = mFlag & ~MASK_AUTO_REFRESH;
+    }
+
     public void autoRefresh(boolean atOnce, int duration) {
 
         if (mStatus != PTR_STATUS_INIT) {
             return;
         }
 
-        mAutoScrollRefreshTag = atOnce ? STATUS_AUTO_SCROLL_AT_ONCE : STATUS_AUTO_SCROLL_LATER;
+        mFlag |= atOnce ? FLAG_AUTO_REFRESH_AT_ONCE : FLAG_AUTO_REFRESH_BUT_LATER;
 
         mStatus = PTR_STATUS_PREPARE;
         if (mPtrUIHandlerHolder.hasHandler()) {
             mPtrUIHandlerHolder.onUIRefreshPrepare(this);
             if (DEBUG) {
-                PtrCLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshPrepare, mAutoScrollRefreshTag %s", mAutoScrollRefreshTag);
+                PtrCLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshPrepare, mFlag %s", mFlag);
             }
         }
         mScrollChecker.tryToScrollTo(mPtrIndicator.getOffsetToRefresh(), duration);
@@ -672,13 +682,46 @@ public class PtrFrameLayout extends ViewGroup {
         }
     }
 
+    public boolean isAutoRefresh() {
+        return (mFlag & MASK_AUTO_REFRESH) > 0;
+    }
+
+    private boolean performAutoRefreshButLater() {
+        return (mFlag & MASK_AUTO_REFRESH) == FLAG_AUTO_REFRESH_BUT_LATER;
+    }
+
+    /**
+     * If @param enable has been set to true. The user can perform next PTR at once.
+     *
+     * @param enable
+     */
+    public void setEnabledNextPtrAtOnce(boolean enable) {
+        if (enable) {
+            mFlag = mFlag | FLAG_ENABLE_NEXT_PTR_AT_ONCE;
+        } else {
+            mFlag = mFlag & ~FLAG_ENABLE_NEXT_PTR_AT_ONCE;
+        }
+    }
+
+    public boolean isEnabledNextPtrAtOnce() {
+        return (mFlag & FLAG_ENABLE_NEXT_PTR_AT_ONCE) > 0;
+    }
+
     /**
      * The content view will now move when {@param pinContent} set to true.
      *
      * @param pinContent
      */
     public void setPinContent(boolean pinContent) {
-        mPinContent = pinContent;
+        if (pinContent) {
+            mFlag = mFlag | FLAG_PIN_CONTENT;
+        } else {
+            mFlag = mFlag & ~FLAG_PIN_CONTENT;
+        }
+    }
+
+    public boolean isPinContent() {
+        return (mFlag & FLAG_PIN_CONTENT) > 0;
     }
 
     /**
