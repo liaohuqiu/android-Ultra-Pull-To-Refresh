@@ -96,9 +96,9 @@ public class PtrFrameLayout extends ViewGroup {
             mDurationToClose = arr.getInt(R.styleable.PtrFrameLayout_ptr_duration_to_close, mDurationToClose);
             mDurationToCloseHeader = arr.getInt(R.styleable.PtrFrameLayout_ptr_duration_to_close_header, mDurationToCloseHeader);
 
-            float radio = mPtrIndicator.getRatioOfHeaderToHeightRefresh();
-            radio = arr.getFloat(R.styleable.PtrFrameLayout_ptr_ratio_of_header_height_to_refresh, radio);
-            mPtrIndicator.setRatioOfHeaderHeightToRefresh(radio);
+            float ratio = mPtrIndicator.getRatioOfHeaderToHeightRefresh();
+            ratio = arr.getFloat(R.styleable.PtrFrameLayout_ptr_ratio_of_header_height_to_refresh, ratio);
+            mPtrIndicator.setRatioOfHeaderHeightToRefresh(ratio);
 
             mKeepHeaderWhenRefresh = arr.getBoolean(R.styleable.PtrFrameLayout_ptr_keep_header_when_refresh, mKeepHeaderWhenRefresh);
 
