@@ -19,7 +19,7 @@ import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
-import in.srain.cube.views.ptr.header.RentalsSunHeaderView;
+import in.srain.cube.views.ptr.demo.ui.header.RentalsSunHeaderView;
 
 public class RentalsStyleFragment extends TitleBaseFragment {
 

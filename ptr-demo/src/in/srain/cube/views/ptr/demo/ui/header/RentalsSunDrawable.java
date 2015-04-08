@@ -1,4 +1,4 @@
-package in.srain.cube.views.ptr.header;
+package in.srain.cube.views.ptr.demo.ui.header;
 
 import android.content.Context;
 import android.graphics.*;
@@ -9,7 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
-import in.srain.cube.views.ptr.R;
+import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 public class RentalsSunDrawable extends Drawable implements Animatable {

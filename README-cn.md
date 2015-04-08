@@ -57,7 +57,7 @@
 
 项目已经发布到了Maven中央库，包括`aar`和`apklib`两种格式。在Maven或者Gradle下可如下直接引入:
 
-最新版版本号: `1.0.9`, 发布到了: https://oss.sonatype.org/content/repositories/snapshots
+最新版版本号: `1.0.9.1-SNAPSHOT`, 发布到了: https://oss.sonatype.org/content/repositories/snapshots
 
 在gradle中:
 
@@ -67,7 +67,7 @@ maven {
 }
 ```
 
-稳定版: `1.0.8`, https://oss.sonatype.org/content/repositories/releases, in gradle:
+稳定版: `1.0.9`, https://oss.sonatype.org/content/repositories/releases, in gradle:
 
 ```
 mavenCentral()
@@ -84,7 +84,7 @@ mavenCentral()
     <type>aar</type>
     <!-- or apklib format, if you want -->
     <!-- <type>apklib</type> -->
-    <version>1.0.9</version>
+    <version>1.0.9.1-SNAPSHOT</version>
 </dependency>
 
 稳定版
@@ -96,20 +96,20 @@ mavenCentral()
     <type>aar</type>
     <!-- or apklib format, if you want -->
     <!-- <type>apklib</type> -->
-    <version>1.0.8</version>
+    <version>1.0.9</version>
 </dependency>
 ```
 
 gradle / Android Studio, 最新版
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.9@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.9.1-SNAPSHOT@aar'
 ```
 
 gradle / Android Studio, 稳定版
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.8@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.9@aar'
 ```
 
 #### 配置
