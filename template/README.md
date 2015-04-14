@@ -3,6 +3,8 @@
 
 #### [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
 
+Wanna auto-load-more? This will be what you want: https://github.com/liaohuqiu/android-cube-app
+
 # Ultra Pull To Refresh
 
 It's a replacement for the deprecated pull to refresh solution. It can contain any view you want.
