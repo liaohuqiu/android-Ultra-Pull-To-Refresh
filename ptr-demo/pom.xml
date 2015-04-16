@@ -37,7 +37,7 @@
             <groupId>in.srain.cube</groupId>
             <artifactId>cube-sdk</artifactId>
             <type>aar</type>
-            <version>1.0.44</version>
+            <version>1.0.44.33-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
