@@ -1,11 +1,9 @@
 package in.srain.cube.views.ptr.demo.ui;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.demo.R;
 

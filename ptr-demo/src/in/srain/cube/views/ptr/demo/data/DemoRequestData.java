@@ -1,7 +1,6 @@
 package in.srain.cube.views.ptr.demo.data;
 
 import in.srain.cube.request.*;
-import in.srain.cube.util.CLog;
 
 public class DemoRequestData {
 
