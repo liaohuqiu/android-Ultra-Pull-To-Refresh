@@ -1,3 +1,11 @@
+###### [关注我的GitHub吧，江湖救急，需要你的支持和帮助](http://www.liaohuqiu.net/cn/posts/follow-me-on-github/)
+
+Github: https://github.com/liaohuqiu
+
+微博: http://weibo.com/liaohuqiu
+
+---
+
 # Ultra Pull To Refresh
 
 这是现在已经停止维护的下拉刷新项目的替代方案。继承于ViewGroup可以包含任何View。功能比SwipeRefreshLayout强大。
