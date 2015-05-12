@@ -111,13 +111,13 @@ mavenCentral()
 gradle / Android Studio, 最新版
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.9.1-SNAPSHOT@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.9.1-SNAPSHOT'
 ```
 
 gradle / Android Studio, 稳定版
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.9@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.9'
 ```
 
 #### 配置
