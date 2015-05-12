@@ -107,13 +107,13 @@ pom.xml, stable version:
 gradle, latest version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:{ptr_lib_version}@aar'
+compile 'in.srain.cube:ultra-ptr:{ptr_lib_version}'
 ```
 
 gradle, stable version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:{ptr_lib_stable_version}@aar'
+compile 'in.srain.cube:ultra-ptr:{ptr_lib_stable_version}'
 ```
 
 #### Config
