@@ -63,7 +63,7 @@ public class PtrIndicator {
     }
 
     public void setOffsetToRefresh(int offset) {
-        mRatioOfHeaderHeightToRefresh = mHeaderHeight / offset;
+        mRatioOfHeaderHeightToRefresh = mHeaderHeight * 1f / offset;
         mOffsetToRefresh = offset;
     }
 
