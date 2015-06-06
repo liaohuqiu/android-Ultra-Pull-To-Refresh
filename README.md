@@ -1,3 +1,5 @@
+[![Android Gems](http://www.android-gems.com/badge/liaohuqiu/android-Ultra-Pull-To-Refresh.svg?a=b)](http://www.android-gems.com/lib/liaohuqiu/android-Ultra-Pull-To-Refresh)
+
 [![Android Gems](http://www.android-gems.com/badge/liaohuqiu/android-Ultra-Pull-To-Refresh.svg)](http://www.android-gems.com/lib/liaohuqiu/android-Ultra-Pull-To-Refresh)
 
 [![Android Gems](http://www.android-gems.com/badge/liaohuqiu/android-Ultra-Pull-To-Refresh.svg)](http://www.android-gems.com/lib/liaohuqiu/android-Ultra-Pull-To-Refresh)
