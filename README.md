@@ -1,5 +1,7 @@
 [![Android Gems](http://www.android-gems.com/badge/liaohuqiu/android-Ultra-Pull-To-Refresh.svg)](http://www.android-gems.com/lib/liaohuqiu/android-Ultra-Pull-To-Refresh)
 
+[![Android Gems](http://www.android-gems.com/badge/liaohuqiu/android-Ultra-Pull-To-Refresh.svg)](http://www.android-gems.com/lib/liaohuqiu/android-Ultra-Pull-To-Refresh)
+
 ###### [Please follow me on GitHub, I need your support](http://www.liaohuqiu.net/posts/follow-me-on-github/)
 
 Github: https://github.com/liaohuqiu
