@@ -1,5 +1,3 @@
-[![Android Gems](http://www.android-gems.com/badge/liaohuqiu/android-Ultra-Pull-To-Refresh.svg?a=b)](http://www.android-gems.com/lib/liaohuqiu/android-Ultra-Pull-To-Refresh)
-
 ###### [Please follow me on GitHub, I need your support](http://www.liaohuqiu.net/posts/follow-me-on-github/)
 
 Github: https://github.com/liaohuqiu
@@ -66,7 +64,7 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
 This project has been pushed to Maven Central, both in `aar` and `apklib`.
 
-The latest version: `1.0.9.1-SNAPSHOT`, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
+The latest version: `1.0.9.2-SNAPSHOT`, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
 
 ```
 maven {
@@ -89,7 +87,7 @@ pom.xml, latest version:
     <type>aar</type>
     <!-- or apklib format, if you want -->
     <!-- <type>apklib</type> -->
-    <version>1.0.9.1-SNAPSHOT</version>
+    <version>1.0.9.2-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -109,7 +107,7 @@ pom.xml, stable version:
 gradle, latest version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.9.1-SNAPSHOT'
+compile 'in.srain.cube:ultra-ptr:1.0.9.2-SNAPSHOT'
 ```
 
 gradle, stable version:

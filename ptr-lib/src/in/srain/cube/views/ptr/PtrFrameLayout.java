@@ -59,7 +59,6 @@ public class PtrFrameLayout extends ViewGroup {
     // disable when detect moving horizontally
     private boolean mPreventForHorizontal = false;
 
-    private MotionEvent mDownEvent;
     private MotionEvent mLastMoveEvent;
 
     private PtrUIHandlerHook mRefreshCompleteHook;
@@ -279,7 +278,6 @@ public class PtrFrameLayout extends ViewGroup {
 
             case MotionEvent.ACTION_DOWN:
                 mHasSendCancelEvent = false;
-                mDownEvent = e;
                 mPtrIndicator.onPressDown(e.getX(), e.getY());
 
                 mScrollChecker.abortIfWorking();
@@ -288,7 +286,8 @@ public class PtrFrameLayout extends ViewGroup {
                 // The cancel event will be sent once the position is moved.
                 // So let the event pass to children.
                 // fix #93, #102
-                return dispatchTouchEventSupper(e);
+                dispatchTouchEventSupper(e);
+                return true;
 
             case MotionEvent.ACTION_MOVE:
                 mLastMoveEvent = e;
@@ -905,8 +904,12 @@ public class PtrFrameLayout extends ViewGroup {
         if (DEBUG) {
             PtrCLog.d(LOG_TAG, "send cancel event");
         }
-        MotionEvent last = mDownEvent;
-        last = mLastMoveEvent;
+        // The ScrollChecker will update position and lead to send cancel event when mLastMoveEvent is null.
+        // fix #104, #80, #92
+        if (mLastMoveEvent == null) {
+            return;
+        }
+        MotionEvent last = mLastMoveEvent;
         MotionEvent e = MotionEvent.obtain(last.getDownTime(), last.getEventTime() + ViewConfiguration.getLongPressTimeout(), MotionEvent.ACTION_CANCEL, last.getX(), last.getY(), last.getMetaState());
         dispatchTouchEventSupper(e);
     }

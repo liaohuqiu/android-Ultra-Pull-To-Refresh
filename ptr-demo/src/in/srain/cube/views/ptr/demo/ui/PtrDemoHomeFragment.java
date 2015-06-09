@@ -62,6 +62,7 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(WithWebView.class, null);
             }
         }));
+
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_with_list_view_and_empty_view, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -69,6 +70,16 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(WithListViewAndEmptyView.class, null);
             }
         }));
+
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_scroll_view, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(WithScrollView.class, null);
+            }
+        }));
+        itemInfos.add(null);
+        itemInfos.add(null);
 
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_keep_header, R.color.cube_mints_4d90fe, new OnClickListener() {
 
@@ -84,7 +95,6 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(HideHeader.class, null);
             }
         }));
-        itemInfos.add(null);
 
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_release_to_refresh, R.color.cube_mints_4d90fe, new OnClickListener() {
 
@@ -108,6 +118,7 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(AutoRefresh.class, null);
             }
         }));
+        itemInfos.add(null);
 
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_storehouse_header_using_string_array, R.color.cube_mints_4d90fe, new OnClickListener() {
 
