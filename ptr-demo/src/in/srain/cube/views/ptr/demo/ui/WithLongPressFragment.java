@@ -39,7 +39,7 @@ public class WithLongPressFragment extends TitleBaseFragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "Long Pressed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Long Pressed: " + id, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
