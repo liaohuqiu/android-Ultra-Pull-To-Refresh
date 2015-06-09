@@ -286,7 +286,8 @@ public class PtrFrameLayout extends ViewGroup {
                 // The cancel event will be sent once the position is moved.
                 // So let the event pass to children.
                 // fix #93, #102
-                return dispatchTouchEventSupper(e);
+                dispatchTouchEventSupper(e);
+                return true;
 
             case MotionEvent.ACTION_MOVE:
                 mLastMoveEvent = e;
