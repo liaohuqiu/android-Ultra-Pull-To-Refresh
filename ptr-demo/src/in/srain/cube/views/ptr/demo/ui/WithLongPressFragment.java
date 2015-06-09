@@ -58,7 +58,7 @@ public class WithLongPressFragment extends TitleBaseFragment {
                         listViewDataAdapter.notifyDataSetChanged();
                         ptrFrameLayout.refreshComplete();
                     }
-                }, 500);
+                }, 2000);
             }
         });
         ptrFrameLayout.postDelayed(new Runnable() {

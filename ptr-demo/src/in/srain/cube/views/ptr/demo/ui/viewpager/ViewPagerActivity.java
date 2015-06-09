@@ -104,12 +104,12 @@ public class ViewPagerActivity extends TitleBaseActivity {
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public Fragment getItem(int position) {
+            return mViewPagerFragments.get(position);
         }
 
         @Override
-        public Fragment getItem(int position) {
-            return mViewPagerFragments.get(position);
+        public void destroyItem(ViewGroup container, int position, Object object) {
         }
 
         protected void updateData() {
