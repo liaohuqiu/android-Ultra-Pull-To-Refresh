@@ -2,7 +2,6 @@ package in.srain.cube.views.ptr.demo.ui.classic;
 
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -22,7 +21,6 @@ import in.srain.cube.request.JsonData;
 import in.srain.cube.request.RequestFinishHandler;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
