@@ -81,7 +81,8 @@ public class WithRecyclerView extends TitleBaseFragment {
 
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+//                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header); //same work
+                return canDoRefresh(recyclerView);
             }
         });
 
@@ -203,5 +204,47 @@ public class WithRecyclerView extends TitleBaseFragment {
 
     public interface OnItemClickListener {
         void onItemClick(final View view, final int position);
+    }
+
+    //check
+    public boolean canDoRefresh(final RecyclerView recyclerView) {
+        if (recyclerView.getChildCount() == 0) {
+            return true;
+        }
+        int top = recyclerView.getChildAt(0).getTop();
+        if (top != 0) {
+            return false;
+        }
+//        final RecyclerView recyclerView = (RecyclerView) mRecyclerView;
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager instanceof LinearLayoutManager) {
+            int position = ((LinearLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
+            if (position == 0) {
+                return true;
+            } else if (position == -1) {
+                position = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+                return position == 0;
+            }
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            boolean allViewAreOverScreen = true;
+            int[] positions = ((StaggeredGridLayoutManager) layoutManager).findFirstVisibleItemPositions(null);
+            for (int i = 0; i < positions.length; i++) {
+                if (positions[i] == 0) {
+                    return true;
+                }
+                if (positions[i] != -1) {
+                    allViewAreOverScreen = false;
+                }
+            }
+            if (allViewAreOverScreen) {
+                positions = ((StaggeredGridLayoutManager) layoutManager).findFirstVisibleItemPositions(null);
+                for (int i = 0; i < positions.length; i++) {
+                    if (positions[i] == 0) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
