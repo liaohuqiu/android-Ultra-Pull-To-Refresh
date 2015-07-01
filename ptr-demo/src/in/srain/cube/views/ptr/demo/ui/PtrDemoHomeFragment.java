@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+
 import in.srain.cube.mints.base.BlockMenuFragment;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -18,8 +21,6 @@ import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingString;
 import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingStringArray;
 import in.srain.cube.views.ptr.demo.ui.viewpager.ViewPagerActivity;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
-
-import java.util.ArrayList;
 
 public class PtrDemoHomeFragment extends BlockMenuFragment {
 
@@ -55,6 +56,15 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(WithListView.class, null);
             }
         }));
+
+        itemInfos.add(newItemInfo(R.string.ptr_demo_block_recycler_view, R.color.cube_mints_4d90fe, new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getContext().pushFragmentToBackStack(WithRecyclerView.class, null);
+            }
+        }));
+
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_web_view, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
