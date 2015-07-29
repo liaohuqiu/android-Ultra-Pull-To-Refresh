@@ -18,23 +18,20 @@ public class PtrFrameLayout extends ViewGroup {
 
     // status enum
     public final static byte PTR_STATUS_INIT = 1;
+    private byte mStatus = PTR_STATUS_INIT;
     public final static byte PTR_STATUS_PREPARE = 2;
     public final static byte PTR_STATUS_LOADING = 3;
     public final static byte PTR_STATUS_COMPLETE = 4;
-
     private static final boolean DEBUG_LAYOUT = true;
     public static boolean DEBUG = false;
     private static int ID = 1;
-
+    protected final String LOG_TAG = "ptr-frame-" + ++ID;
     // auto refresh status
     private static byte FLAG_AUTO_REFRESH_AT_ONCE = 0x01;
     private static byte FLAG_AUTO_REFRESH_BUT_LATER = 0x01 << 1;
     private static byte FLAG_ENABLE_NEXT_PTR_AT_ONCE = 0x01 << 2;
     private static byte FLAG_PIN_CONTENT = 0x01 << 3;
-
     private static byte MASK_AUTO_REFRESH = 0x03;
-
-    protected final String LOG_TAG = "ptr-frame-" + ++ID;
     protected View mContent;
     // optional config for define header and content in xml file
     private int mHeaderId = 0;
@@ -51,8 +48,6 @@ public class PtrFrameLayout extends ViewGroup {
     private ScrollChecker mScrollChecker;
     private int mPagingTouchSlop;
     private int mHeaderHeight;
-
-    private byte mStatus = PTR_STATUS_INIT;
     private boolean mDisableWhenHorizontalMove = false;
     private int mFlag = 0x00;
 
@@ -67,6 +62,12 @@ public class PtrFrameLayout extends ViewGroup {
     private long mLoadingStartTime = 0;
     private PtrIndicator mPtrIndicator;
     private boolean mHasSendCancelEvent = false;
+    private Runnable mPerformRefreshCompleteDelay = new Runnable() {
+        @Override
+        public void run() {
+            performRefreshComplete();
+        }
+    };
 
     public PtrFrameLayout(Context context) {
         this(context, null);
@@ -165,6 +166,18 @@ public class PtrFrameLayout extends ViewGroup {
             mHeaderView.bringToFront();
         }
         super.onFinishInflate();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (mScrollChecker != null) {
+            mScrollChecker.destroy();
+        }
+
+        if (mPerformRefreshCompleteDelay != null) {
+            removeCallbacks(mPerformRefreshCompleteDelay);
+        }
     }
 
     @Override
@@ -592,12 +605,7 @@ public class PtrFrameLayout extends ViewGroup {
             }
             performRefreshComplete();
         } else {
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    performRefreshComplete();
-                }
-            }, delay);
+            postDelayed(mPerformRefreshCompleteDelay, delay);
             if (DEBUG) {
                 PtrCLog.d(LOG_TAG, "performRefreshComplete after delay: %s", delay);
             }
@@ -694,6 +702,10 @@ public class PtrFrameLayout extends ViewGroup {
         return (mFlag & MASK_AUTO_REFRESH) == FLAG_AUTO_REFRESH_BUT_LATER;
     }
 
+    public boolean isEnabledNextPtrAtOnce() {
+        return (mFlag & FLAG_ENABLE_NEXT_PTR_AT_ONCE) > 0;
+    }
+
     /**
      * If @param enable has been set to true. The user can perform next PTR at once.
      *
@@ -707,8 +719,8 @@ public class PtrFrameLayout extends ViewGroup {
         }
     }
 
-    public boolean isEnabledNextPtrAtOnce() {
-        return (mFlag & FLAG_ENABLE_NEXT_PTR_AT_ONCE) > 0;
+    public boolean isPinContent() {
+        return (mFlag & FLAG_PIN_CONTENT) > 0;
     }
 
     /**
@@ -722,10 +734,6 @@ public class PtrFrameLayout extends ViewGroup {
         } else {
             mFlag = mFlag & ~FLAG_PIN_CONTENT;
         }
-    }
-
-    public boolean isPinContent() {
-        return (mFlag & FLAG_PIN_CONTENT) > 0;
     }
 
     /**
@@ -836,13 +844,13 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     @SuppressWarnings({"unused"})
-    public void setOffsetToKeepHeaderWhileLoading(int offset) {
-        mPtrIndicator.setOffsetToKeepHeaderWhileLoading(offset);
+    public int getOffsetToKeepHeaderWhileLoading() {
+        return mPtrIndicator.getOffsetToKeepHeaderWhileLoading();
     }
 
     @SuppressWarnings({"unused"})
-    public int getOffsetToKeepHeaderWhileLoading() {
-        return mPtrIndicator.getOffsetToKeepHeaderWhileLoading();
+    public void setOffsetToKeepHeaderWhileLoading(int offset) {
+        mPtrIndicator.setOffsetToKeepHeaderWhileLoading(offset);
     }
 
     @SuppressWarnings({"unused"})
@@ -987,6 +995,13 @@ public class PtrFrameLayout extends ViewGroup {
             mIsRunning = false;
             mLastFlingY = 0;
             removeCallbacks(this);
+        }
+
+        private void destroy() {
+            reset();
+            if (!mScroller.isFinished()) {
+                mScroller.forceFinished(true);
+            }
         }
 
         public void abortIfWorking() {
