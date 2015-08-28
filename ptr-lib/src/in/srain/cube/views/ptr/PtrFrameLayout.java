@@ -882,7 +882,7 @@ public class PtrFrameLayout extends ViewGroup {
 
     @Override
     protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
-        return p instanceof LayoutParams;
+        return p != null && p instanceof LayoutParams;
     }
 
     @Override
