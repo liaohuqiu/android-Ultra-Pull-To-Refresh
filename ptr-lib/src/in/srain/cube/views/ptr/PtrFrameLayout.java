@@ -406,8 +406,10 @@ public class PtrFrameLayout extends ViewGroup {
             PtrCLog.v(LOG_TAG, "updatePos: change: %s, current: %s last: %s, top: %s, headerHeight: %s",
                     change, mPtrIndicator.getCurrentPosY(), mPtrIndicator.getLastPosY(), mContent.getTop(), mHeaderHeight);
         }
+		
+		if(mHeaderView!=null)
+			mHeaderView.offsetTopAndBottom(change);
 
-        mHeaderView.offsetTopAndBottom(change);
         if (!isPinContent()) {
             mContent.offsetTopAndBottom(change);
         }
@@ -868,9 +870,19 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     public void setHeaderView(View header) {
-        if (mHeaderView != null && header != null && mHeaderView != header) {
-            removeView(mHeaderView);
+		if (header == null) {
+            if (mHeaderView != null)
+                removeView(mHeaderView);
+            mHeaderView = header;
+            return;
         }
+
+        if (mHeaderView == header)
+            return;
+
+        if (mHeaderView != null)
+            removeView(mHeaderView);
+
         ViewGroup.LayoutParams lp = header.getLayoutParams();
         if (lp == null) {
             lp = new LayoutParams(-1, -2);
