@@ -67,6 +67,7 @@ public class PtrFrameLayout extends ViewGroup {
     private long mLoadingStartTime = 0;
     private PtrIndicator mPtrIndicator;
     private boolean mHasSendCancelEvent = false;
+    private boolean isCanNotMove=false;
 
     public PtrFrameLayout(Context context) {
         this(context, null);
@@ -261,6 +262,7 @@ public class PtrFrameLayout extends ViewGroup {
         switch (action) {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                isCanNotMove=false;
                 mPtrIndicator.onRelease();
                 if (mPtrIndicator.hasLeftStartPosition()) {
                     if (DEBUG) {
@@ -278,6 +280,7 @@ public class PtrFrameLayout extends ViewGroup {
 
             case MotionEvent.ACTION_DOWN:
                 mHasSendCancelEvent = false;
+                isCanNotMove=false;
                 mPtrIndicator.onPressDown(e.getX(), e.getY());
 
                 mScrollChecker.abortIfWorking();
@@ -301,7 +304,8 @@ public class PtrFrameLayout extends ViewGroup {
                     }
                 }
                 if (mPreventForHorizontal) {
-                    return dispatchTouchEventSupper(e);
+                    isCanNotMove=dispatchTouchEventSupper(e)
+                    return isCanNotMove;
                 }
 
                 boolean moveDown = offsetY > 0;
@@ -312,13 +316,17 @@ public class PtrFrameLayout extends ViewGroup {
                     boolean canMoveDown = mPtrHandler != null && mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView);
                     PtrCLog.v(LOG_TAG, "ACTION_MOVE: offsetY:%s, currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s", offsetY, mPtrIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown);
                 }
-
+                
                 // disable move when header not reach top
                 if (moveDown && mPtrHandler != null && !mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView)) {
-                    return dispatchTouchEventSupper(e);
+                    isCanNotMove=dispatchTouchEventSupper(e)
+                    return isCanNotMove;
                 }
-
-                if ((moveUp && canMoveUp) || moveDown) {
+                if(Math.abs(offsetX)>Math.abs(offsetY)){
+                    isCanNotMove =dispatchTouchEventSupper(e);
+                    return isCanNotMove;
+                }
+                if (((moveUp && canMoveUp) || moveDown)&&!isCanNotMove) {
                     movePos(offsetY);
                     return true;
                 }
