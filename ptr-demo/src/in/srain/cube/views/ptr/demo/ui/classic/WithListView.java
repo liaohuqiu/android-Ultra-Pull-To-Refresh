@@ -67,6 +67,11 @@ public class WithListView extends TitleBaseFragment {
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
             }
+
+            @Override
+            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
+                return PtrDefaultHandler.checkContentCanBePulledUp(frame, content, footer);
+            }
         });
         // the following are default settings
         mPtrFrame.setResistance(1.7f);

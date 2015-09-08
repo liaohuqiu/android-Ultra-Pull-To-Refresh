@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import in.srain.cube.app.CubeFragment;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
@@ -51,8 +52,8 @@ public class ViewPagerFragment extends CubeFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position >= 0) {
-					JsonData js = mAdapter.getItem(position);
-                    final String url = js!=null?js.optString("pic"):null;
+                    JsonData js = mAdapter.getItem(position);
+                    final String url = js != null ? js.optString("pic") : null;
                     if (!TextUtils.isEmpty(url)) {
                         getContext().pushFragmentToBackStack(MaterialStyleFragment.class, url);
                     }
@@ -88,4 +89,12 @@ public class ViewPagerFragment extends CubeFragment {
         return mListView.getFirstVisiblePosition() == 0 && mListView.getChildAt(0).getTop() == 0;
     }
 
+    public boolean checkCanDoLoadMore() {
+        if (mAdapter.getCount() == 0 || mListView == null) {
+            return true;
+        }
+        CLog.d("test", "checkCanDoRefresh: %s %s", mListView.getFirstVisiblePosition(), mListView.getChildAt(0).getTop());
+        return mListView.getLastVisiblePosition() < mAdapter.getCount() - 1 || mListView.getChildAt(mAdapter.getCount() - 1)
+                .getBottom() > mListView.getPaddingBottom();
+    }
 }

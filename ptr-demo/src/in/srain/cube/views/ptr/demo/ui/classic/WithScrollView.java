@@ -33,6 +33,11 @@ public class WithScrollView extends TitleBaseFragment {
             }
 
             @Override
+            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
+                return PtrDefaultHandler.checkContentCanBePulledUp(frame, mScrollView, footer);
+            }
+
+            @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 mPtrFrame.postDelayed(new Runnable() {
                     @Override

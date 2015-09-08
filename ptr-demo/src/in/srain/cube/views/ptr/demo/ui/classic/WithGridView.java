@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+
 import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
@@ -74,6 +75,11 @@ public class WithGridView extends TitleBaseFragment {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
+
+            @Override
+            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
+                return PtrDefaultHandler.checkContentCanBePulledUp(frame, content, footer);
             }
         });
         // the following are default settings

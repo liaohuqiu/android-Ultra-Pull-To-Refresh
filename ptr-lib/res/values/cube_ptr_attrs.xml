@@ -5,6 +5,7 @@
         <!-- Optional. If you put header and content in xml, you can you these to specify them. -->
         <attr name="ptr_header" format="reference" />
         <attr name="ptr_content" format="reference" />
+        <attr name="ptr_footer" format="reference" />
 
         <!-- the resistance when you are moving the frame -->
         <attr name="ptr_resistance" format="float" />

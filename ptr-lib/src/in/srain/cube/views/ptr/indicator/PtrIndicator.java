@@ -5,13 +5,16 @@ import android.graphics.PointF;
 public class PtrIndicator {
 
     public final static int POS_START = 0;
+    private static int POS_END = 0;
     protected int mOffsetToRefresh = 0;
+    protected int mOffsetToLoadMore = 0;
     private PointF mPtLastMove = new PointF();
     private float mOffsetX;
     private float mOffsetY;
     private int mCurrentPos = 0;
     private int mLastPos = 0;
     private int mHeaderHeight;
+    private int mFooterHeight;
     private int mPressedPos = 0;
 
     private float mRatioOfHeaderHeightToRefresh = 1.2f;
@@ -52,6 +55,7 @@ public class PtrIndicator {
     public void setRatioOfHeaderHeightToRefresh(float ratio) {
         mRatioOfHeaderHeightToRefresh = ratio;
         mOffsetToRefresh = (int) (mHeaderHeight * ratio);
+        mOffsetToLoadMore = (int) (mFooterHeight * ratio);
     }
 
     public float getRatioOfHeaderToHeightRefresh() {
@@ -62,9 +66,14 @@ public class PtrIndicator {
         return mOffsetToRefresh;
     }
 
+    public int getOffstToLoadMore() {
+        return mOffsetToLoadMore;
+    }
+
     public void setOffsetToRefresh(int offset) {
         mRatioOfHeaderHeightToRefresh = mHeaderHeight * 1f / offset;
         mOffsetToRefresh = offset;
+        mOffsetToLoadMore = offset;
     }
 
     public void onPressDown(float x, float y) {
@@ -123,14 +132,25 @@ public class PtrIndicator {
         updateHeight();
     }
 
+    public void setFooterHeight(int height, int contentHeight) {
+        POS_END = contentHeight;
+        mFooterHeight = height;
+        updateHeight();
+    }
+
     protected void updateHeight() {
         mOffsetToRefresh = (int) (mRatioOfHeaderHeightToRefresh * mHeaderHeight);
+        mOffsetToLoadMore = (int) (mRatioOfHeaderHeightToRefresh * mFooterHeight);
     }
 
     public void convertFrom(PtrIndicator ptrSlider) {
         mCurrentPos = ptrSlider.mCurrentPos;
         mLastPos = ptrSlider.mLastPos;
         mHeaderHeight = ptrSlider.mHeaderHeight;
+    }
+
+    public boolean hasLeftEndPosition() {
+        return mCurrentPos < POS_END;
     }
 
     public boolean hasLeftStartPosition() {

@@ -70,6 +70,11 @@ public class RentalsStyleFragment extends TitleBaseFragment {
             }
 
             @Override
+            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
+                return true;
+            }
+
+            @Override
             public void onRefreshBegin(final PtrFrameLayout frame) {
                 if (mImageHasLoaded) {
                     long delay = 1500;

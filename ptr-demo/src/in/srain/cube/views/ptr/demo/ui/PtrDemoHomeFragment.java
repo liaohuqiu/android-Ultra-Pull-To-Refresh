@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
 import in.srain.cube.mints.base.BlockMenuFragment;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -219,10 +220,23 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
         ptrFrameLayout.setDurationToCloseHeader(1500);
         ptrFrameLayout.setHeaderView(header);
         ptrFrameLayout.addPtrUIHandler(header);
+
+        StoreHouseHeader footer = new StoreHouseHeader(getContext());
+        footer.setPadding(0, LocalDisplay.dp2px(20), 0, LocalDisplay.dp2px(20));
+        footer.initWithString("Ultra PTR");
+
+        ptrFrameLayout.setDurationToCloseHeader(1500);
+        ptrFrameLayout.setFooterView(footer);
+        ptrFrameLayout.addPtrUIHandler(footer);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
+
+            @Override
+            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
+                return PtrDefaultHandler.checkContentCanBePulledUp(frame, content, footer);
             }
 
             @Override

@@ -34,7 +34,7 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
     public void setUp(PtrFrameLayout ptrFrameLayout) {
         mPtrFrameLayout = ptrFrameLayout;
         mPtrTensionIndicator = new PtrTensionIndicator();
-        mPtrFrameLayout.setPtrIndicator(mPtrTensionIndicator);
+        mPtrFrameLayout.setPtrHeaderIndicator(mPtrTensionIndicator);
     }
 
     private void init() {
