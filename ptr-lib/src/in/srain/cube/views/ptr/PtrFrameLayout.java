@@ -108,6 +108,7 @@ public class PtrFrameLayout extends ViewGroup {
 
         final ViewConfiguration conf = ViewConfiguration.get(getContext());
         mPagingTouchSlop = conf.getScaledTouchSlop() * 2;
+        mPtrIndicator.setTouchSlop(conf.getScaledTouchSlop());
     }
 
     @Override
@@ -309,9 +310,10 @@ public class PtrFrameLayout extends ViewGroup {
                 float offsetY = mPtrIndicator.getOffsetY();
 
                 if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
-                    if (mPtrIndicator.isInStartPosition()) {
+                    //comment this check method is used to fix the ViewPager on top of PtrFrameLayout touch envent conflict
+                    //if (mPtrIndicator.isInStartPosition()) {
                         mPreventForHorizontal = true;
-                    }
+                    //}
                 }
                 if (mPreventForHorizontal) {
                     return dispatchTouchEventSupper(e);
@@ -328,6 +330,11 @@ public class PtrFrameLayout extends ViewGroup {
 
                 // disable move when header not reach top
                 if (moveDown && mPtrHandler != null && !mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView)) {
+                    return dispatchTouchEventSupper(e);
+                }
+                //disable move when moved distance is lesser than touchslop,
+                //Add this method is used to fix the ViewPager on top of PtrFrameLayout touch envent conflict
+                if(mPtrIndicator.moveLesserThanTouchSlop()){
                     return dispatchTouchEventSupper(e);
                 }
 

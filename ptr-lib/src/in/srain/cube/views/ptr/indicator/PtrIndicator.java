@@ -7,6 +7,7 @@ public class PtrIndicator {
     public final static int POS_START = 0;
     protected int mOffsetToRefresh = 0;
     private PointF mPtLastMove = new PointF();
+    private PointF mPtLastDown = new PointF();
     private float mOffsetX;
     private float mOffsetY;
     private int mCurrentPos = 0;
@@ -20,6 +21,8 @@ public class PtrIndicator {
     private int mOffsetToKeepHeaderWhileLoading = -1;
     // record the refresh complete position
     private int mRefreshCompleteY = 0;
+
+    private int mTouchSlop;
 
     public boolean isUnderTouch() {
         return mIsUnderTouch;
@@ -71,6 +74,7 @@ public class PtrIndicator {
         mIsUnderTouch = true;
         mPressedPos = mCurrentPos;
         mPtLastMove.set(x, y);
+        mPtLastDown.set(x, y);
     }
 
     public final void onMove(float x, float y) {
@@ -143,6 +147,15 @@ public class PtrIndicator {
 
     public boolean hasJustBackToStartPosition() {
         return mLastPos != POS_START && isInStartPosition();
+    }
+
+    public void setTouchSlop(int touchSlop){
+        this.mTouchSlop = touchSlop;
+    }
+
+    public boolean moveLesserThanTouchSlop(){
+
+        return Math.abs(mPtLastMove.y - mPtLastDown.y) < mTouchSlop;
     }
 
     public boolean isOverOffsetToRefresh() {
