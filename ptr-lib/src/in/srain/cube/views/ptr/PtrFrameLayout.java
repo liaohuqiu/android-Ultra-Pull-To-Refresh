@@ -240,7 +240,7 @@ public class PtrFrameLayout extends ViewGroup {
             final int top = paddingTop + lp.topMargin + offsetX - mHeaderHeight;
             final int right = left + mHeaderView.getMeasuredWidth();
             final int bottom = top + mHeaderView.getMeasuredHeight();
-            mHeaderView.layout(left, top, right, bottom);
+            layoutHeader(left,top,right,bottom);
             if (DEBUG && DEBUG_LAYOUT) {
                 PtrCLog.d(LOG_TAG, "onLayout header: %s %s %s %s", left, top, right, bottom);
             }
@@ -257,8 +257,14 @@ public class PtrFrameLayout extends ViewGroup {
             if (DEBUG && DEBUG_LAYOUT) {
                 PtrCLog.d(LOG_TAG, "onLayout content: %s %s %s %s", left, top, right, bottom);
             }
-            mContent.layout(left, top, right, bottom);
+            layoutContent(left,top,right,bottom);
         }
+    }
+    protected void layoutHeader(int left,int top,int right,int bottom){
+        mHeaderView.layout(left, top, right, bottom);
+    }
+    protected void layoutContent(int left,int top,int right,int bottom){
+        mContent.layout(left, top, right, bottom);
     }
 
     public boolean dispatchTouchEventSupper(MotionEvent e) {
