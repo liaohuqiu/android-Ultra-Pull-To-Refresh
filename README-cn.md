@@ -14,6 +14,14 @@ Github: https://github.com/captainbupt
 
 博客: http://blog.csdn.net/hwz2311245
 
+# 添加的方法和类
+
+- `setFooterView`：对应于`setHeaderView()`。在set完footer后，你需要调用 `addPtrUIHandler()`，这和设置header的机制是一样的。
+- `PtrHandler2`：原有`PtrHandler`类的一个补充。当需要使用上拉加载更多的时候，你应该调用`setPtrHandler(new PtrHandler2())`，而不是`setPtrHandler(new PtrHandler())`。
+- `PtrDefaultHandler2`：实现了默认的 `checkCanDoLoadMore()` 逻辑，可以适用于大部分的View。机制和`PtrDefaultHandler`一致。
+- `PtrClassicDefaultFooter`：默认的footer，将默认header反转了过来。
+- `setMode(Mode)`: Mode是本分支的一个新特性。通过调用`setMode`, 你可以任意的开启/关闭header或者footer。参数类型是一个枚举变量，可以通过以下方式调用：`setMode(Mode.BOTH)`.
+
 ---
 
 # Ultra Pull To Refresh

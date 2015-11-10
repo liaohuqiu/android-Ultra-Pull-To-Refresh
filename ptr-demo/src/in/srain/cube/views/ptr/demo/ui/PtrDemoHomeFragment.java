@@ -225,9 +225,8 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
 
         StoreHouseHeader footer = new StoreHouseHeader(getContext());
         footer.setPadding(0, LocalDisplay.dp2px(20), 0, LocalDisplay.dp2px(20));
-        footer.initWithString("Ultra PTR");
+        footer.initWithString("Ultra Footer");
 
-        ptrFrameLayout.setDurationToCloseHeader(1500);
         ptrFrameLayout.setFooterView(footer);
         ptrFrameLayout.addPtrUIHandler(footer);
         ptrFrameLayout.setPtrHandler(new PtrHandler2() {

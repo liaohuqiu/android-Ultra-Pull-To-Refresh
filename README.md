@@ -1,6 +1,6 @@
 # Modification
 
-I had made a modification of the Ultra-Pull-to-Refresh library and let it support load-more function. It supports every view as like as pull-to-refresh. All the logic is simulated to the pull-to-refresh and the configurations(resistance, duration etc.) are shared for both load-more and pull-to-refresh. Currently, only the `Home page` and `AutoRefresh` page in demo are modified to demonstrate how to use load-more. But the mechanism should be the same as pull-to-refresh. 
+I had made a modification of the Ultra-Pull-to-Refresh library and let it support load-more function. It supports every view as like as pull-to-refresh. All the logic is simulated to the pull-to-refresh and the configurations(resistance, duration etc.) are shared for both load-more and pull-to-refresh. Currently, only the `Home page（PtrDemoHomeFragment）` and `AutoRefresh（WithGridView）` page in demo are modified to demonstrate how to use load-more. But the mechanism should be the same as pull-to-refresh. 
 
 If your want to this fork, please download this project and import to your IDE manually. The gradle and maven below is not supported by this fort yet.
 
@@ -12,6 +12,13 @@ This fork is just developed and there would be bugs. Please feel free to report 
 
 Github: https://github.com/captainbupt
 
+# New functions and classes
+
+- `setFooterView`: Corresponding to `setHeaderView()`. You may also need call `addPtrUIHandler()` after setting the footer view, which is the same mechanism as setting header.
+- `PtrHandler2`: A complementary of `PtrHandler`. When using load more function, you should call `setPtrHandler(new PtrHandler2())`, rather than `setPtrHandler(new PtrHandler())`.
+- `PtrDefaultHandler2`: Implemented a default `checkCanDoLoadMore()` logic. The same mechanism as `PtrDefaultHandler`.
+- `PtrClassicDefaultFooter`: Serve as a default footer which is the reverse of the default header.
+- `setMode(Mode)`: The mode is a new feature of this library. By using `setMode`, you can enable or disable either header or footer. The argument is an enum, you should it like `setMode(Mode.BOTH)`.
 
 ---
 
