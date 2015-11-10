@@ -1,3 +1,17 @@
+# Modification
+
+I had made a modification of the Ultra-Pull-to-Refresh library and let it support load-more function. It supports every view as like as pull-to-refresh. All the logic is simulated to the pull-to-refresh and the configurations(resistance, duration etc.) are shared for both load-more and pull-to-refresh. Currently, only the `Home page` and `AutoRefresh` page in demo are modified to demonstrate how to use load-more. But the mechanism should be the same as pull-to-refresh. 
+
+If your want to this fork, please download this project and import to your IDE manually. The gradle and maven below is not supported by this fort yet.
+
+PS: All the API are not modified. If you have used the origin Ultra-Pull-To-Refresh library, there will be no need to change your code if you move to this fork.
+
+Thank you for `Huqiu Liao`, who created such a great library. His code was so scalable and made my modification easier. 
+
+This fork is just developed and there would be bugs. Please feel free to report me if you found some bugs.
+
+Github: https://github.com/captainbupt
+
 ###### [Please follow me on GitHub, I need your support](http://www.liaohuqiu.net/posts/follow-me-on-github/)
 
 Github: https://github.com/liaohuqiu
