@@ -72,11 +72,6 @@ public class MaterialStyleFragment extends TitleBaseFragment {
             }
 
             @Override
-            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return true;
-            }
-
-            @Override
             public void onRefreshBegin(final PtrFrameLayout frame) {
                 if (mImageHasLoaded) {
                     long delay = (long) (1000 + Math.random() * 2000);

@@ -5,7 +5,6 @@ import android.graphics.PointF;
 public class PtrIndicator {
 
     public final static int POS_START = 0;
-    private static int POS_END = 0;
     protected int mOffsetToRefresh = 0;
     protected int mOffsetToLoadMore = 0;
     private PointF mPtLastMove = new PointF();
@@ -16,6 +15,7 @@ public class PtrIndicator {
     private int mHeaderHeight;
     private int mFooterHeight;
     private int mPressedPos = 0;
+    private boolean isHeader = true;
 
     private float mRatioOfHeaderHeightToRefresh = 1.2f;
     private float mResistance = 1.7f;
@@ -23,6 +23,16 @@ public class PtrIndicator {
     private int mOffsetToKeepHeaderWhileLoading = -1;
     // record the refresh complete position
     private int mRefreshCompleteY = 0;
+
+
+
+    public boolean isHeader() {
+        return isHeader;
+    }
+
+    public void setIsHeader(boolean isHeader) {
+        this.isHeader = isHeader;
+    }
 
     public boolean isUnderTouch() {
         return mIsUnderTouch;
@@ -132,8 +142,7 @@ public class PtrIndicator {
         updateHeight();
     }
 
-    public void setFooterHeight(int height, int contentHeight) {
-        POS_END = contentHeight;
+    public void setFooterHeight(int height) {
         mFooterHeight = height;
         updateHeight();
     }
@@ -147,10 +156,6 @@ public class PtrIndicator {
         mCurrentPos = ptrSlider.mCurrentPos;
         mLastPos = ptrSlider.mLastPos;
         mHeaderHeight = ptrSlider.mHeaderHeight;
-    }
-
-    public boolean hasLeftEndPosition() {
-        return mCurrentPos < POS_END;
     }
 
     public boolean hasLeftStartPosition() {

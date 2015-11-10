@@ -35,11 +35,6 @@ public class WithTextViewInFrameLayoutFragment extends TitleBaseFragment {
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return true;
             }
-
-            @Override
-            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return true;
-            }
         });
         ptrFrame.setLastUpdateTimeRelateObject(this);
 

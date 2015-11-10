@@ -77,11 +77,6 @@ public class ViewPagerActivity extends TitleBaseActivity {
             }
 
             @Override
-            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return mPagerAdapter.checkCanDoLoadMore();
-            }
-
-            @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 mPagerAdapter.updateData();
             }

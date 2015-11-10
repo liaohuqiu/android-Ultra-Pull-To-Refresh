@@ -84,11 +84,6 @@ public class WithListViewAndEmptyView extends TitleBaseFragment {
             }
 
             @Override
-            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return PtrDefaultHandler.checkContentCanBePulledUp(frame, mListView, footer);
-            }
-
-            @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 updateData();
             }

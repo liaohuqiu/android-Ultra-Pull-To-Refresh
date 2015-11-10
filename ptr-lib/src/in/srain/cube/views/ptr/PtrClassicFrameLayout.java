@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 public class PtrClassicFrameLayout extends PtrFrameLayout {
 
     private PtrClassicDefaultHeader mPtrClassicHeader;
+    private PtrClassicDefaultHeader mPtrClassicFooter;
 
     public PtrClassicFrameLayout(Context context) {
         super(context);
@@ -26,6 +27,9 @@ public class PtrClassicFrameLayout extends PtrFrameLayout {
         mPtrClassicHeader = new PtrClassicDefaultHeader(getContext());
         setHeaderView(mPtrClassicHeader);
         addPtrUIHandler(mPtrClassicHeader);
+        mPtrClassicFooter = new PtrClassicDefaultHeader(getContext());
+        setFooterView(mPtrClassicFooter);
+        addPtrUIHandler(mPtrClassicFooter);
     }
 
     public PtrClassicDefaultHeader getHeader() {

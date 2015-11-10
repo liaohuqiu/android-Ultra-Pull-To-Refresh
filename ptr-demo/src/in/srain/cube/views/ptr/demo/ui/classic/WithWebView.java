@@ -41,11 +41,6 @@ public class WithWebView extends TitleBaseFragment {
             }
 
             @Override
-            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, mWebView, footer);
-            }
-
-            @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 updateData();
             }

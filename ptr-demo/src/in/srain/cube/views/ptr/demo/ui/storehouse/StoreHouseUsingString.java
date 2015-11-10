@@ -97,11 +97,6 @@ public class StoreHouseUsingString extends TitleBaseFragment {
             }
 
             @Override
-            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return true;
-            }
-
-            @Override
             public void onRefreshBegin(final PtrFrameLayout frame) {
                 frame.postDelayed(new Runnable() {
                     @Override
