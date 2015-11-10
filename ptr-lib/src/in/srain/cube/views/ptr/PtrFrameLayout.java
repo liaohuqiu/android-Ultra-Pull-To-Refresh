@@ -19,6 +19,10 @@ import in.srain.cube.views.ptr.util.PtrCLog;
  */
 public class PtrFrameLayout extends ViewGroup {
 
+    public enum Mode {
+        NONE, REFRESH, LOAD_MORE, BOTH
+    }
+
     // status enum
     public final static byte PTR_STATUS_INIT = 1;
     public final static byte PTR_STATUS_PREPARE = 2;
@@ -44,6 +48,7 @@ public class PtrFrameLayout extends ViewGroup {
     private int mContainerId = 0;
     private int mFooterId = 0;
     // config
+    private Mode mMode = Mode.BOTH;
     private int mDurationToClose = 200;
     private int mDurationToCloseHeader = 1000;
     private boolean mKeepHeaderWhenRefresh = true;
@@ -105,6 +110,9 @@ public class PtrFrameLayout extends ViewGroup {
             mKeepHeaderWhenRefresh = arr.getBoolean(R.styleable.PtrFrameLayout_ptr_keep_header_when_refresh, mKeepHeaderWhenRefresh);
 
             mPullToRefresh = arr.getBoolean(R.styleable.PtrFrameLayout_ptr_pull_to_fresh, mPullToRefresh);
+
+            mMode = getModeFromIndex(arr.getInt(R.styleable.PtrFrameLayout_ptr_mode, 4));
+
             arr.recycle();
         }
 
@@ -112,6 +120,21 @@ public class PtrFrameLayout extends ViewGroup {
 
         final ViewConfiguration conf = ViewConfiguration.get(getContext());
         mPagingTouchSlop = conf.getScaledTouchSlop() * 2;
+    }
+
+    private Mode getModeFromIndex(int index) {
+        switch (index) {
+            case 0:
+                return Mode.NONE;
+            case 1:
+                return Mode.REFRESH;
+            case 2:
+                return Mode.LOAD_MORE;
+            case 3:
+                return Mode.BOTH;
+            default:
+                return Mode.BOTH;
+        }
     }
 
     @Override
@@ -399,9 +422,9 @@ public class PtrFrameLayout extends ViewGroup {
 
                 boolean canMoveDown = mFooterView != null && !mPtrHeaderIndicator.isHeader() && mPtrHeaderIndicator.hasLeftStartPosition(); // if the footer is showing
 
-                boolean canHeaderMoveDown = mPtrHandler != null && mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView);
+                boolean canHeaderMoveDown = mPtrHandler != null && mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView) && (mMode.ordinal() & 1) > 0;
                 boolean canFooterMoveUp = mPtrHandler != null && mFooterView != null // The footer view could be null, so need double check
-                        && mPtrHandler instanceof PtrHandler2 && ((PtrHandler2) mPtrHandler).checkCanDoLoadMore(this, mContent, mFooterView);
+                        && mPtrHandler instanceof PtrHandler2 && ((PtrHandler2) mPtrHandler).checkCanDoLoadMore(this, mContent, mFooterView) && (mMode.ordinal() & 2) > 0;
 
                 if (DEBUG) {
                     PtrCLog.v(LOG_TAG, "ACTION_MOVE: offsetY:%s, currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s canHeaderMoveDown: %s canFooterMoveUp: %s", offsetY, mPtrHeaderIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown, canHeaderMoveDown, canFooterMoveUp);
@@ -931,6 +954,14 @@ public class PtrFrameLayout extends ViewGroup {
             slider.convertFrom(mPtrHeaderIndicator);
         }
         mPtrHeaderIndicator = slider;
+    }
+
+    public void setMode(Mode mode) {
+        mMode = mode;
+    }
+
+    public Mode getMode() {
+        return mMode;
     }
 
     @SuppressWarnings({"unused"})
