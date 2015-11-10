@@ -338,6 +338,10 @@ public class PtrFrameLayout extends ViewGroup {
         int paddingTop = getPaddingTop();
         int contentBottom = 0;
 
+        if (DEBUG && DEBUG_LAYOUT) {
+            PtrCLog.d(LOG_TAG, "onLayout offset: %s %s %s %s", offsetHeaderY, offsetFooterY, isPinContent(), mPtrIndicator.isHeader());
+        }
+
         if (mHeaderView != null) {
             MarginLayoutParams lp = (MarginLayoutParams) mHeaderView.getLayoutParams();
             final int left = paddingLeft + lp.leftMargin;
@@ -346,21 +350,29 @@ public class PtrFrameLayout extends ViewGroup {
             final int bottom = top + mHeaderView.getMeasuredHeight();
             mHeaderView.layout(left, top, right, bottom);
             if (DEBUG && DEBUG_LAYOUT) {
-                PtrCLog.d(LOG_TAG, "onLayout header: %s %s %s %s", left, top, right, bottom);
+                PtrCLog.d(LOG_TAG, "onLayout header: %s %s %s %s %s", left, top, right, bottom, mHeaderView.getMeasuredHeight());
             }
         }
         if (mContent != null) {
-            if (isPinContent()) {
-                offsetHeaderY = 0;
-            }
             MarginLayoutParams lp = (MarginLayoutParams) mContent.getLayoutParams();
-            final int left = paddingLeft + lp.leftMargin;
-            final int top = paddingTop + lp.topMargin + offsetHeaderY;
-            final int right = left + mContent.getMeasuredWidth();
-            final int bottom = top + mContent.getMeasuredHeight() - (isPinContent() ? 0 : offsetFooterY);
+            int left;
+            int top;
+            int right;
+            int bottom;
+            if (mPtrIndicator.isHeader()) {
+                left = paddingLeft + lp.leftMargin;
+                top = paddingTop + lp.topMargin + (isPinContent() ? 0 : offsetHeaderY);
+                right = left + mContent.getMeasuredWidth();
+                bottom = top + mContent.getMeasuredHeight();
+            } else {
+                left = paddingLeft + lp.leftMargin;
+                top = paddingTop + lp.topMargin - (isPinContent() ? 0 : offsetFooterY);
+                right = left + mContent.getMeasuredWidth();
+                bottom = top + mContent.getMeasuredHeight();
+            }
             contentBottom = bottom;
             if (DEBUG && DEBUG_LAYOUT) {
-                PtrCLog.d(LOG_TAG, "onLayout content: %s %s %s %s", left, top, right, bottom);
+                PtrCLog.d(LOG_TAG, "onLayout content: %s %s %s %s %s", left, top, right, bottom, mContent.getMeasuredHeight());
             }
             mContent.layout(left, top, right, bottom);
         }
@@ -372,7 +384,7 @@ public class PtrFrameLayout extends ViewGroup {
             final int bottom = top + mFooterView.getMeasuredHeight();
             mFooterView.layout(left, top, right, bottom);
             if (DEBUG && DEBUG_LAYOUT) {
-                PtrCLog.d(LOG_TAG, "onLayout footer: %s %s %s %s", left, top, right, bottom);
+                PtrCLog.d(LOG_TAG, "onLayout footer: %s %s %s %s %s", left, top, right, bottom, mFooterView.getMeasuredHeight());
             }
         }
     }
@@ -520,10 +532,16 @@ public class PtrFrameLayout extends ViewGroup {
             }
             to = PtrIndicator.POS_START;
         }
+<<<<<<< HEAD
 
         mPtrHeaderIndicator.setCurrentPos(to);
         int change = to - mPtrHeaderIndicator.getLastPosY();
         updatePos(mPtrHeaderIndicator.isHeader() ? change : -change);
+=======
+        mPtrIndicator.setCurrentPos(to);
+        int change = to - mPtrIndicator.getLastPosY();
+        updatePos(mPtrIndicator.isHeader() ? change : -change);
+>>>>>>> dae2ffc... Fixed a bug for loading more
     }
 
     private void updatePos(int change) {
@@ -602,6 +620,13 @@ public class PtrFrameLayout extends ViewGroup {
         return mHeaderHeight;
     }
 
+<<<<<<< HEAD
+=======
+    public int getFooterHeight() {
+        return mFooterHeight;
+    }
+
+>>>>>>> dae2ffc... Fixed a bug for loading more
     private void onRelease(boolean stayForLoading) {
 
         tryToPerformRefresh();

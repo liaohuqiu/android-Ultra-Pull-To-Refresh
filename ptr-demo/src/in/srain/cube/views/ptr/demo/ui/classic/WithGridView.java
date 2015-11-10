@@ -114,7 +114,7 @@ public class WithGridView extends TitleBaseFragment {
                     @Override
                     public void run() {
                         mAdapter.getDataList().clear();
-                        mAdapter.getDataList().addAll(data.optJson("data").optJson("list").toArrayList());
+                        mAdapter.getDataList().addAll(data.optJson("data").optJson("list").toArrayList().subList(0,10));
                         mPtrFrame.refreshComplete();
                         mAdapter.notifyDataSetChanged();
                     }
