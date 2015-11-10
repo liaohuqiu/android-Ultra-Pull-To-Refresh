@@ -490,7 +490,8 @@ public class PtrFrameLayout extends ViewGroup {
                 }
 
                 // if footer is showing, then no need to move header
-                if (canMoveDown) {
+                // When status is completing, that is, the footer is hiding, disable pull up
+                if (canMoveDown && mStatus != PTR_STATUS_COMPLETE) {
                     moveFooterPos(offsetY);
                     return true;
                 }
@@ -1222,6 +1223,10 @@ public class PtrFrameLayout extends ViewGroup {
             } else {
                 finish();
             }
+        }
+
+        public boolean isRunning() {
+            return mScroller.isFinished();
         }
 
         private void finish() {
