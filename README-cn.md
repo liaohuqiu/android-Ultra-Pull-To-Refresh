@@ -14,13 +14,6 @@ Github: https://github.com/captainbupt
 
 博客: http://blog.csdn.net/hwz2311245
 
-
-###### [关注我的GitHub吧，江湖救急，需要你的支持和帮助](http://www.liaohuqiu.net/cn/posts/follow-me-on-github/)
-
-Github: https://github.com/liaohuqiu
-
-微博: http://weibo.com/liaohuqiu
-
 ---
 
 # Ultra Pull To Refresh
@@ -32,10 +25,6 @@ Github: https://github.com/liaohuqiu
 支持 `API LEVEL >= 8`。
 
 [APK下载](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo.apk)
-
-#### 下拉刷新 + 加载更多？
-
-本类库是单纯的下拉刷新。如果你需要用到`加载更多`，看这个项目: https://github.com/liaohuqiu/android-cube-app
 
 #### 使用eclipse的同学请注意, Intellij IDEA / Android Studio 请忽略
 

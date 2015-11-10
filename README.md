@@ -12,20 +12,13 @@ This fork is just developed and there would be bugs. Please feel free to report 
 
 Github: https://github.com/captainbupt
 
-###### [Please follow me on GitHub, I need your support](http://www.liaohuqiu.net/posts/follow-me-on-github/)
-
-Github: https://github.com/liaohuqiu
-
-twitter: https://twitter.com/liaohuqiu
 
 ---
 
 [![Build Status](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh.svg?branch=master)](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Ultra%20Pull%20To%20Refresh-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1180)
 
-#### [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
-
-Wanna auto-load-more? This will be what you want: https://github.com/liaohuqiu/android-cube-app
+#### [中文版文档](https://github.com/captainbupt/android-Ultra-Pull-To-Refresh-With-Load-More/blob/master/README-cn.md)
 
 # Ultra Pull To Refresh
 
