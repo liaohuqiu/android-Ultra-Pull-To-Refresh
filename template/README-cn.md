@@ -1,8 +1,10 @@
-###### [关注我的GitHub吧，江湖救急，需要你的支持和帮助](http://www.liaohuqiu.net/cn/posts/follow-me-on-github/)
+###### 欢迎关注我
 
-Github: https://github.com/liaohuqiu
+GitHub: https://github.com/liaohuqiu
 
 微博: http://weibo.com/liaohuqiu
+
+知乎: http://www.zhihu.com/people/liao-hu-qiu
 
 ---
 

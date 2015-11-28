@@ -1,8 +1,8 @@
-###### [Please follow me on GitHub, I need your support](http://www.liaohuqiu.net/posts/follow-me-on-github/)
+###### Welcome to follow me on GitHub or Twitter
 
-Github: https://github.com/liaohuqiu
+GitHub: https://github.com/liaohuqiu
 
-twitter: https://twitter.com/liaohuqiu
+Twitter: https://twitter.com/liaohuqiu
 
 ---
 
