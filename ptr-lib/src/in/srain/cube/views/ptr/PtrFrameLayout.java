@@ -23,9 +23,9 @@ public class PtrFrameLayout extends ViewGroup {
         NONE, REFRESH, LOAD_MORE, BOTH
     }
 
+    private byte mStatus = PTR_STATUS_INIT;
     // status enum
     public final static byte PTR_STATUS_INIT = 1;
-    private byte mStatus = PTR_STATUS_INIT;
     public final static byte PTR_STATUS_PREPARE = 2;
     public final static byte PTR_STATUS_LOADING = 3;
     public final static byte PTR_STATUS_COMPLETE = 4;
@@ -58,12 +58,8 @@ public class PtrFrameLayout extends ViewGroup {
     private ScrollChecker mScrollChecker;
     private int mPagingTouchSlop;
     private int mHeaderHeight;
-<<<<<<< HEAD
     private int mFooterHeight;
 
-    private byte mStatus = PTR_STATUS_INIT;
-=======
->>>>>>> f543f0b51bddb0c2a54e676fb1d9ba0d15d8a11f
     private boolean mDisableWhenHorizontalMove = false;
     private int mFlag = 0x00;
 
@@ -76,7 +72,7 @@ public class PtrFrameLayout extends ViewGroup {
 
     private int mLoadingMinTime = 500;
     private long mLoadingStartTime = 0;
-    private PtrIndicator mPtrHeaderIndicator;
+    private PtrIndicator mPtrIndicator;
     private boolean mHasSendCancelEvent = false;
     private Runnable mPerformRefreshCompleteDelay = new Runnable() {
         @Override
@@ -96,7 +92,7 @@ public class PtrFrameLayout extends ViewGroup {
     public PtrFrameLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        mPtrHeaderIndicator = new PtrIndicator();
+        mPtrIndicator = new PtrIndicator();
 
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.PtrFrameLayout, 0, 0);
         if (arr != null) {
@@ -104,14 +100,14 @@ public class PtrFrameLayout extends ViewGroup {
             mContainerId = arr.getResourceId(R.styleable.PtrFrameLayout_ptr_content, mContainerId);
             mFooterId = arr.getResourceId(R.styleable.PtrFrameLayout_ptr_footer, mFooterId);
 
-            mPtrHeaderIndicator.setResistance(arr.getFloat(R.styleable.PtrFrameLayout_ptr_resistance, mPtrHeaderIndicator.getResistance()));
+            mPtrIndicator.setResistance(arr.getFloat(R.styleable.PtrFrameLayout_ptr_resistance, mPtrIndicator.getResistance()));
 
             mDurationToClose = arr.getInt(R.styleable.PtrFrameLayout_ptr_duration_to_close, mDurationToClose);
             mDurationToCloseHeader = arr.getInt(R.styleable.PtrFrameLayout_ptr_duration_to_close_header, mDurationToCloseHeader);
 
-            float ratio = mPtrHeaderIndicator.getRatioOfHeaderToHeightRefresh();
+            float ratio = mPtrIndicator.getRatioOfHeaderToHeightRefresh();
             ratio = arr.getFloat(R.styleable.PtrFrameLayout_ptr_ratio_of_header_height_to_refresh, ratio);
-            mPtrHeaderIndicator.setRatioOfHeaderHeightToRefresh(ratio);
+            mPtrIndicator.setRatioOfHeaderHeightToRefresh(ratio);
 
             mKeepHeaderWhenRefresh = arr.getBoolean(R.styleable.PtrFrameLayout_ptr_keep_header_when_refresh, mKeepHeaderWhenRefresh);
 
@@ -282,14 +278,14 @@ public class PtrFrameLayout extends ViewGroup {
             measureChildWithMargins(mHeaderView, widthMeasureSpec, 0, heightMeasureSpec, 0);
             MarginLayoutParams lp = (MarginLayoutParams) mHeaderView.getLayoutParams();
             mHeaderHeight = mHeaderView.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
-            mPtrHeaderIndicator.setHeaderHeight(mHeaderHeight);
+            mPtrIndicator.setHeaderHeight(mHeaderHeight);
         }
 
         if (mFooterView != null) {
             measureChildWithMargins(mFooterView, widthMeasureSpec, 0, heightMeasureSpec, 0);
             MarginLayoutParams lp = (MarginLayoutParams) mFooterView.getLayoutParams();
             mFooterHeight = mFooterView.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
-            mPtrHeaderIndicator.setFooterHeight(mFooterHeight);
+            mPtrIndicator.setFooterHeight(mFooterHeight);
         }
 
         if (mContent != null) {
@@ -300,7 +296,7 @@ public class PtrFrameLayout extends ViewGroup {
                         getMeasuredWidth(), getMeasuredHeight(),
                         lp.leftMargin, lp.topMargin, lp.rightMargin, lp.bottomMargin);
                 PtrCLog.d(LOG_TAG, "onMeasure, currentPos: %s, lastPos: %s, top: %s",
-                        mPtrHeaderIndicator.getCurrentPosY(), mPtrHeaderIndicator.getLastPosY(), mContent.getTop());
+                        mPtrIndicator.getCurrentPosY(), mPtrIndicator.getLastPosY(), mContent.getTop());
             }
         }
     }
@@ -327,12 +323,12 @@ public class PtrFrameLayout extends ViewGroup {
         // because the header and footer can not show at the same time, so when header has a offset, the footer's offset should be 0, vice versa..
         int offsetHeaderY;
         int offsetFooterY;
-        if (mPtrHeaderIndicator.isHeader()) {
-            offsetHeaderY = mPtrHeaderIndicator.getCurrentPosY();
+        if (mPtrIndicator.isHeader()) {
+            offsetHeaderY = mPtrIndicator.getCurrentPosY();
             offsetFooterY = 0;
         } else {
             offsetHeaderY = 0;
-            offsetFooterY = mPtrHeaderIndicator.getCurrentPosY();
+            offsetFooterY = mPtrIndicator.getCurrentPosY();
         }
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
@@ -402,13 +398,13 @@ public class PtrFrameLayout extends ViewGroup {
         switch (action) {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                mPtrHeaderIndicator.onRelease();
-                if (mPtrHeaderIndicator.hasLeftStartPosition()) {
+                mPtrIndicator.onRelease();
+                if (mPtrIndicator.hasLeftStartPosition()) {
                     if (DEBUG) {
                         PtrCLog.d(LOG_TAG, "call onRelease when user release");
                     }
                     onRelease(false);
-                    if (mPtrHeaderIndicator.hasMovedAfterPressedDown()) {
+                    if (mPtrIndicator.hasMovedAfterPressedDown()) {
                         sendCancelEvent();
                         return true;
                     }
@@ -419,7 +415,7 @@ public class PtrFrameLayout extends ViewGroup {
 
             case MotionEvent.ACTION_DOWN:
                 mHasSendCancelEvent = false;
-                mPtrHeaderIndicator.onPressDown(e.getX(), e.getY());
+                mPtrIndicator.onPressDown(e.getX(), e.getY());
 
                 mScrollChecker.abortIfWorking();
 
@@ -432,12 +428,12 @@ public class PtrFrameLayout extends ViewGroup {
 
             case MotionEvent.ACTION_MOVE:
                 mLastMoveEvent = e;
-                mPtrHeaderIndicator.onMove(e.getX(), e.getY());
-                float offsetX = mPtrHeaderIndicator.getOffsetX();
-                float offsetY = mPtrHeaderIndicator.getOffsetY();
+                mPtrIndicator.onMove(e.getX(), e.getY());
+                float offsetX = mPtrIndicator.getOffsetX();
+                float offsetY = mPtrIndicator.getOffsetY();
 
                 if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
-                    if (mPtrHeaderIndicator.isInStartPosition()) {
+                    if (mPtrIndicator.isInStartPosition()) {
                         mPreventForHorizontal = true;
                     }
                 }
@@ -448,16 +444,16 @@ public class PtrFrameLayout extends ViewGroup {
                 boolean moveDown = offsetY > 0;
                 boolean moveUp = !moveDown;
 
-                boolean canMoveUp = mPtrHeaderIndicator.isHeader() && mPtrHeaderIndicator.hasLeftStartPosition(); // if the header is showing
+                boolean canMoveUp = mPtrIndicator.isHeader() && mPtrIndicator.hasLeftStartPosition(); // if the header is showing
 
-                boolean canMoveDown = mFooterView != null && !mPtrHeaderIndicator.isHeader() && mPtrHeaderIndicator.hasLeftStartPosition(); // if the footer is showing
+                boolean canMoveDown = mFooterView != null && !mPtrIndicator.isHeader() && mPtrIndicator.hasLeftStartPosition(); // if the footer is showing
 
                 boolean canHeaderMoveDown = mPtrHandler != null && mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView) && (mMode.ordinal() & 1) > 0;
                 boolean canFooterMoveUp = mPtrHandler != null && mFooterView != null // The footer view could be null, so need double check
                         && mPtrHandler instanceof PtrHandler2 && ((PtrHandler2) mPtrHandler).checkCanDoLoadMore(this, mContent, mFooterView) && (mMode.ordinal() & 2) > 0;
 
                 if (DEBUG) {
-                    PtrCLog.v(LOG_TAG, "ACTION_MOVE: offsetY:%s, currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s canHeaderMoveDown: %s canFooterMoveUp: %s", offsetY, mPtrHeaderIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown, canHeaderMoveDown, canFooterMoveUp);
+                    PtrCLog.v(LOG_TAG, "ACTION_MOVE: offsetY:%s, currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s canHeaderMoveDown: %s canFooterMoveUp: %s", offsetY, mPtrIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown, canHeaderMoveDown, canFooterMoveUp);
                 }
 
                 // if either the header and footer are not showing
@@ -500,13 +496,13 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     private void moveFooterPos(float deltaY) {
-        mPtrHeaderIndicator.setIsHeader(false);
+        mPtrIndicator.setIsHeader(false);
         // to keep the consistence with refresh, need to converse the deltaY
         movePos(-deltaY);
     }
 
     private void moveHeaderPos(float deltaY) {
-        mPtrHeaderIndicator.setIsHeader(true);
+        mPtrIndicator.setIsHeader(true);
         movePos(deltaY);
     }
 
@@ -517,32 +513,25 @@ public class PtrFrameLayout extends ViewGroup {
      */
     private void movePos(float deltaY) {
         // has reached the top
-        if ((deltaY < 0 && mPtrHeaderIndicator.isInStartPosition())) {
+        if ((deltaY < 0 && mPtrIndicator.isInStartPosition())) {
             if (DEBUG) {
                 PtrCLog.e(LOG_TAG, String.format("has reached the top"));
             }
             return;
         }
 
-        int to = mPtrHeaderIndicator.getCurrentPosY() + (int) deltaY;
+        int to = mPtrIndicator.getCurrentPosY() + (int) deltaY;
 
         // over top
-        if (mPtrHeaderIndicator.willOverTop(to)) {
+        if (mPtrIndicator.willOverTop(to)) {
             if (DEBUG) {
                 PtrCLog.e(LOG_TAG, String.format("over top"));
             }
             to = PtrIndicator.POS_START;
         }
-<<<<<<< HEAD
-
-        mPtrHeaderIndicator.setCurrentPos(to);
-        int change = to - mPtrHeaderIndicator.getLastPosY();
-        updatePos(mPtrHeaderIndicator.isHeader() ? change : -change);
-=======
         mPtrIndicator.setCurrentPos(to);
         int change = to - mPtrIndicator.getLastPosY();
         updatePos(mPtrIndicator.isHeader() ? change : -change);
->>>>>>> dae2ffc... Fixed a bug for loading more
     }
 
     private void updatePos(int change) {
@@ -550,17 +539,17 @@ public class PtrFrameLayout extends ViewGroup {
             return;
         }
 
-        boolean isUnderTouch = mPtrHeaderIndicator.isUnderTouch();
+        boolean isUnderTouch = mPtrIndicator.isUnderTouch();
 
         // once moved, cancel event will be sent to child
-        if (isUnderTouch && !mHasSendCancelEvent && mPtrHeaderIndicator.hasMovedAfterPressedDown()) {
+        if (isUnderTouch && !mHasSendCancelEvent && mPtrIndicator.hasMovedAfterPressedDown()) {
             mHasSendCancelEvent = true;
             sendCancelEvent();
         }
 
         // leave initiated position or just refresh complete
-        if ((mPtrHeaderIndicator.hasJustLeftStartPosition() && mStatus == PTR_STATUS_INIT) ||
-                (mPtrHeaderIndicator.goDownCrossFinishPosition() && mStatus == PTR_STATUS_COMPLETE && isEnabledNextPtrAtOnce())) {
+        if ((mPtrIndicator.hasJustLeftStartPosition() && mStatus == PTR_STATUS_INIT) ||
+                (mPtrIndicator.goDownCrossFinishPosition() && mStatus == PTR_STATUS_COMPLETE && isEnabledNextPtrAtOnce())) {
 
             mStatus = PTR_STATUS_PREPARE;
             mPtrUIHandlerHolder.onUIRefreshPrepare(this);
@@ -570,7 +559,7 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         // back to initiated position
-        if (mPtrHeaderIndicator.hasJustBackToStartPosition()) {
+        if (mPtrIndicator.hasJustBackToStartPosition()) {
             tryToNotifyReset();
 
             // recover event to children
@@ -583,21 +572,21 @@ public class PtrFrameLayout extends ViewGroup {
         if (mStatus == PTR_STATUS_PREPARE) {
             // reach fresh height while moving from top to bottom
             if (isUnderTouch && !isAutoRefresh() && mPullToRefresh
-                    && mPtrHeaderIndicator.crossRefreshLineFromTopToBottom()) {
+                    && mPtrIndicator.crossRefreshLineFromTopToBottom()) {
                 tryToPerformRefresh();
             }
             // reach header height while auto refresh
-            if (performAutoRefreshButLater() && mPtrHeaderIndicator.hasJustReachedHeaderHeightFromTopToBottom()) {
+            if (performAutoRefreshButLater() && mPtrIndicator.hasJustReachedHeaderHeightFromTopToBottom()) {
                 tryToPerformRefresh();
             }
         }
 
         if (DEBUG) {
             PtrCLog.v(LOG_TAG, "updatePos: change: %s, current: %s last: %s, top: %s, headerHeight: %s",
-                    change, mPtrHeaderIndicator.getCurrentPosY(), mPtrHeaderIndicator.getLastPosY(), mContent.getTop(), mHeaderHeight);
+                    change, mPtrIndicator.getCurrentPosY(), mPtrIndicator.getLastPosY(), mContent.getTop(), mHeaderHeight);
         }
 
-        if (mPtrHeaderIndicator.isHeader()) {
+        if (mPtrIndicator.isHeader()) {
             mHeaderView.offsetTopAndBottom(change);
         } else {
             mFooterView.offsetTopAndBottom(change);
@@ -608,9 +597,9 @@ public class PtrFrameLayout extends ViewGroup {
         invalidate();
 
         if (mPtrUIHandlerHolder.hasHandler()) {
-            mPtrUIHandlerHolder.onUIPositionChange(this, isUnderTouch, mStatus, mPtrHeaderIndicator);
+            mPtrUIHandlerHolder.onUIPositionChange(this, isUnderTouch, mStatus, mPtrIndicator);
         }
-        onPositionChange(isUnderTouch, mStatus, mPtrHeaderIndicator);
+        onPositionChange(isUnderTouch, mStatus, mPtrIndicator);
     }
 
     protected void onPositionChange(boolean isInTouching, byte status, PtrIndicator mPtrIndicator) {
@@ -621,13 +610,10 @@ public class PtrFrameLayout extends ViewGroup {
         return mHeaderHeight;
     }
 
-<<<<<<< HEAD
-=======
     public int getFooterHeight() {
         return mFooterHeight;
     }
 
->>>>>>> dae2ffc... Fixed a bug for loading more
     private void onRelease(boolean stayForLoading) {
 
         tryToPerformRefresh();
@@ -636,8 +622,8 @@ public class PtrFrameLayout extends ViewGroup {
             // keep header for fresh
             if (mKeepHeaderWhenRefresh) {
                 // scroll header back
-                if (mPtrHeaderIndicator.isOverOffsetToKeepHeaderWhileLoading() && !stayForLoading) {
-                    mScrollChecker.tryToScrollTo(mPtrHeaderIndicator.getOffsetToKeepHeaderWhileLoading(), mDurationToClose);
+                if (mPtrIndicator.isOverOffsetToKeepHeaderWhileLoading() && !stayForLoading) {
+                    mScrollChecker.tryToScrollTo(mPtrIndicator.getOffsetToKeepHeaderWhileLoading(), mDurationToClose);
                 } else {
                     // do nothing
                 }
@@ -676,7 +662,7 @@ public class PtrFrameLayout extends ViewGroup {
      * Scroll back to to if is not under touch
      */
     private void tryScrollBackToTop() {
-        if (!mPtrHeaderIndicator.isUnderTouch() && mPtrHeaderIndicator.hasLeftStartPosition()) {
+        if (!mPtrIndicator.isUnderTouch() && mPtrIndicator.hasLeftStartPosition()) {
             mScrollChecker.tryToScrollTo(PtrIndicator.POS_START, mDurationToCloseHeader);
         }
     }
@@ -708,7 +694,7 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         //
-        if ((mPtrHeaderIndicator.isOverOffsetToKeepHeaderWhileLoading() && isAutoRefresh()) || mPtrHeaderIndicator.isOverOffsetToRefresh()) {
+        if ((mPtrIndicator.isOverOffsetToKeepHeaderWhileLoading() && isAutoRefresh()) || mPtrIndicator.isOverOffsetToRefresh()) {
             mStatus = PTR_STATUS_LOADING;
             performRefresh();
         }
@@ -724,7 +710,7 @@ public class PtrFrameLayout extends ViewGroup {
             }
         }
         if (mPtrHandler != null) {
-            if (mPtrHeaderIndicator.isHeader()) {
+            if (mPtrIndicator.isHeader()) {
                 mPtrHandler.onRefreshBegin(this);
             } else {
                 if (mPtrHandler instanceof PtrHandler2) {
@@ -738,7 +724,7 @@ public class PtrFrameLayout extends ViewGroup {
      * If at the top and not in loading, reset
      */
     private boolean tryToNotifyReset() {
-        if ((mStatus == PTR_STATUS_COMPLETE || mStatus == PTR_STATUS_PREPARE) && mPtrHeaderIndicator.isInStartPosition()) {
+        if ((mStatus == PTR_STATUS_COMPLETE || mStatus == PTR_STATUS_PREPARE) && mPtrIndicator.isInStartPosition()) {
             if (mPtrUIHandlerHolder.hasHandler()) {
                 mPtrUIHandlerHolder.onUIReset(this);
                 if (DEBUG) {
@@ -753,7 +739,7 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     protected void onPtrScrollAbort() {
-        if (mPtrHeaderIndicator.hasLeftStartPosition() && isAutoRefresh()) {
+        if (mPtrIndicator.hasLeftStartPosition() && isAutoRefresh()) {
             if (DEBUG) {
                 PtrCLog.d(LOG_TAG, "call onRelease after scroll abort");
             }
@@ -762,7 +748,7 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     protected void onPtrScrollFinish() {
-        if (mPtrHeaderIndicator.hasLeftStartPosition() && isAutoRefresh()) {
+        if (mPtrIndicator.hasLeftStartPosition() && isAutoRefresh()) {
             if (DEBUG) {
                 PtrCLog.d(LOG_TAG, "call onRelease after scroll finish");
             }
@@ -834,7 +820,7 @@ public class PtrFrameLayout extends ViewGroup {
         /**
          * After hook operation is done, {@link #notifyUIRefreshComplete} will be call in resume action to ignore hook.
          */
-        if (mPtrHeaderIndicator.hasLeftStartPosition() && !ignoreHook && mRefreshCompleteHook != null) {
+        if (mPtrIndicator.hasLeftStartPosition() && !ignoreHook && mRefreshCompleteHook != null) {
             if (DEBUG) {
                 PtrCLog.d(LOG_TAG, "notifyUIRefreshComplete mRefreshCompleteHook run.");
             }
@@ -848,7 +834,7 @@ public class PtrFrameLayout extends ViewGroup {
             }
             mPtrUIHandlerHolder.onUIRefreshComplete(this);
         }
-        mPtrHeaderIndicator.onUIRefreshComplete();
+        mPtrIndicator.onUIRefreshComplete();
         tryScrollBackToTopAfterComplete();
         tryToNotifyReset();
     }
@@ -893,8 +879,8 @@ public class PtrFrameLayout extends ViewGroup {
                 PtrCLog.i(LOG_TAG, "PtrUIHandler: onUIRefreshPrepare, mFlag %s", mFlag);
             }
         }
-        mPtrHeaderIndicator.setIsHeader(isHeader);
-        mScrollChecker.tryToScrollTo(mPtrHeaderIndicator.getOffsetToRefresh(), duration);
+        mPtrIndicator.setIsHeader(isHeader);
+        mScrollChecker.tryToScrollTo(mPtrIndicator.getOffsetToRefresh(), duration);
         if (atOnce) {
             mStatus = PTR_STATUS_LOADING;
             performRefresh();
@@ -988,11 +974,11 @@ public class PtrFrameLayout extends ViewGroup {
         mPtrUIHandlerHolder = PtrUIHandlerHolder.removeHandler(mPtrUIHandlerHolder, ptrUIHandler);
     }
 
-    public void setPtrHeaderIndicator(PtrIndicator slider) {
-        if (mPtrHeaderIndicator != null && mPtrHeaderIndicator != slider) {
-            slider.convertFrom(mPtrHeaderIndicator);
+    public void setPtrIndicator(PtrIndicator slider) {
+        if (mPtrIndicator != null && mPtrIndicator != slider) {
+            slider.convertFrom(mPtrIndicator);
         }
-        mPtrHeaderIndicator = slider;
+        mPtrIndicator = slider;
     }
 
     public void setMode(Mode mode) {
@@ -1005,11 +991,11 @@ public class PtrFrameLayout extends ViewGroup {
 
     @SuppressWarnings({"unused"})
     public float getResistance() {
-        return mPtrHeaderIndicator.getResistance();
+        return mPtrIndicator.getResistance();
     }
 
     public void setResistance(float resistance) {
-        mPtrHeaderIndicator.setResistance(resistance);
+        mPtrIndicator.setResistance(resistance);
     }
 
     @SuppressWarnings({"unused"})
@@ -1041,33 +1027,24 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     public void setRatioOfHeaderHeightToRefresh(float ratio) {
-        mPtrHeaderIndicator.setRatioOfHeaderHeightToRefresh(ratio);
+        mPtrIndicator.setRatioOfHeaderHeightToRefresh(ratio);
     }
 
     public int getOffsetToRefresh() {
-        return mPtrHeaderIndicator.getOffsetToRefresh();
+        return mPtrIndicator.getOffsetToRefresh();
     }
 
     @SuppressWarnings({"unused"})
     public void setOffsetToRefresh(int offset) {
-        mPtrHeaderIndicator.setOffsetToRefresh(offset);
+        mPtrIndicator.setOffsetToRefresh(offset);
     }
 
     @SuppressWarnings({"unused"})
     public float getRatioOfHeaderToHeightRefresh() {
-        return mPtrHeaderIndicator.getRatioOfHeaderToHeightRefresh();
+        return mPtrIndicator.getRatioOfHeaderToHeightRefresh();
     }
 
     @SuppressWarnings({"unused"})
-<<<<<<< HEAD
-    public void setOffsetToKeepHeaderWhileLoading(int offset) {
-        mPtrHeaderIndicator.setOffsetToKeepHeaderWhileLoading(offset);
-    }
-
-    @SuppressWarnings({"unused"})
-    public int getOffsetToKeepHeaderWhileLoading() {
-        return mPtrHeaderIndicator.getOffsetToKeepHeaderWhileLoading();
-=======
     public int getOffsetToKeepHeaderWhileLoading() {
         return mPtrIndicator.getOffsetToKeepHeaderWhileLoading();
     }
@@ -1075,7 +1052,6 @@ public class PtrFrameLayout extends ViewGroup {
     @SuppressWarnings({"unused"})
     public void setOffsetToKeepHeaderWhileLoading(int offset) {
         mPtrIndicator.setOffsetToKeepHeaderWhileLoading(offset);
->>>>>>> f543f0b51bddb0c2a54e676fb1d9ba0d15d8a11f
     }
 
     @SuppressWarnings({"unused"})
@@ -1209,12 +1185,12 @@ public class PtrFrameLayout extends ViewGroup {
                 if (deltaY != 0) {
                     PtrCLog.v(LOG_TAG,
                             "scroll: %s, start: %s, to: %s, currentPos: %s, current :%s, last: %s, delta: %s",
-                            finish, mStart, mTo, mPtrHeaderIndicator.getCurrentPosY(), curY, mLastFlingY, deltaY);
+                            finish, mStart, mTo, mPtrIndicator.getCurrentPosY(), curY, mLastFlingY, deltaY);
                 }
             }
             if (!finish) {
                 mLastFlingY = curY;
-                if (mPtrHeaderIndicator.isHeader()) {
+                if (mPtrIndicator.isHeader()) {
                     moveHeaderPos(deltaY);
                 } else {
                     moveFooterPos(-deltaY);
@@ -1231,7 +1207,7 @@ public class PtrFrameLayout extends ViewGroup {
 
         private void finish() {
             if (DEBUG) {
-                PtrCLog.v(LOG_TAG, "finish, currentPos:%s", mPtrHeaderIndicator.getCurrentPosY());
+                PtrCLog.v(LOG_TAG, "finish, currentPos:%s", mPtrIndicator.getCurrentPosY());
             }
             reset();
             onPtrScrollFinish();
@@ -1261,10 +1237,10 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         public void tryToScrollTo(int to, int duration) {
-            if (mPtrHeaderIndicator.isAlreadyHere(to)) {
+            if (mPtrIndicator.isAlreadyHere(to)) {
                 return;
             }
-            mStart = mPtrHeaderIndicator.getCurrentPosY();
+            mStart = mPtrIndicator.getCurrentPosY();
             mTo = to;
             int distance = to - mStart;
             if (DEBUG) {
