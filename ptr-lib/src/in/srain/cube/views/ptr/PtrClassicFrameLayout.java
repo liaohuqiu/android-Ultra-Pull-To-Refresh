@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 /**
- * PtrFrameLayout which use {@link PtrClassicFrameLayout} as header view.
+ * PtrFrameLayout which use {@link PtrClassicDefaultHeader} as header view.
  */
 public class PtrClassicFrameLayout extends PtrFrameLayout {
 
