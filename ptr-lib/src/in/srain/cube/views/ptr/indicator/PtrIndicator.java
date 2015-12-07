@@ -2,6 +2,9 @@ package in.srain.cube.views.ptr.indicator;
 
 import android.graphics.PointF;
 
+/**
+ * Keep states and properties of PullToRefresh.
+ */
 public class PtrIndicator {
 
     public final static int POS_START = 0;
@@ -110,9 +113,7 @@ public class PtrIndicator {
         onUpdatePos(current, mLastPos);
     }
 
-    protected void onUpdatePos(int current, int last) {
-
-    }
+    protected void onUpdatePos(int current, int last) {}
 
     public int getHeaderHeight() {
         return mHeaderHeight;
