@@ -1,8 +1,8 @@
 import os
 vars = {
-        'ptr_lib_version': '1.0.8.1-SNAPSHOT',
-        'ptr_lib_stable_version': '1.0.7',
-        'cube_sdk_version': '1.0.44.9-SNAPSHOT'
+        'ptr_lib_version': '1.0.11',
+        'ptr_lib_stable_version': '1.0.11',
+        'cube_sdk_version': '1.0.44.39-SNAPSHOT'
         }
 
 files = [

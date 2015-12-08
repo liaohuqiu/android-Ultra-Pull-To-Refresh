@@ -112,6 +112,9 @@ class PtrUIHandlerHolder implements PtrUIHandler {
 
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
+        if (!hasHandler()) {
+            return;
+        }
         PtrUIHandlerHolder current = this;
         do {
             final PtrUIHandler handler = current.getHandler();

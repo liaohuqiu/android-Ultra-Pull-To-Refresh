@@ -8,7 +8,6 @@ import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
 import in.srain.cube.mints.base.TitleBaseFragment;
-import in.srain.cube.util.CubeDebug;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;

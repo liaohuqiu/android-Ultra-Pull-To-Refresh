@@ -1,7 +1,17 @@
+###### Welcome to follow me on GitHub or Twitter
+
+GitHub: https://github.com/liaohuqiu
+
+Twitter: https://twitter.com/liaohuqiu
+
+---
+
 [![Build Status](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh.svg?branch=master)](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Ultra%20Pull%20To%20Refresh-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1180)
 
-# [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
+#### [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
+
+Wanna auto-load-more? This will be what you want: https://github.com/liaohuqiu/android-cube-app
 
 # Ultra Pull To Refresh
 
@@ -97,13 +107,13 @@ pom.xml, stable version:
 gradle, latest version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:{ptr_lib_version}@aar'
+compile 'in.srain.cube:ultra-ptr:{ptr_lib_version}'
 ```
 
 gradle, stable version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:{ptr_lib_stable_version}@aar'
+compile 'in.srain.cube:ultra-ptr:{ptr_lib_stable_version}'
 ```
 
 #### Config
@@ -180,6 +190,12 @@ mPtrFrame.setPullToRefresh(false);
 // default is true
 mPtrFrame.setKeepHeaderWhenRefresh(true);
 ```
+
+### Other Config
+
+*  `setPinContent`. Pin the content, only the `HeaderView` will be moved. 
+
+    This's the the performance of material style in support package v19.
 
 ## StoreHouse Style
 
@@ -312,10 +328,6 @@ public interface PtrUIHandler {
 
 *  work with LongPressed, `setInterceptEventWhileWorking()`
 
-# License
-
-Apache 2
-
 # Contact & Help
 
 Please fell free to contact me if there is any problem when using the library.
@@ -324,4 +336,11 @@ Please fell free to contact me if there is any problem when using the library.
 * twitter: https://twitter.com/liaohuqiu
 * weibo: http://weibo.com/liaohuqiu
 * blog: http://www.liaohuqiu.net
-* QQ tribe: 417208555, this the rule for this tribe, please read it before you request to join: https://github.com/liaohuqiu/qq-tribe-rule
+
+    1. About how to use cube-sdk / Ultra Ptr: 271918140 (cube-sdk)
+
+        This the rule for our tribes, please read it before you request to join: https://github.com/liaohuqiu/qq-tribe-rule
+
+    2. For those who like thinking independently and are good at solving problem independently. Please join us, we are all here on Slack: 
+    
+        http://join-add1bit.liaohuqiu.net/

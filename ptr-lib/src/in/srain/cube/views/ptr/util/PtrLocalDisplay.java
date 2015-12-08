@@ -12,13 +12,11 @@ public class PtrLocalDisplay {
     public static float SCREEN_DENSITY;
     public static int SCREEN_WIDTH_DP;
     public static int SCREEN_HEIGHT_DP;
-    private static boolean sInitialed;
 
     public static void init(Context context) {
-        if (sInitialed || context == null) {
+        if (context == null) {
             return;
         }
-        sInitialed = true;
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(dm);

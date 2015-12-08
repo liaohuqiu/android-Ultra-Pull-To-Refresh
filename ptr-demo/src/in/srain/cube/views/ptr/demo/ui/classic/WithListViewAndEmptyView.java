@@ -43,9 +43,12 @@ public class WithListViewAndEmptyView extends TitleBaseFragment {
 
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_list_view_and_empty_view, null);
         mTextView = (TextView) contentView.findViewById(R.id.list_view_with_empty_view_fragment_empty_view);
+        mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.list_view_with_empty_view_fragment_ptr_frame);
+
         mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPtrFrame.setVisibility(View.VISIBLE);
                 mPtrFrame.autoRefresh();
             }
         });
@@ -64,26 +67,25 @@ public class WithListViewAndEmptyView extends TitleBaseFragment {
         });
 
         // show empty view
-        mListView.setVisibility(View.GONE);
+        mPtrFrame.setVisibility(View.INVISIBLE);
         mTextView.setVisibility(View.VISIBLE);
 
         mAdapter = new ListViewDataAdapter<JsonData>();
         mAdapter.setViewHolderClass(this, ViewHolder.class);
         mListView.setAdapter(mAdapter);
 
-        mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.list_view_with_empty_view_fragment_ptr_frame);
         mPtrFrame.setLastUpdateTimeRelateObject(this);
         mPtrFrame.setPtrHandler(new PtrHandler() {
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                updateData();
-            }
-
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
 
                 // here check $mListView instead of $content
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, mListView, header);
+            }
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                updateData();
             }
         });
         // the following are default settings
@@ -111,7 +113,6 @@ public class WithListViewAndEmptyView extends TitleBaseFragment {
     private void displayData(JsonData data) {
 
         mTextView.setVisibility(View.GONE);
-        mListView.setVisibility(View.VISIBLE);
 
         mAdapter.getDataList().clear();
         mAdapter.getDataList().addAll(data.optJson("data").optJson("list").toArrayList());

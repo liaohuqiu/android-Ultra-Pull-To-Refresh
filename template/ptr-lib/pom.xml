@@ -41,8 +41,8 @@
 
     <licenses>
         <license>
-            <name>Apache License Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <name>MIT</name>
+            <url>http://opensource.org/licenses/MIT</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -63,13 +63,6 @@
             <artifactId>android</artifactId>
             <version>4.1.1.4</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>in.srain.cube</groupId>
-            <artifactId>clog</artifactId>
-            <version>1.0.2</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

@@ -1,4 +1,4 @@
-package in.srain.cube.views.ptr.header;
+package in.srain.cube.views.ptr.demo.ui.header;
 
 import android.content.Context;
 import android.graphics.Canvas;

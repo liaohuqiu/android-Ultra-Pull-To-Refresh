@@ -151,6 +151,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
     }
 
     private void setUp(final double diameter) {
+        PtrLocalDisplay.init(mParent.getContext());
         final int shadowYOffset = PtrLocalDisplay.dp2px(Y_OFFSET);
         final int shadowXOffset = PtrLocalDisplay.dp2px(X_OFFSET);
         int mShadowRadius = PtrLocalDisplay.dp2px(SHADOW_RADIUS);

@@ -1,3 +1,13 @@
+###### 欢迎关注我
+
+GitHub: https://github.com/liaohuqiu
+
+微博: http://weibo.com/liaohuqiu
+
+知乎: http://www.zhihu.com/people/liao-hu-qiu
+
+---
+
 # Ultra Pull To Refresh
 
 这是现在已经停止维护的下拉刷新项目的替代方案。继承于ViewGroup可以包含任何View。功能比SwipeRefreshLayout强大。
@@ -8,7 +18,13 @@
 
 [APK下载](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo.apk)
 
-**使用eclipse 无法编译demo项目的同学看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/ Intellij IDEA / Android Studio请忽略**
+#### 下拉刷新 + 加载更多？
+
+本类库是单纯的下拉刷新。如果你需要用到`加载更多`，看这个项目: https://github.com/liaohuqiu/android-cube-app
+
+#### 使用eclipse的同学请注意, Intellij IDEA / Android Studio 请忽略
+
+**demo可以直接在eclipse中运行, 编译demo项目的同学看这里:  http://www.liaohuqiu.net/cn/posts/compile-ultra-ptr-in-eclipse/**
 
 * 先上两张StoreHouse风格的截图! 感谢 [CBStoreHouseRefreshControl](https://github.com/coolbeet/CBStoreHouseRefreshControl).
     <div class='row'>
@@ -97,13 +113,13 @@ mavenCentral()
 gradle / Android Studio, 最新版
 
 ```
-compile 'in.srain.cube:ultra-ptr:{ptr_lib_version}@aar'
+compile 'in.srain.cube:ultra-ptr:{ptr_lib_version}'
 ```
 
 gradle / Android Studio, 稳定版
 
 ```
-compile 'in.srain.cube:ultra-ptr:{ptr_lib_stable_version}@aar'
+compile 'in.srain.cube:ultra-ptr:{ptr_lib_stable_version}'
 ```
 
 #### 配置
@@ -180,6 +196,12 @@ mPtrFrame.setPullToRefresh(false);
 // default is true
 mPtrFrame.setKeepHeaderWhenRefresh(true);
 ```
+
+### 其他配置
+
+*  刷新时，保持内容不动，仅头部下移, `setPinContent()`
+
+    `Material` 风格时，效果不错，其他风格的头部，效果不好。issue #29
 
 ## StoreHouse 风格
 
@@ -280,19 +302,18 @@ ptrFrame.setPtrHandler(new PtrHandler() {
 *  长按LongPressed, `setInterceptEventWhileWorking()`
 
 
-# License
-
-Apache 2
-
 # 联系方式和问题建议
 
 * 微博: http://weibo.com/liaohuqiu
 * QQ 群: 
 
-    加群前请先阅读群约定: https://github.com/liaohuqiu/qq-tribe-rule
-
     1. cube系列开源项目使用交流，问题解答: 271918140 (cube-sdk)
-    2. 如果你会通过google解决问题，喜欢独立思考，喜欢和优秀却又温和的人成为朋友，欢迎加入技术交流群: 417208555 (cube-core)
+
+        加群前请先阅读群约定: https://github.com/liaohuqiu/qq-tribe-rule
+
+    2. 如果你会通过google解决问题，喜欢独立思考，喜欢和优秀却又温和的人成为朋友，欢迎加入我们在 Slack 上的群组: 我们在 Slack 上的群组: 
+    
+        http://join-add1bit.liaohuqiu.net/?channel=git-android-ultra-ptr
 
 * srain@php.net
 * twitter: https://twitter.com/liaohuqiu

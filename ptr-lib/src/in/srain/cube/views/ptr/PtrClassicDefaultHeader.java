@@ -65,6 +65,14 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
         resetView();
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (mLastUpdateTimeUpdater != null) {
+            mLastUpdateTimeUpdater.stop();
+        }
+    }
+
     public void setRotateAniTime(int time) {
         if (time == mRotateAniTime || time == 0) {
             return;

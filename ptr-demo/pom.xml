@@ -29,21 +29,15 @@
         </dependency>
         <dependency>
             <groupId>in.srain.cube</groupId>
-            <artifactId>clog</artifactId>
-            <type>jar</type>
-            <version>1.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>in.srain.cube</groupId>
             <artifactId>ultra-ptr</artifactId>
             <type>aar</type>
-            <version>1.0.8.1-SNAPSHOT</version>
+            <version>1.0.11</version>
         </dependency>
         <dependency>
             <groupId>in.srain.cube</groupId>
             <artifactId>cube-sdk</artifactId>
             <type>aar</type>
-            <version>1.0.44.9-SNAPSHOT</version>
+            <version>1.0.44.39-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

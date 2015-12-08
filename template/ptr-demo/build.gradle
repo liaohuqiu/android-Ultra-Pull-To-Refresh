@@ -1,12 +1,3 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
-    }
-}
-
 apply plugin: 'com.android.application'
 
 android {
@@ -21,6 +12,13 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 
     sourceSets {

@@ -16,7 +16,6 @@ import in.srain.cube.image.ImageTask;
 import in.srain.cube.image.iface.ImageLoadHandler;
 import in.srain.cube.mints.base.TitleBaseFragment;
 import in.srain.cube.util.LocalDisplay;
-import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
@@ -27,6 +26,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
     private String mUrl = "http://img5.duitang.com/uploads/blog/201407/17/20140717113117_mUssJ.thumb.jpeg";
     private long mStartLoadingTime = -1;
     private boolean mImageHasLoaded = false;
+    protected PtrFrameLayout mPtrFrameLayout;
 
     @Override
     public void onEnter(Object data) {
@@ -44,7 +44,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
         final CubeImageView imageView = (CubeImageView) view.findViewById(R.id.material_style_image_view);
         final ImageLoader imageLoader = ImageLoaderFactory.create(getContext());
 
-        final PtrFrameLayout frame = (PtrFrameLayout) view.findViewById(R.id.material_style_ptr_frame);
+        mPtrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.material_style_ptr_frame);
 
         // header
         final MaterialHeader header = new MaterialHeader(getContext());
@@ -52,20 +52,20 @@ public class MaterialStyleFragment extends TitleBaseFragment {
         header.setColorSchemeColors(colors);
         header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
         header.setPadding(0, LocalDisplay.dp2px(15), 0, LocalDisplay.dp2px(10));
-        header.setPtrFrameLayout(frame);
+        header.setPtrFrameLayout(mPtrFrameLayout);
 
-        frame.setLoadingMinTime(1000);
-        frame.setDurationToCloseHeader(1500);
-        frame.setHeaderView(header);
-        frame.addPtrUIHandler(header);
-        frame.postDelayed(new Runnable() {
+        mPtrFrameLayout.setLoadingMinTime(1000);
+        mPtrFrameLayout.setDurationToCloseHeader(1500);
+        mPtrFrameLayout.setHeaderView(header);
+        mPtrFrameLayout.addPtrUIHandler(header);
+        mPtrFrameLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                frame.autoRefresh(false);
+                mPtrFrameLayout.autoRefresh(false);
             }
         }, 100);
 
-        frame.setPtrHandler(new PtrHandler() {
+        mPtrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return true;
@@ -100,7 +100,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
                 mImageHasLoaded = true;
                 long delay = Math.max(0, 1000 - (System.currentTimeMillis() - mStartLoadingTime));
                 delay = 0;
-                frame.postDelayed(new Runnable() {
+                mPtrFrameLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (cubeImageView != null && bitmapDrawable != null) {
@@ -108,7 +108,7 @@ public class MaterialStyleFragment extends TitleBaseFragment {
                             imageView.setImageDrawable(w1);
                             w1.startTransition(200);
                         }
-                        frame.refreshComplete();
+                        mPtrFrameLayout.refreshComplete();
                     }
                 }, delay);
             }

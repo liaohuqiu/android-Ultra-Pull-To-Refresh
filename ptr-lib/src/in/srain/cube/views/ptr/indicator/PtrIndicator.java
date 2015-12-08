@@ -18,6 +18,8 @@ public class PtrIndicator {
     private float mResistance = 1.7f;
     private boolean mIsUnderTouch = false;
     private int mOffsetToKeepHeaderWhileLoading = -1;
+    // record the refresh complete position
+    private int mRefreshCompleteY = 0;
 
     public boolean isUnderTouch() {
         return mIsUnderTouch;
@@ -36,7 +38,11 @@ public class PtrIndicator {
     }
 
     public void onUIRefreshComplete() {
+        mRefreshCompleteY = mCurrentPos;
+    }
 
+    public boolean goDownCrossFinishPosition() {
+        return mCurrentPos >= mRefreshCompleteY;
     }
 
     protected void processOnMove(float currentX, float currentY, float offsetX, float offsetY) {
@@ -57,7 +63,7 @@ public class PtrIndicator {
     }
 
     public void setOffsetToRefresh(int offset) {
-        mRatioOfHeaderHeightToRefresh = mHeaderHeight / offset;
+        mRatioOfHeaderHeightToRefresh = mHeaderHeight * 1f / offset;
         mOffsetToRefresh = offset;
     }
 

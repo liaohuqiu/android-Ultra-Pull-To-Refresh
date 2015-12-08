@@ -1,7 +1,17 @@
+###### Welcome to follow me on GitHub or Twitter
+
+GitHub: https://github.com/liaohuqiu
+
+Twitter: https://twitter.com/liaohuqiu
+
+---
+
 [![Build Status](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh.svg?branch=master)](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Ultra%20Pull%20To%20Refresh-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1180)
 
-# [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
+#### [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
+
+Wanna auto-load-more? This will be what you want: https://github.com/liaohuqiu/android-cube-app
 
 # Ultra Pull To Refresh
 
@@ -54,7 +64,7 @@ Support `API LEVEL >= 8`, all snapshots are taken from Genymotion, 2.3.7.
 
 This project has been pushed to Maven Central, both in `aar` and `apklib`.
 
-The latest version: `1.0.8.1-SNAPSHOT`, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
+The latest version: `1.0.11`, has been published to: https://oss.sonatype.org/content/repositories/snapshots, in gradle:
 
 ```
 maven {
@@ -62,7 +72,7 @@ maven {
 }
 ```
 
-The stable version: `1.0.7`, https://oss.sonatype.org/content/repositories/releases, in gradle:
+The stable version: `1.0.11`, https://oss.sonatype.org/content/repositories/releases, in gradle:
 
 ```
 mavenCentral()
@@ -77,7 +87,7 @@ pom.xml, latest version:
     <type>aar</type>
     <!-- or apklib format, if you want -->
     <!-- <type>apklib</type> -->
-    <version>1.0.8.1-SNAPSHOT</version>
+    <version>1.0.11</version>
 </dependency>
 ```
 
@@ -90,20 +100,20 @@ pom.xml, stable version:
     <type>aar</type>
     <!-- or apklib format, if you want -->
     <!-- <type>apklib</type> -->
-    <version>1.0.7</version>
+    <version>1.0.11</version>
 </dependency>
 ```
 
 gradle, latest version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.8.1-SNAPSHOT@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.11'
 ```
 
 gradle, stable version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.7@aar'
+compile 'in.srain.cube:ultra-ptr:1.0.11'
 ```
 
 #### Config
@@ -180,6 +190,12 @@ mPtrFrame.setPullToRefresh(false);
 // default is true
 mPtrFrame.setKeepHeaderWhenRefresh(true);
 ```
+
+### Other Config
+
+*  `setPinContent`. Pin the content, only the `HeaderView` will be moved. 
+
+    This's the the performance of material style in support package v19.
 
 ## StoreHouse Style
 
@@ -312,10 +328,6 @@ public interface PtrUIHandler {
 
 *  work with LongPressed, `setInterceptEventWhileWorking()`
 
-# License
-
-Apache 2
-
 # Contact & Help
 
 Please fell free to contact me if there is any problem when using the library.
@@ -324,4 +336,11 @@ Please fell free to contact me if there is any problem when using the library.
 * twitter: https://twitter.com/liaohuqiu
 * weibo: http://weibo.com/liaohuqiu
 * blog: http://www.liaohuqiu.net
-* QQ tribe: 417208555, this the rule for this tribe, please read it before you request to join: https://github.com/liaohuqiu/qq-tribe-rule
+
+    1. About how to use cube-sdk / Ultra Ptr: 271918140 (cube-sdk)
+
+        This the rule for our tribes, please read it before you request to join: https://github.com/liaohuqiu/qq-tribe-rule
+
+    2. For those who like thinking independently and are good at solving problem independently. Please join us, we are all here on Slack: 
+    
+        http://join-add1bit.liaohuqiu.net/

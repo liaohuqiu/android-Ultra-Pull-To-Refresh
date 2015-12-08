@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/rotate_header_web_view_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cube_mints_f1f1f1"
+        app:ptr_duration_to_close="200"
+        app:ptr_duration_to_close_header="1000"
+        app:ptr_keep_header_when_refresh="true"
+        app:ptr_pull_to_fresh="false"
+        app:ptr_ratio_of_header_height_to_refresh="1.2"
+        app:ptr_resistance="1.7">
+
+        <ScrollView
+            android:id="@+id/rotate_header_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="@dimen/cube_mints_content_view_padding"
+                    android:background="@drawable/text_view_bg"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="text 1"
+                    android:textColor="@color/cube_mints_white"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_margin="@dimen/cube_mints_content_view_padding"
+                    android:background="@drawable/text_view_bg"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="text 2"
+                    android:textColor="@color/cube_mints_white"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_margin="@dimen/cube_mints_content_view_padding"
+                    android:background="@drawable/text_view_bg"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="text 3"
+                    android:textColor="@color/cube_mints_white"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+</RelativeLayout>

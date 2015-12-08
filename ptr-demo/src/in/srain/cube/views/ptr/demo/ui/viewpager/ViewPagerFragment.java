@@ -51,7 +51,8 @@ public class ViewPagerFragment extends CubeFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position >= 0) {
-                    final String url = mAdapter.getItem(position).optString("pic");
+					JsonData js = mAdapter.getItem(position);
+                    final String url = js!=null?js.optString("pic"):null;
                     if (!TextUtils.isEmpty(url)) {
                         getContext().pushFragmentToBackStack(MaterialStyleFragment.class, url);
                     }
