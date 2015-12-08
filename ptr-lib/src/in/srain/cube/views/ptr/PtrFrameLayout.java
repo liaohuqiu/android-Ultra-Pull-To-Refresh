@@ -674,7 +674,9 @@ public class PtrFrameLayout extends ViewGroup {
 
     public void autoRefresh(boolean atOnce, int duration) {
 
-        if (mStatus != PTR_STATUS_INIT) {
+        if(isEnabledNextPtrAtOnce()){
+            tryToNotifyReset();
+        }else if (mStatus != PTR_STATUS_INIT) {
             return;
         }
 
