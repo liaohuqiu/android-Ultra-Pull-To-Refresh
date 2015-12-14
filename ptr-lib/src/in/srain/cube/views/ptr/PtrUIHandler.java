@@ -44,10 +44,10 @@ public interface PtrUIHandler {
      * @param isUnderTouch true if is moved under touch.
      * @param status ptr status, it should be one of the following value:
      * <ul>
-     *   <li>PtrFrameLayout.PTR_STATUS_INIT</li>
-     *   <li>PtrFrameLayout.PTR_STATUS_PREPARE</li>
-     *   <li>PtrFrameLayout.PTR_STATUS_LOADING</li>
-     *   <li>PtrFrameLayout.PTR_STATUS_COMPLETE</li>
+     *   <li>{@link PtrFrameLayout#PTR_STATUS_INIT}</li>
+     *   <li>{@link PtrFrameLayout#PTR_STATUS_PREPARE}</li>
+     *   <li>{@link PtrFrameLayout#PTR_STATUS_LOADING}</li>
+     *   <li>{@link PtrFrameLayout#PTR_STATUS_COMPLETE}</li>
      * </ul>
      * @param ptrIndicator ptr indicator.
      */

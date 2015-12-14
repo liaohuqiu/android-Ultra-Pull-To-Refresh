@@ -919,6 +919,10 @@ public class PtrFrameLayout extends ViewGroup {
         }
         mHeaderView = header;
         addView(header);
+
+        if(header instanceof PtrUIHandler){
+            addPtrUIHandler((PtrUIHandler) header);
+        }
     }
 
     @Override
