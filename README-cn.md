@@ -1,8 +1,10 @@
-###### [关注我的GitHub吧，江湖救急，需要你的支持和帮助](http://www.liaohuqiu.net/cn/posts/follow-me-on-github/)
+###### 欢迎关注我
 
-Github: https://github.com/liaohuqiu
+GitHub: https://github.com/liaohuqiu
 
 微博: http://weibo.com/liaohuqiu
+
+知乎: http://www.zhihu.com/people/liao-hu-qiu
 
 ---
 
@@ -305,10 +307,13 @@ ptrFrame.setPtrHandler(new PtrHandler() {
 * 微博: http://weibo.com/liaohuqiu
 * QQ 群: 
 
-    加群前请先阅读群约定: https://github.com/liaohuqiu/qq-tribe-rule
-
     1. cube系列开源项目使用交流，问题解答: 271918140 (cube-sdk)
-    2. 如果你会通过google解决问题，喜欢独立思考，喜欢和优秀却又温和的人成为朋友，欢迎加入技术交流群: 417208555 (cube-core)
+
+        加群前请先阅读群约定: https://github.com/liaohuqiu/qq-tribe-rule
+
+    2. 如果你会通过google解决问题，喜欢独立思考，喜欢和优秀却又温和的人成为朋友，欢迎加入我们在 Slack 上的群组: 我们在 Slack 上的群组: 
+    
+        http://join-add1bit.liaohuqiu.net/?channel=git-android-ultra-ptr
 
 * srain@php.net
 * twitter: https://twitter.com/liaohuqiu

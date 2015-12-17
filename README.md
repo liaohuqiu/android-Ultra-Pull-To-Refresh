@@ -1,8 +1,8 @@
-###### [Please follow me on GitHub, I need your support](http://www.liaohuqiu.net/posts/follow-me-on-github/)
+###### Welcome to follow me on GitHub or Twitter
 
-Github: https://github.com/liaohuqiu
+GitHub: https://github.com/liaohuqiu
 
-twitter: https://twitter.com/liaohuqiu
+Twitter: https://twitter.com/liaohuqiu
 
 ---
 
@@ -336,7 +336,11 @@ Please fell free to contact me if there is any problem when using the library.
 * twitter: https://twitter.com/liaohuqiu
 * weibo: http://weibo.com/liaohuqiu
 * blog: http://www.liaohuqiu.net
-* QQ tribe: this the rule for our tribes, please read it before you request to join: https://github.com/liaohuqiu/qq-tribe-rule
 
     1. About how to use cube-sdk / Ultra Ptr: 271918140 (cube-sdk)
-    2. For those who like thinking independently and are good at solving problem independently. Please join us, we are all here: 417208555 (cube-sdk-adv)
+
+        This the rule for our tribes, please read it before you request to join: https://github.com/liaohuqiu/qq-tribe-rule
+
+    2. For those who like thinking independently and are good at solving problem independently. Please join us, we are all here on Slack: 
+    
+        http://join-add1bit.liaohuqiu.net/
