@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.*;
 import android.widget.Scroller;
 import android.widget.TextView;
+
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
 import in.srain.cube.views.ptr.util.PtrCLog;
 
@@ -18,6 +19,7 @@ public class PtrFrameLayout extends ViewGroup {
 
     // status enum
     public final static byte PTR_STATUS_INIT = 1;
+    public static final int TimeInterval = 100;
     private byte mStatus = PTR_STATUS_INIT;
     public final static byte PTR_STATUS_PREPARE = 2;
     public final static byte PTR_STATUS_LOADING = 3;
@@ -46,6 +48,7 @@ public class PtrFrameLayout extends ViewGroup {
     private PtrHandler mPtrHandler;
     // working parameters
     private ScrollChecker mScrollChecker;
+    private int mTouchSlop;
     private int mPagingTouchSlop;
     private int mHeaderHeight;
     private boolean mDisableWhenHorizontalMove = false;
@@ -58,6 +61,7 @@ public class PtrFrameLayout extends ViewGroup {
 
     private PtrUIHandlerHook mRefreshCompleteHook;
 
+    private long downTime;
     private int mLoadingMinTime = 500;
     private long mLoadingStartTime = 0;
     private PtrIndicator mPtrIndicator;
@@ -107,7 +111,8 @@ public class PtrFrameLayout extends ViewGroup {
         mScrollChecker = new ScrollChecker();
 
         final ViewConfiguration conf = ViewConfiguration.get(getContext());
-        mPagingTouchSlop = conf.getScaledTouchSlop() * 2;
+        mTouchSlop = conf.getScaledTouchSlop();
+        mPagingTouchSlop = mTouchSlop * 2;
     }
 
     @Override
@@ -265,6 +270,7 @@ public class PtrFrameLayout extends ViewGroup {
         return super.dispatchTouchEvent(e);
     }
 
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent e) {
         if (!isEnabled() || mContent == null || mHeaderView == null) {
@@ -290,6 +296,8 @@ public class PtrFrameLayout extends ViewGroup {
                 }
 
             case MotionEvent.ACTION_DOWN:
+                downTime = System.currentTimeMillis();
+
                 mHasSendCancelEvent = false;
                 mPtrIndicator.onPressDown(e.getX(), e.getY());
 
@@ -328,6 +336,14 @@ public class PtrFrameLayout extends ViewGroup {
 
                 // disable move when header not reach top
                 if (moveDown && mPtrHandler != null && !mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView)) {
+                    return dispatchTouchEventSupper(e);
+                }
+
+                long moveInterval = System.currentTimeMillis() - downTime;
+                if (DEBUG) {
+                    PtrCLog.v(LOG_TAG, "ACTION_MOVE: mTouchSlop: %s, offsetY: %s, timeInterval: %s", mTouchSlop, offsetY, moveInterval);
+                }
+                if (Math.abs(offsetY) < mTouchSlop && moveInterval < TimeInterval) {
                     return dispatchTouchEventSupper(e);
                 }
 
