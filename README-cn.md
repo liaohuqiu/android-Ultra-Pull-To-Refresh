@@ -301,7 +301,8 @@ ptrFrame.setPtrHandler(new PtrHandler() {
 
 *  长按LongPressed, `setInterceptEventWhileWorking()`
 
-
+# 项目原理及一些方法的解释
+*  http://www.liaohuqiu.net/cn/posts/the-pull-to-refresh-in-my-eyes/
 # 联系方式和问题建议
 
 * 微博: http://weibo.com/liaohuqiu
