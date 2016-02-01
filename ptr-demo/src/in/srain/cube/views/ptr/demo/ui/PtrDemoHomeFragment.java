@@ -240,7 +240,7 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragmengt_ptr_home;
+        return R.layout.fragment_ptr_home;
     }
 
     @Override
