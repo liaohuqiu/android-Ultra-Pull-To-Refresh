@@ -2,6 +2,7 @@ package in.srain.cube.views.ptr;
 
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.ScrollView;
 
 public abstract class PtrDefaultHandler implements PtrHandler {
 
@@ -36,4 +37,5 @@ public abstract class PtrDefaultHandler implements PtrHandler {
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
         return checkContentCanBePulledDown(frame, content, header);
     }
+
 }

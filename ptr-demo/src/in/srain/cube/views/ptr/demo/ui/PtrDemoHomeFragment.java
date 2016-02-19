@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
 import in.srain.cube.mints.base.BlockMenuFragment;
 import in.srain.cube.util.LocalDisplay;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
+import in.srain.cube.views.ptr.PtrHandler2;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.ui.classic.*;
 import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingPointList;
@@ -219,10 +222,32 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
         ptrFrameLayout.setDurationToCloseHeader(1500);
         ptrFrameLayout.setHeaderView(header);
         ptrFrameLayout.addPtrUIHandler(header);
-        ptrFrameLayout.setPtrHandler(new PtrHandler() {
+
+        StoreHouseHeader footer = new StoreHouseHeader(getContext());
+        footer.setPadding(0, LocalDisplay.dp2px(20), 0, LocalDisplay.dp2px(20));
+        footer.initWithString("Ultra Footer");
+
+        ptrFrameLayout.setFooterView(footer);
+        ptrFrameLayout.addPtrUIHandler(footer);
+        ptrFrameLayout.setPtrHandler(new PtrHandler2() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
+
+            @Override
+            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
+                return PtrDefaultHandler2.checkContentCanBePulledUp(frame, content, footer);
+            }
+
+            @Override
+            public void onLoadMoreBegin(PtrFrameLayout frame) {
+                ptrFrameLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ptrFrameLayout.refreshComplete();
+                    }
+                }, 1500);
             }
 
             @Override

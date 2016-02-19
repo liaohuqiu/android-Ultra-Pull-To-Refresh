@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.TextView;
+
 import in.srain.cube.mints.base.TitleBaseActivity;
 import in.srain.cube.request.JsonData;
 import in.srain.cube.request.RequestFinishHandler;
@@ -148,6 +149,13 @@ public class ViewPagerActivity extends TitleBaseActivity {
                 return true;
             }
             return mCurrentFragment.checkCanDoRefresh();
+        }
+
+        public boolean checkCanDoLoadMore() {
+            if (mCurrentFragment == null) {
+                return true;
+            }
+            return mCurrentFragment.checkCanDoLoadMore();
         }
     }
 

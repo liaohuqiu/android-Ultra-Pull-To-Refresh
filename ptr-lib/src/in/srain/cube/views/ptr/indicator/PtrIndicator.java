@@ -6,6 +6,7 @@ public class PtrIndicator {
 
     public final static int POS_START = 0;
     protected int mOffsetToRefresh = 0;
+    protected int mOffsetToLoadMore = 0;
     private PointF mPtLastMove = new PointF();
     private PointF mPtLastDown = new PointF();
     private float mOffsetX;
@@ -13,7 +14,9 @@ public class PtrIndicator {
     private int mCurrentPos = 0;
     private int mLastPos = 0;
     private int mHeaderHeight;
+    private int mFooterHeight;
     private int mPressedPos = 0;
+    private boolean isHeader = true;
 
     private float mRatioOfHeaderHeightToRefresh = 1.2f;
     private float mResistance = 1.7f;
@@ -23,6 +26,14 @@ public class PtrIndicator {
     private int mRefreshCompleteY = 0;
 
     private int mTouchSlop;
+
+    public boolean isHeader() {
+        return isHeader;
+    }
+
+    public void setIsHeader(boolean isHeader) {
+        this.isHeader = isHeader;
+    }
 
     public boolean isUnderTouch() {
         return mIsUnderTouch;
@@ -55,6 +66,7 @@ public class PtrIndicator {
     public void setRatioOfHeaderHeightToRefresh(float ratio) {
         mRatioOfHeaderHeightToRefresh = ratio;
         mOffsetToRefresh = (int) (mHeaderHeight * ratio);
+        mOffsetToLoadMore = (int) (mFooterHeight * ratio);
     }
 
     public float getRatioOfHeaderToHeightRefresh() {
@@ -65,9 +77,14 @@ public class PtrIndicator {
         return mOffsetToRefresh;
     }
 
+    public int getOffstToLoadMore() {
+        return mOffsetToLoadMore;
+    }
+
     public void setOffsetToRefresh(int offset) {
         mRatioOfHeaderHeightToRefresh = mHeaderHeight * 1f / offset;
         mOffsetToRefresh = offset;
+        mOffsetToLoadMore = offset;
     }
 
     public void onPressDown(float x, float y) {
@@ -127,8 +144,14 @@ public class PtrIndicator {
         updateHeight();
     }
 
+    public void setFooterHeight(int height) {
+        mFooterHeight = height;
+        updateHeight();
+    }
+
     protected void updateHeight() {
         mOffsetToRefresh = (int) (mRatioOfHeaderHeightToRefresh * mHeaderHeight);
+        mOffsetToLoadMore = (int) (mRatioOfHeaderHeightToRefresh * mFooterHeight);
     }
 
     public void convertFrom(PtrIndicator ptrSlider) {
