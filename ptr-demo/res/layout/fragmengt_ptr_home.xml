@@ -13,7 +13,8 @@
         cube_ptr:ptr_keep_header_when_refresh="true"
         cube_ptr:ptr_pull_to_fresh="false"
         cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
-        cube_ptr:ptr_resistance="1.7">
+        cube_ptr:ptr_resistance="1.7"
+        cube_ptr:ptr_mode="both">
 
         <ScrollView
             android:id="@+id/fragment_block_menu_scroll_view"

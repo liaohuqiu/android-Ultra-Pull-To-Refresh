@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+
 import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
@@ -21,8 +22,10 @@ import in.srain.cube.views.list.ViewHolderBase;
 import in.srain.cube.views.list.ViewHolderCreator;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
+import in.srain.cube.views.ptr.PtrHandler2;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.data.DemoRequestData;
 import in.srain.cube.views.ptr.demo.ui.MaterialStyleFragment;
@@ -65,16 +68,18 @@ public class WithGridView extends TitleBaseFragment {
 
         mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.rotate_header_grid_view_frame);
         mPtrFrame.setLastUpdateTimeRelateObject(this);
-        mPtrFrame.setPtrHandler(new PtrHandler() {
+        mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
+
+            @Override
+            public void onLoadMoreBegin(PtrFrameLayout frame) {
+                updateData();
+            }
+
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 updateData();
             }
 
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
-            }
         });
         // the following are default settings
         mPtrFrame.setResistance(1.7f);
@@ -109,7 +114,7 @@ public class WithGridView extends TitleBaseFragment {
                     @Override
                     public void run() {
                         mAdapter.getDataList().clear();
-                        mAdapter.getDataList().addAll(data.optJson("data").optJson("list").toArrayList());
+                        mAdapter.getDataList().addAll(data.optJson("data").optJson("list").toArrayList().subList(0,10));
                         mPtrFrame.refreshComplete();
                         mAdapter.notifyDataSetChanged();
                     }

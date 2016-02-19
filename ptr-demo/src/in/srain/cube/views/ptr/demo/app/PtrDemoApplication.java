@@ -32,7 +32,7 @@ public class PtrDemoApplication extends Application {
 
         CubeDebug.DEBUG_IMAGE = true;
         PtrFrameLayout.DEBUG = true;
-        PtrFrameLayout.DEBUG = false;
+        //PtrFrameLayout.DEBUG = false;
 
         ImageLoaderFactory.setDefaultImageReSizer(DemoDuiTangImageReSizer.getInstance());
         ImageLoaderFactory.setDefaultImageLoadHandler(new PtrImageLoadHandler());

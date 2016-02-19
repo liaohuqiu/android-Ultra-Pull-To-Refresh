@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
@@ -48,6 +49,7 @@ public class WithLongPressFragment extends TitleBaseFragment {
         listViewDataAdapter.setViewHolderClass(this, ViewHolder.class);
 
         ptrFrameLayout.setPtrHandler(new PtrDefaultHandler() {
+
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 ptrFrameLayout.postDelayed(new Runnable() {

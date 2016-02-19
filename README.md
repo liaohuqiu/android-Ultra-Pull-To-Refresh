@@ -1,17 +1,31 @@
-###### [Please follow me on GitHub, I need your support](http://www.liaohuqiu.net/posts/follow-me-on-github/)
+# Modification
 
-Github: https://github.com/liaohuqiu
+I had made a modification of the Ultra-Pull-to-Refresh library and let it support load-more function. It supports every view as like as pull-to-refresh. All the logic is simulated to the pull-to-refresh and the configurations(resistance, duration etc.) are shared for both load-more and pull-to-refresh. Currently, only the `Home page（PtrDemoHomeFragment）` and `AutoRefresh（WithGridView）` page in demo are modified to demonstrate how to use load-more. But the mechanism should be the same as pull-to-refresh. 
 
-twitter: https://twitter.com/liaohuqiu
+If your want to this fork, please download this project and import to your IDE manually. The gradle and maven below is not supported by this fort yet.
+
+PS: All the API are not modified. If you have used the origin Ultra-Pull-To-Refresh library, there will be no need to change your code if you move to this fork.
+
+Thank you for `Huqiu Liao`, who created such a great library. His code was so scalable and made my modification easier. 
+
+This fork is just developed and there would be bugs. Please feel free to report me if you found some bugs.
+
+Github: https://github.com/captainbupt
+
+# New functions and classes
+
+- `setFooterView`: Corresponding to `setHeaderView()`. You may also need call `addPtrUIHandler()` after setting the footer view, which is the same mechanism as setting header.
+- `PtrHandler2`: A complementary of `PtrHandler`. When using load more function, you should call `setPtrHandler(new PtrHandler2())`, rather than `setPtrHandler(new PtrHandler())`.
+- `PtrDefaultHandler2`: Implemented a default `checkCanDoLoadMore()` logic. The same mechanism as `PtrDefaultHandler`.
+- `PtrClassicDefaultFooter`: Serve as a default footer which is the reverse of the default header.
+- `setMode(Mode)`: The mode is a new feature of this library. By using `setMode`, you can enable or disable either header or footer. The argument is an enum, you should it like `setMode(Mode.BOTH)`.
 
 ---
 
 [![Build Status](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh.svg?branch=master)](https://travis-ci.org/liaohuqiu/android-Ultra-Pull-To-Refresh)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Ultra%20Pull%20To%20Refresh-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1180)
 
-#### [中文版文档](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh/blob/master/README-cn.md)
-
-Wanna auto-load-more? This will be what you want: https://github.com/liaohuqiu/android-cube-app
+#### [中文版文档](https://github.com/captainbupt/android-Ultra-Pull-To-Refresh-With-Load-More/blob/master/README-cn.md)
 
 # Ultra Pull To Refresh
 

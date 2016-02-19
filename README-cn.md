@@ -1,8 +1,26 @@
-###### [关注我的GitHub吧，江湖救急，需要你的支持和帮助](http://www.liaohuqiu.net/cn/posts/follow-me-on-github/)
+# 修改
 
-Github: https://github.com/liaohuqiu
+本分支对原有的Ultra Pull To Refresh进行了修改，使得其支持了上拉加载更多。和下拉刷新一样，上拉加载同样支持所有view。全部的逻辑都是仿造原有的下拉刷新而来，并且配置信息（阻抗，持续时间等）为两者共享。目前，实例项目demo中只有`主页面`和`自动刷新`页面演示了如何使用上拉加载更多，不过原理上与下拉刷新一致，应该比较好理解。
 
-微博: http://weibo.com/liaohuqiu
+如果想要使用本分支，请直接下载源码并导入IDE中。底部的gradle和maven目前并不支持。
+
+注：本分支没有修改任何原有API。如果你之前已经在使用Ultra Pull To Refresh，那么你可以无缝的转换到本分支上来。
+
+感谢`廖祜秋`开源了这个非常棒的下拉刷新库。他所写的代码可拓展性极高，使得我的修改工作也轻松不少。
+
+本分支刚刚开发完成，可能会存在bug。如果有问题，欢迎指出！
+
+Github: https://github.com/captainbupt
+
+博客: http://blog.csdn.net/hwz2311245
+
+# 添加的方法和类
+
+- `setFooterView`：对应于`setHeaderView()`。在set完footer后，你需要调用 `addPtrUIHandler()`，这和设置header的机制是一样的。
+- `PtrHandler2`：原有`PtrHandler`类的一个补充。当需要使用上拉加载更多的时候，你应该调用`setPtrHandler(new PtrHandler2())`，而不是`setPtrHandler(new PtrHandler())`。
+- `PtrDefaultHandler2`：实现了默认的 `checkCanDoLoadMore()` 逻辑，可以适用于大部分的View。机制和`PtrDefaultHandler`一致。
+- `PtrClassicDefaultFooter`：默认的footer，将默认header反转了过来。
+- `setMode(Mode)`: Mode是本分支的一个新特性。通过调用`setMode`, 你可以任意的开启/关闭header或者footer。参数类型是一个枚举变量，可以通过以下方式调用：`setMode(Mode.BOTH)`.
 
 ---
 
@@ -15,10 +33,6 @@ Github: https://github.com/liaohuqiu
 支持 `API LEVEL >= 8`。
 
 [APK下载](https://raw.githubusercontent.com/liaohuqiu/android-Ultra-Pull-To-Refresh/master/ptr-demo.apk)
-
-#### 下拉刷新 + 加载更多？
-
-本类库是单纯的下拉刷新。如果你需要用到`加载更多`，看这个项目: https://github.com/liaohuqiu/android-cube-app
 
 #### 使用eclipse的同学请注意, Intellij IDEA / Android Studio 请忽略
 
