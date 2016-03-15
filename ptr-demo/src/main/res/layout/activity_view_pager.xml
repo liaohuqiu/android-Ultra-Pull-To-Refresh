@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cube_mints_f1f1f1"
+    android:orientation="vertical">
+
+    <in.srain.cube.views.pager.TabPageIndicator
+        android:id="@+id/view_pager_tab_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@color/cube_mints_white"
+        android:fadingEdge="none"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" />
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/view_pager_ptr_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cube_mints_white" />
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+
+</LinearLayout>

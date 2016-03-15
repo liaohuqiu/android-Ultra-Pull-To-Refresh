@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cube_mints_f1f1f1">
+
+    <in.srain.cube.views.ptr.PtrFrameLayout
+        android:id="@+id/material_style_ptr_frame"
+        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        cube_ptr:ptr_duration_to_close="300"
+        cube_ptr:ptr_duration_to_close_header="2000"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        cube_ptr:ptr_resistance="1.7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cube_mints_white"
+            android:clickable="true"
+            android:padding="10dp">
+
+            <in.srain.cube.image.CubeImageView
+                android:id="@+id/material_style_image_view"
+                android:layout_width="match_parent"
+                android:scaleType="fitCenter"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </in.srain.cube.views.ptr.PtrFrameLayout>
+</RelativeLayout>

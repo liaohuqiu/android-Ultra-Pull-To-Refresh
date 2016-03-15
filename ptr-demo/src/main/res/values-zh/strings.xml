@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ultra PTR</string>
+    <string name="ptr_demo_block_auto_fresh">自动刷新</string>
+    <string name="ptr_demo_block_frame_layout">包含FrameLayout</string>
+    <string name="ptr_demo_block_grid_view">包含GridView</string>
+    <string name="ptr_demo_block_hide_header">刷新时不显示头部</string>
+    <string name="ptr_demo_block_keep_header">刷新时显示头部</string>
+    <string name="ptr_demo_block_only_text_view">仅包含一个TextView</string>
+    <string name="ptr_demo_block_pull_to_refresh">下拉刷新</string>
+    <string name="ptr_demo_block_release_to_refresh">释放刷新</string>
+
+    <string name="ptr_demo_block_storehouse_header_using_string_array">StoreHouse Style \n使用xml中的字符串数组</string>
+    <string name="ptr_demo_storehouse_header_using_string_array_in_title">使用xml: &#160;</string>
+    <string name="ptr_demo_block_storehouse_header_using_string">StoreHouse Style \n\n使用字符串</string>
+    <string name="ptr_demo_storehouse_header_using_string_in_title">使用字符串:&#160;</string>
+
+    <string name="ptr_demo_material_style_pin_content">Material Style\n内容不动，原生风格</string>
+    <string name="ptr_demo_enable_next_ptr_at_once">立即下拉刷新，不等UIReset</string>
+</resources>

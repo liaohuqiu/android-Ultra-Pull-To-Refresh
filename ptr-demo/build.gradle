@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        applicationId "in.srain.cube.views.ptr.demo"
+        minSdkVersion 8
+        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        preDexLibraries = false
+    }
+}
+
+
+def EXCLUDE_JAR_LIST = ['cube-sdk', 'support-v4-r7-source', 'ultra-ptr', 'support-annotation', 'ptr-lib']
+
+task copyLibs << {
+
+    // copy jars
+    copy {
+        from configurations.compile
+        into "libs"
+
+        eachFile { file ->
+            println file.name
+            for (name in EXCLUDE_JAR_LIST) {
+                if (file.name.contains(name)) {
+                    file.exclude()
+                    return
+                }
+            }
+        }
+    }
+
+    // copy source
+    copy {
+
+        def sourceList = configurations.compile.incoming.dependencies.collect { dependency ->
+            dependency.artifact { artifact ->
+                artifact.name = dependency.name
+                artifact.type = 'source'
+                artifact.extension = 'jar'
+                artifact.classifier = 'sources'
+            }
+            dependency
+        }
+        from(configurations.detachedConfiguration(sourceList as Dependency[]).resolvedConfiguration.
+                resolvedConfiguration.lenientConfiguration.getFiles(Specs.SATISFIES_ALL)) {
+        }
+
+        into("libs")
+
+        eachFile { file ->
+            println file.name
+            for (name in EXCLUDE_JAR_LIST) {
+                if (file.name.contains(name)) {
+                    file.exclude()
+                    return
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    compile(project(':ptr-lib')) {
+    }
+    compile 'in.srain.cube:clog:1.0.2'
+    compile 'in.srain.cube:cube-sdk:1.0.44@aar'
+    compile 'com.google.android:support-v4:r7'
+}

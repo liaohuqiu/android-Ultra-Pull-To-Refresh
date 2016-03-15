@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f1f1">
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/fragment_rotate_header_with_text_view_frame"
+        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        cube_ptr:ptr_duration_to_close="200"
+        cube_ptr:ptr_duration_to_close_header="1000"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        cube_ptr:ptr_resistance="1.7">
+
+        <TextView
+            android:id="@+id/fragment_rotate_header_with_text_view_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/cube_mints_content_view_padding"
+            android:clickable="true"
+            android:background="@drawable/text_view_bg"
+            android:gravity="center"
+            android:text="I am a TextView"
+            android:textColor="@color/cube_mints_white"
+            android:textSize="30sp" />
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+</RelativeLayout>

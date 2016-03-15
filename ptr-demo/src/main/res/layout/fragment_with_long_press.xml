@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cube_mints_f1f1f1"
+    android:orientation="vertical">
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/with_long_press_list_view_frame"
+        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        cube_ptr:ptr_content="@+id/with_long_press_list_view">
+
+        <ListView
+            android:id="@+id/with_long_press_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cube_mints_white"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="#dddddd"
+            android:dividerHeight="1px"
+            android:fadingEdge="none"
+            android:focusable="false"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none" />
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+</LinearLayout>
