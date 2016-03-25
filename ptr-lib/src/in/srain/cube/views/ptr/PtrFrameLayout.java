@@ -107,7 +107,7 @@ public class PtrFrameLayout extends ViewGroup {
         mScrollChecker = new ScrollChecker();
 
         final ViewConfiguration conf = ViewConfiguration.get(getContext());
-        mPagingTouchSlop = conf.getScaledTouchSlop() * 2;
+        mPagingTouchSlop = conf.getScaledPagingTouchSlop();
     }
 
     @Override
@@ -318,7 +318,7 @@ public class PtrFrameLayout extends ViewGroup {
                 }
 
                 boolean moveDown = offsetY > 0;
-                if (moveDown && mPtrIndicator.isInStartPosition()) {
+                if (mDisableWhenHorizontalMove && moveDown && mPtrIndicator.isInStartPosition()) {
                     if (mPtrIndicator.getDistanceY() <= mPagingTouchSlop) {
                         moveDown = false;
                     }
