@@ -230,14 +230,14 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     private void layoutChildren() {
-        int offsetX = mPtrIndicator.getCurrentPosY();
+        int offsetY = mPtrIndicator.getCurrentPosY();
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
 
         if (mHeaderView != null) {
             MarginLayoutParams lp = (MarginLayoutParams) mHeaderView.getLayoutParams();
             final int left = paddingLeft + lp.leftMargin;
-            final int top = paddingTop + lp.topMargin + offsetX - mHeaderHeight;
+            final int top = paddingTop + lp.topMargin + offsetY - mHeaderHeight;
             final int right = left + mHeaderView.getMeasuredWidth();
             final int bottom = top + mHeaderView.getMeasuredHeight();
             mHeaderView.layout(left, top, right, bottom);
@@ -247,11 +247,11 @@ public class PtrFrameLayout extends ViewGroup {
         }
         if (mContent != null) {
             if (isPinContent()) {
-                offsetX = 0;
+                offsetY = 0;
             }
             MarginLayoutParams lp = (MarginLayoutParams) mContent.getLayoutParams();
             final int left = paddingLeft + lp.leftMargin;
-            final int top = paddingTop + lp.topMargin + offsetX;
+            final int top = paddingTop + lp.topMargin + offsetY;
             final int right = left + mContent.getMeasuredWidth();
             final int bottom = top + mContent.getMeasuredHeight();
             if (DEBUG && DEBUG_LAYOUT) {
