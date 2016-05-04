@@ -6,6 +6,7 @@
 
     <string name="ptr_demo_block_grid_view">Contains A GridView</string>
     <string name="ptr_demo_block_list_view">Contains A ListView</string>
+    <string name="ptr_demo_block_recycler_view">Contains A RecyclerView</string>
     <string name="ptr_demo_block_web_view">Contains A WebView</string>
     <string name="ptr_demo_block_scroll_view">Contains ScrollView</string>
     <string name="ptr_demo_block_frame_layout">Contains A FrameLayout</string>
