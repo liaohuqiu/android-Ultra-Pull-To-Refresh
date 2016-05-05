@@ -67,6 +67,7 @@ public class StoreHouseUsingStringArray extends TitleBaseFragment {
                     header.setScale(0.5f);
                     header.initWithStringArray(R.array.akta);
                 }
+                header.invalidate();
             }
 
             @Override
