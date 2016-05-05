@@ -3,8 +3,18 @@ package in.srain.cube.views.ptr;
 import android.view.View;
 import android.widget.AbsListView;
 
+/**
+ * Basic handler wrap the logic of {@link PtrHandler#checkCanDoRefresh(PtrFrameLayout, View, View)}.
+ * This default handler make ptr only response to move down when the content in initial position.
+ */
 public abstract class PtrDefaultHandler implements PtrHandler {
 
+    /**
+     * Judge if contents can move up.
+     *
+     * @param view
+     * @return
+     */
     public static boolean canChildScrollUp(View view) {
         if (android.os.Build.VERSION.SDK_INT < 14) {
             if (view instanceof AbsListView) {

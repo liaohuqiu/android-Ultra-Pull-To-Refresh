@@ -41,6 +41,10 @@ public class PtrFrameLayout extends ViewGroup {
     private int mDurationToCloseHeader = 1000;
     private boolean mKeepHeaderWhenRefresh = true;
     private boolean mPullToRefresh = false;
+
+    /**
+     *  Header view which would be "pull down" when perform pull down to refresh.
+     */
     private View mHeaderView;
     private PtrUIHandlerHolder mPtrUIHandlerHolder = PtrUIHandlerHolder.create();
     private PtrHandler mPtrHandler;
@@ -110,6 +114,14 @@ public class PtrFrameLayout extends ViewGroup {
         mPagingTouchSlop = conf.getScaledTouchSlop() * 2;
     }
 
+    /**
+     * Find it's child layout as header and content. Exception would throw if there are more than
+     * two child layouts.
+     *
+     * If there are two child layouts, it would find out header and content by resource id or class type.
+     * If there only one child layouts, it would be regard as content.
+     * If there is no child layout, a error hint would show.
+     */
     @Override
     protected void onFinishInflate() {
         final int childCount = getChildCount();
@@ -211,6 +223,14 @@ public class PtrFrameLayout extends ViewGroup {
         }
     }
 
+    /**
+     * Measure content view by ptr frame's layout measure spec. Ptr frame's padding and content margin
+     * would be added and become new padding.
+     *
+     * @param child content
+     * @param parentWidthMeasureSpec ptr frame's width measure spec.
+     * @param parentHeightMeasureSpec ptr frame's height measure spec.
+     */
     private void measureContentView(View child,
                                     int parentWidthMeasureSpec,
                                     int parentHeightMeasureSpec) {
@@ -229,6 +249,9 @@ public class PtrFrameLayout extends ViewGroup {
         layoutChildren();
     }
 
+    /**
+     * Layout header above the Ptr frame, put content on Ptr frame's position.
+     */
     private void layoutChildren() {
         int offset = mPtrIndicator.getCurrentPosY();
         int paddingLeft = getPaddingLeft();
@@ -346,9 +369,9 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     /**
-     * if deltaY > 0, move the content down
+     * Update ptr indicator's coordination, and invoke position change.
      *
-     * @param deltaY
+     * @param deltaY positive value would move the content down
      */
     private void movePos(float deltaY) {
         // has reached the top
@@ -374,6 +397,11 @@ public class PtrFrameLayout extends ViewGroup {
         updatePos(change);
     }
 
+    /**
+     * Apply position change to the view.
+     *
+     * @param change positive value would move the content down
+     */
     private void updatePos(int change) {
         if (change == 0) {
             return;
@@ -438,8 +466,14 @@ public class PtrFrameLayout extends ViewGroup {
         onPositionChange(isUnderTouch, mStatus, mPtrIndicator);
     }
 
-    protected void onPositionChange(boolean isInTouching, byte status, PtrIndicator mPtrIndicator) {
-    }
+    /**
+     * Called when position change.
+     *
+     * @param isInTouching
+     * @param status
+     * @param mPtrIndicator
+     */
+    protected void onPositionChange(boolean isInTouching, byte status, PtrIndicator mPtrIndicator) {}
 
     @SuppressWarnings("unused")
     public int getHeaderHeight() {
@@ -472,11 +506,10 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     /**
-     * please DO REMEMBER resume the hook
+     * please DO REMEMBER resume the hook, or your UI would never receive REFRESH COMPLETE event!
      *
      * @param hook
      */
-
     public void setRefreshCompleteHook(PtrUIHandlerHook hook) {
         mRefreshCompleteHook = hook;
         hook.setResumeAction(new Runnable() {
@@ -892,6 +925,10 @@ public class PtrFrameLayout extends ViewGroup {
         }
         mHeaderView = header;
         addView(header);
+
+        if(header instanceof PtrUIHandler){
+            addPtrUIHandler((PtrUIHandler) header);
+        }
     }
 
     @Override
@@ -957,6 +994,10 @@ public class PtrFrameLayout extends ViewGroup {
         }
     }
 
+    /**
+     * Runnable to track position change of Scroller. It will get the coordinate change
+     * and apply it to the Layout.
+     */
     class ScrollChecker implements Runnable {
 
         private int mLastFlingY;
@@ -1020,6 +1061,12 @@ public class PtrFrameLayout extends ViewGroup {
             }
         }
 
+        /**
+         * If not in target position, let Scroller start scroll to destination.
+         *
+         * @param to target coordination.
+         * @param duration scroll duration.
+         */
         public void tryToScrollTo(int to, int duration) {
             if (mPtrIndicator.isAlreadyHere(to)) {
                 return;

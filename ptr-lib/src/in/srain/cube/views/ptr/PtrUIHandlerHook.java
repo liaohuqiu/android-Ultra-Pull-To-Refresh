@@ -1,9 +1,12 @@
 package in.srain.cube.views.ptr;
 
 /**
- * Run a hook runnable, the runnable will run only once.
- * After the runnable is done, call resume to resume.
- * Once run, call takeover will directory call the resume action
+ * Run a hook runnable, the runnable will run only once after refresh complete.
+ * <p/>
+ * After the runnable is done, you should call resume() to resume!(or your UI would never
+ * reset after refreshed.)
+ * <p/>
+ * Once run, call takeover() will directory call the resume() action
  */
 public abstract class PtrUIHandlerHook implements Runnable {
 
