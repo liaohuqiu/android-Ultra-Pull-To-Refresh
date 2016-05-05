@@ -7,6 +7,7 @@ public class PtrIndicator {
     public final static int POS_START = 0;
     protected int mOffsetToRefresh = 0;
     private PointF mPtLastMove = new PointF();
+    private PointF mPtPressDownPoint = new PointF();
     private float mOffsetX;
     private float mOffsetY;
     private int mCurrentPos = 0;
@@ -71,6 +72,7 @@ public class PtrIndicator {
         mIsUnderTouch = true;
         mPressedPos = mCurrentPos;
         mPtLastMove.set(x, y);
+        mPtPressDownPoint.set(x, y);
     }
 
     public final void onMove(float x, float y) {
@@ -83,6 +85,14 @@ public class PtrIndicator {
     protected void setOffset(float x, float y) {
         mOffsetX = x;
         mOffsetY = y;
+    }
+
+    public float getDistanceX(){
+        return mPtLastMove.x - mPtPressDownPoint.x;
+    }
+
+    public float getDistanceY(){
+        return mPtLastMove.y - mPtPressDownPoint.y;
     }
 
     public float getOffsetX() {

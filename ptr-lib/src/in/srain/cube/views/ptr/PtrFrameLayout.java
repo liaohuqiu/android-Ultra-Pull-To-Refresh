@@ -107,7 +107,8 @@ public class PtrFrameLayout extends ViewGroup {
         mScrollChecker = new ScrollChecker();
 
         final ViewConfiguration conf = ViewConfiguration.get(getContext());
-        mPagingTouchSlop = conf.getScaledTouchSlop() * 2;
+//        mPagingTouchSlop = conf.getScaledTouchSlop() * 2;
+        mPagingTouchSlop = (int) (conf.getScaledTouchSlop() * 1.f);
     }
 
     @Override
@@ -270,7 +271,7 @@ public class PtrFrameLayout extends ViewGroup {
     public boolean dispatchTouchEventSupper(MotionEvent e) {
         return super.dispatchTouchEvent(e);
     }
-
+    private boolean mIsBeingDragged = false;
     @Override
     public boolean dispatchTouchEvent(MotionEvent e) {
         if (!isEnabled() || mContent == null || mHeaderView == null) {
@@ -280,6 +281,7 @@ public class PtrFrameLayout extends ViewGroup {
         switch (action) {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                mIsBeingDragged = false;
                 mPtrIndicator.onRelease();
                 if (mPtrIndicator.hasLeftStartPosition()) {
                     if (DEBUG) {
@@ -296,6 +298,7 @@ public class PtrFrameLayout extends ViewGroup {
                 }
 
             case MotionEvent.ACTION_DOWN:
+                mIsBeingDragged = false;
                 mHasSendCancelEvent = false;
                 mPtrIndicator.onPressDown(e.getX(), e.getY());
 
@@ -314,8 +317,8 @@ public class PtrFrameLayout extends ViewGroup {
                 float offsetX = mPtrIndicator.getOffsetX();
                 float offsetY = mPtrIndicator.getOffsetY();
 
-                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
-                    if (mPtrIndicator.isInStartPosition()) {
+                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(mPtrIndicator.getDistanceX()) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
+                    if (Math.abs(mPtrIndicator.getDistanceY())<mPagingTouchSlop) {
                         mPreventForHorizontal = true;
                     }
                 }
@@ -323,7 +326,9 @@ public class PtrFrameLayout extends ViewGroup {
                     return dispatchTouchEventSupper(e);
                 }
 
-                boolean moveDown = offsetY > 0;
+
+                mIsBeingDragged = mIsBeingDragged || Math.abs(mPtrIndicator.getDistanceY() )>mPagingTouchSlop;
+                boolean moveDown = offsetY>0;
                 boolean moveUp = !moveDown;
                 boolean canMoveUp = mPtrIndicator.hasLeftStartPosition();
 
@@ -337,7 +342,7 @@ public class PtrFrameLayout extends ViewGroup {
                     return dispatchTouchEventSupper(e);
                 }
 
-                if ((moveUp && canMoveUp) || moveDown) {
+                if (((moveUp && canMoveUp) || moveDown) && mIsBeingDragged) {
                     movePos(offsetY);
                     return true;
                 }
