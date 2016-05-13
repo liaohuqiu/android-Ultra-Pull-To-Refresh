@@ -31,6 +31,7 @@ public class PtrFrameLayout extends ViewGroup {
     private final static byte FLAG_AUTO_REFRESH_BUT_LATER = 0x01 << 1;
     private final static byte FLAG_ENABLE_NEXT_PTR_AT_ONCE = 0x01 << 2;
     private final static byte FLAG_PIN_CONTENT = 0x01 << 3;
+    private final static byte FLAG_PIN_HEADER = 0x01 << 4;
     private final static byte MASK_AUTO_REFRESH = 0x03;
     protected View mContent;
     // optional config for define header and content in xml file
@@ -424,9 +425,14 @@ public class PtrFrameLayout extends ViewGroup {
         if (DEBUG) {
             PtrCLog.v(LOG_TAG, "updatePos: change: %s, current: %s last: %s, top: %s, headerHeight: %s",
                     change, mPtrIndicator.getCurrentPosY(), mPtrIndicator.getLastPosY(), mContent.getTop(), mHeaderHeight);
+            PtrCLog.v(LOG_TAG, "updatePos: headerView: top: %s", mHeaderView.getTop());
         }
 
-        mHeaderView.offsetTopAndBottom(change);
+        if (mHeaderView.getTop() <= PtrIndicator.POS_START){
+            mHeaderView.offsetTopAndBottom(change);
+        } else if (!isPinHeader()) {
+            mHeaderView.offsetTopAndBottom(change);
+        }
         if (!isPinContent()) {
             mContent.offsetTopAndBottom(change);
         }
@@ -739,6 +745,21 @@ public class PtrFrameLayout extends ViewGroup {
             mFlag = mFlag | FLAG_PIN_CONTENT;
         } else {
             mFlag = mFlag & ~FLAG_PIN_CONTENT;
+        }
+    }
+
+    public boolean isPinHeader() {
+        return (mFlag & FLAG_PIN_HEADER) > 0;
+    }
+
+    /*
+     * The header move to visible,will not move when {@param pinHeader} set to true
+     */
+    public void setPinHeader(boolean pinHeader){
+        if (pinHeader) {
+            mFlag = mFlag | FLAG_PIN_HEADER;
+        } else {
+            mFlag = mFlag & ~FLAG_PIN_HEADER;
         }
     }
 
