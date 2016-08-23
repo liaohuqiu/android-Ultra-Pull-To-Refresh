@@ -3,9 +3,14 @@ package in.srain.cube.views.ptr;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.*;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.Scroller;
 import android.widget.TextView;
+
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
 import in.srain.cube.views.ptr.util.PtrCLog;
 
@@ -107,7 +112,7 @@ public class PtrFrameLayout extends ViewGroup {
         mScrollChecker = new ScrollChecker();
 
         final ViewConfiguration conf = ViewConfiguration.get(getContext());
-        mPagingTouchSlop = conf.getScaledTouchSlop() * 2;
+        mPagingTouchSlop = conf.getScaledPagingTouchSlop();
     }
 
     @Override
@@ -314,7 +319,7 @@ public class PtrFrameLayout extends ViewGroup {
                 float offsetX = mPtrIndicator.getOffsetX();
                 float offsetY = mPtrIndicator.getOffsetY();
 
-                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
+                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(mPtrIndicator.getDistanceX()) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
                     if (mPtrIndicator.isInStartPosition()) {
                         mPreventForHorizontal = true;
                     }
@@ -324,6 +329,11 @@ public class PtrFrameLayout extends ViewGroup {
                 }
 
                 boolean moveDown = offsetY > 0;
+                if (mDisableWhenHorizontalMove && moveDown && mPtrIndicator.isInStartPosition()) {
+                    if (mPtrIndicator.getDistanceY() <= mPagingTouchSlop) {
+                        moveDown = false;
+                    }
+                }
                 boolean moveUp = !moveDown;
                 boolean canMoveUp = mPtrIndicator.hasLeftStartPosition();
 
@@ -985,6 +995,9 @@ public class PtrFrameLayout extends ViewGroup {
                 movePos(deltaY);
                 post(this);
             } else {
+                if (mPtrIndicator.getCurrentPosY() != mTo) {
+                    movePos(mTo - mPtrIndicator.getCurrentPosY());
+                }
                 finish();
             }
         }
