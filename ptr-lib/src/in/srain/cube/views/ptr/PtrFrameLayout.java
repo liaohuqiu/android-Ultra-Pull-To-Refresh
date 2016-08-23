@@ -3,9 +3,14 @@ package in.srain.cube.views.ptr;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.*;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.Scroller;
 import android.widget.TextView;
+
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
 import in.srain.cube.views.ptr.util.PtrCLog;
 
@@ -984,6 +989,9 @@ public class PtrFrameLayout extends ViewGroup {
                 movePos(deltaY);
                 post(this);
             } else {
+                if (mPtrIndicator.getCurrentPosY() != mTo) {
+                    movePos(mTo - mPtrIndicator.getCurrentPosY());
+                }
                 finish();
             }
         }
