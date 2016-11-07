@@ -1008,6 +1008,8 @@ public class PtrFrameLayout extends ViewGroup {
             if (!mScroller.isFinished()) {
                 mScroller.forceFinished(true);
             }
+
+            movePos(mTo - mPtrIndicator.getCurrentPosY());
         }
 
         public void abortIfWorking() {
