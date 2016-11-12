@@ -3,9 +3,14 @@ package in.srain.cube.views.ptr;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.*;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.Scroller;
 import android.widget.TextView;
+
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
 import in.srain.cube.views.ptr.util.PtrCLog;
 
@@ -276,6 +281,7 @@ public class PtrFrameLayout extends ViewGroup {
         if (!isEnabled() || mContent == null || mHeaderView == null) {
             return dispatchTouchEventSupper(e);
         }
+
         int action = e.getAction();
         switch (action) {
             case MotionEvent.ACTION_UP:
@@ -305,8 +311,7 @@ public class PtrFrameLayout extends ViewGroup {
                 // The cancel event will be sent once the position is moved.
                 // So let the event pass to children.
                 // fix #93, #102
-                dispatchTouchEventSupper(e);
-                return true;
+                break;
 
             case MotionEvent.ACTION_MOVE:
                 mLastMoveEvent = e;
@@ -314,11 +319,9 @@ public class PtrFrameLayout extends ViewGroup {
                 float offsetX = mPtrIndicator.getOffsetX();
                 float offsetY = mPtrIndicator.getOffsetY();
 
-                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
-                    if (mPtrIndicator.isInStartPosition()) {
-                        mPreventForHorizontal = true;
-                    }
-                }
+                mPreventForHorizontal = mDisableWhenHorizontalMove &&
+                        (mPtrIndicator.isMovedHorizontal() || (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY) && mPtrIndicator.isInStartPosition()));
+
                 if (mPreventForHorizontal) {
                     return dispatchTouchEventSupper(e);
                 }

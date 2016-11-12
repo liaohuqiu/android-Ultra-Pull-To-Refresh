@@ -6,6 +6,7 @@ public class PtrIndicator {
 
     public final static int POS_START = 0;
     protected int mOffsetToRefresh = 0;
+    private PointF mStartLocation;
     private PointF mPtLastMove = new PointF();
     private float mOffsetX;
     private float mOffsetY;
@@ -20,6 +21,11 @@ public class PtrIndicator {
     private int mOffsetToKeepHeaderWhileLoading = -1;
     // record the refresh complete position
     private int mRefreshCompleteY = 0;
+
+    public PtrIndicator() {
+        mStartLocation = new PointF();
+        mPtLastMove = new PointF();
+    }
 
     public boolean isUnderTouch() {
         return mIsUnderTouch;
@@ -70,6 +76,7 @@ public class PtrIndicator {
     public void onPressDown(float x, float y) {
         mIsUnderTouch = true;
         mPressedPos = mCurrentPos;
+        mStartLocation.set(x, y);
         mPtLastMove.set(x, y);
     }
 
@@ -155,6 +162,12 @@ public class PtrIndicator {
 
     public boolean isInStartPosition() {
         return mCurrentPos == POS_START;
+    }
+
+    public boolean isMovedHorizontal() {
+        float dX = mPtLastMove.x - mStartLocation.x;
+        float dY = mPtLastMove.y - mStartLocation.y;
+        return Math.abs(dX) > Math.abs(dY);
     }
 
     public boolean crossRefreshLineFromTopToBottom() {
