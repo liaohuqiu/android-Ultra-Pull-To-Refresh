@@ -179,4 +179,12 @@ public class MaterialHeader extends View implements PtrUIHandler {
             invalidate();
         }
     }
+
+    /**
+     * Set custom material header background colorg.
+     * @param color
+     */
+    public void setCustomMaterialHeaderBackground(int color) {
+        mDrawable.setBackgroundColor(color);
+    }
 }
