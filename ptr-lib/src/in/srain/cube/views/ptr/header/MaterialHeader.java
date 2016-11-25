@@ -95,6 +95,14 @@ public class MaterialHeader extends View implements PtrUIHandler {
         invalidate();
     }
 
+    //for single color
+    public void setColorSchemeColor(int rid) {
+        int[] colors = new int[]{getResources().getColor(rid)};
+        mDrawable.setColorSchemeColors(colors);
+        invalidate();
+    }
+
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = mDrawable.getIntrinsicHeight() + getPaddingTop() + getPaddingBottom();
