@@ -16,6 +16,9 @@ import in.srain.cube.views.ptr.indicator.PtrIndicator;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * If header not specified, ptr frame would use this as header view.
+ */
 public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler {
 
     private final static String KEY_SharedPreferences = "cube_ptr_classic_last_update";
