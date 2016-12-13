@@ -359,7 +359,8 @@ public class PtrFrameLayout extends ViewGroup {
             return;
         }
 
-        int to = mPtrIndicator.getCurrentPosY() + (int) deltaY;
+        int change = (int) deltaY;
+        int to = mPtrIndicator.getCurrentPosY() + change;
 
         // over top
         if (mPtrIndicator.willOverTop(to)) {
@@ -370,7 +371,6 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         mPtrIndicator.setCurrentPos(to);
-        int change = to - mPtrIndicator.getLastPosY();
         updatePos(change);
     }
 
