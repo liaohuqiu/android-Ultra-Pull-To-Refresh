@@ -370,7 +370,9 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         mPtrIndicator.setCurrentPos(to);
+
         int change = to - mPtrIndicator.getLastPosY();
+
         updatePos(change);
     }
 
