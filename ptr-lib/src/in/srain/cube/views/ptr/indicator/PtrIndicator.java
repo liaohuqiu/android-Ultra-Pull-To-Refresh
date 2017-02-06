@@ -13,6 +13,8 @@ public class PtrIndicator {
     private int mLastPos = 0;
     private int mHeaderHeight;
     private int mPressedPos = 0;
+    private int mDeadZone = 0;
+    private boolean mIsPullActivated = false;
 
     private float mRatioOfHeaderHeightToRefresh = 1.2f;
     private float mResistance = 1.7f;
@@ -35,6 +37,7 @@ public class PtrIndicator {
 
     public void onRelease() {
         mIsUnderTouch = false;
+        mIsPullActivated = false;
     }
 
     public void onUIRefreshComplete() {
@@ -78,6 +81,11 @@ public class PtrIndicator {
         float offsetY = (y - mPtLastMove.y);
         processOnMove(x, y, offsetX, offsetY);
         mPtLastMove.set(x, y);
+        mIsPullActivated = true;
+    }
+
+    public PointF getLastMove(){
+        return mPtLastMove;
     }
 
     protected void setOffset(float x, float y) {
@@ -193,5 +201,18 @@ public class PtrIndicator {
 
     public boolean willOverTop(int to) {
         return to < POS_START;
+    }
+
+    public void setDeadZone(int deadZone){
+        mDeadZone = deadZone;
+    }
+
+    public int getDeadZone(){
+        return mDeadZone;
+    }
+
+    //Activated after first move after deadzone.
+    public boolean isPullActivated(){
+        return mIsPullActivated;
     }
 }

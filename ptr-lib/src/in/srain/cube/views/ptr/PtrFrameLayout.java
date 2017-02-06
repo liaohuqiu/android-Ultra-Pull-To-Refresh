@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.*;
 import android.widget.Scroller;
 import android.widget.TextView;
+
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
 import in.srain.cube.views.ptr.util.PtrCLog;
 
@@ -310,6 +311,11 @@ public class PtrFrameLayout extends ViewGroup {
 
             case MotionEvent.ACTION_MOVE:
                 mLastMoveEvent = e;
+
+                //Deadzone check
+                if (Math.abs(e.getY() - mPtrIndicator.getLastMove().y) < mPtrIndicator.getDeadZone() && !mPtrIndicator.isPullActivated())
+                    return dispatchTouchEventSupper(e);
+
                 mPtrIndicator.onMove(e.getX(), e.getY());
                 float offsetX = mPtrIndicator.getOffsetX();
                 float offsetY = mPtrIndicator.getOffsetY();
@@ -336,6 +342,10 @@ public class PtrFrameLayout extends ViewGroup {
                 if (moveDown && mPtrHandler != null && !mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView)) {
                     return dispatchTouchEventSupper(e);
                 }
+
+                //To stop flicker because of stacked views
+                if ((offsetY < 0 && offsetY < (-mPtrIndicator.getHeaderHeight() / 2)) || (offsetY > mPtrIndicator.getHeaderHeight() / 2))
+                    return false;
 
                 if ((moveUp && canMoveUp) || moveDown) {
                     movePos(offsetY);
@@ -368,6 +378,12 @@ public class PtrFrameLayout extends ViewGroup {
             }
             to = PtrIndicator.POS_START;
         }
+
+        //TODO Düzelt
+      /*  if (to > 0)
+            to = Math.max(0, to - mPtrIndicator.getDeadZone());
+        else if (to < 0)
+            to = Math.min(0, to + mPtrIndicator.getDeadZone());*/
 
         mPtrIndicator.setCurrentPos(to);
         int change = to - mPtrIndicator.getLastPosY();
@@ -857,6 +873,10 @@ public class PtrFrameLayout extends ViewGroup {
     @SuppressWarnings({"unused"})
     public void setOffsetToKeepHeaderWhileLoading(int offset) {
         mPtrIndicator.setOffsetToKeepHeaderWhileLoading(offset);
+    }
+
+    public void setDeadZone(int deadZone) {
+        mPtrIndicator.setDeadZone(deadZone);
     }
 
     @SuppressWarnings({"unused"})
