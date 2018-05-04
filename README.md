@@ -107,7 +107,7 @@ pom.xml, stable version:
 gradle, latest version:
 
 ```
-compile 'in.srain.cube:ultra-ptr:1.0.11'
+implementation 'in.srain.cube:ultra-ptr:1.0.11'
 ```
 
 gradle, stable version:
