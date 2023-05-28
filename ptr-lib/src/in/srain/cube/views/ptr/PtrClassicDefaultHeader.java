@@ -240,13 +240,11 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
                     mRotateView.startAnimation(mReverseFlipAnimation);
                 }
             }
-        } else if (currentPos > mOffsetToRefresh && lastPos <= mOffsetToRefresh) {
-            if (isUnderTouch && status == PtrFrameLayout.PTR_STATUS_PREPARE) {
-                crossRotateLineFromTopUnderTouch(frame);
-                if (mRotateView != null) {
-                    mRotateView.clearAnimation();
-                    mRotateView.startAnimation(mFlipAnimation);
-                }
+        } else if (currentPos > mOffsetToRefresh && lastPos <= mOffsetToRefresh && isUnderTouch && status == PtrFrameLayout.PTR_STATUS_PREPARE) {
+            crossRotateLineFromTopUnderTouch(frame);
+            if (mRotateView != null) {
+                mRotateView.clearAnimation();
+                mRotateView.startAnimation(mFlipAnimation);
             }
         }
     }

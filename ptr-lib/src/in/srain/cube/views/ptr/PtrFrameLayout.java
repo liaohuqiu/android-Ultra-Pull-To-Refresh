@@ -311,10 +311,8 @@ public class PtrFrameLayout extends ViewGroup {
                 mPtrIndicator.onMove(e.getX(), e.getY());
                 float offsetX = mPtrIndicator.getOffsetX();
                 float offsetY = mPtrIndicator.getOffsetY();
-                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
-                    if (mPtrIndicator.isInStartPosition()) {
-                        mPreventForHorizontal = true;
-                    }
+                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY)) && mPtrIndicator.isInStartPosition()) {
+                    mPreventForHorizontal = true;
                 }
                 if (mPreventForHorizontal) {
                     return dispatchTouchEventSupper(e);
@@ -942,10 +940,8 @@ public class PtrFrameLayout extends ViewGroup {
             boolean finish = !mScroller.computeScrollOffset() || mScroller.isFinished();
             int curY = mScroller.getCurrY();
             int deltaY = curY - mLastFlingY;
-            if (DEBUG) {
-                if (deltaY != 0) {
-                    PtrCLog.v(LOG_TAG, "scroll: %s, start: %s, to: %s, currentPos: %s, current :%s, last: %s, delta: %s", finish, mStart, mTo, mPtrIndicator.getCurrentPosY(), curY, mLastFlingY, deltaY);
-                }
+            if (DEBUG && deltaY != 0) {
+                PtrCLog.v(LOG_TAG, "scroll: %s, start: %s, to: %s, currentPos: %s, current :%s, last: %s, delta: %s", finish, mStart, mTo, mPtrIndicator.getCurrentPosY(), curY, mLastFlingY, deltaY);
             }
             if (!finish) {
                 mLastFlingY = curY;
