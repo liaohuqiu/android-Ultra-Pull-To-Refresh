@@ -476,21 +476,21 @@ public class PtrFrameLayout extends ViewGroup {
      * just make easier to understand
      */
     private void tryScrollBackToTopWhileLoading() {
-        tryScrollBackToTop();
+        scrollToTop();
     }
 
     /**
      * just make easier to understand
      */
     private void tryScrollBackToTopAfterComplete() {
-        tryScrollBackToTop();
+        scrollToTop();
     }
 
     /**
      * just make easier to understand
      */
     private void tryScrollBackToTopAbortRefresh() {
-        tryScrollBackToTop();
+        scrollToTop();
     }
 
     private boolean tryToPerformRefresh() {
@@ -1003,5 +1003,9 @@ public class PtrFrameLayout extends ViewGroup {
             post(this);
             mIsRunning = true;
         }
+    }
+
+    private void scrollToTop() {
+        tryScrollBackToTop();
     }
 }
