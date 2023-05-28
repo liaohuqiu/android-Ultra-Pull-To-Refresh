@@ -8,6 +8,7 @@ import in.srain.cube.views.ptr.indicator.PtrIndicator;
 class PtrUIHandlerHolder implements PtrUIHandler {
 
     private PtrUIHandler mHandler;
+
     private PtrUIHandlerHolder mNext;
 
     private boolean contains(PtrUIHandler handler) {
@@ -15,7 +16,6 @@ class PtrUIHandlerHolder implements PtrUIHandler {
     }
 
     private PtrUIHandlerHolder() {
-
     }
 
     public boolean hasHandler() {
@@ -27,7 +27,6 @@ class PtrUIHandlerHolder implements PtrUIHandler {
     }
 
     public static void addHandler(PtrUIHandlerHolder head, PtrUIHandler handler) {
-
         if (null == handler) {
             return;
         }
@@ -38,10 +37,8 @@ class PtrUIHandlerHolder implements PtrUIHandler {
             head.mHandler = handler;
             return;
         }
-
         PtrUIHandlerHolder current = head;
         for (; ; current = current.mNext) {
-
             // duplicated
             if (current.contains(handler)) {
                 return;
@@ -50,7 +47,6 @@ class PtrUIHandlerHolder implements PtrUIHandler {
                 break;
             }
         }
-
         PtrUIHandlerHolder newHolder = new PtrUIHandlerHolder();
         newHolder.mHandler = handler;
         current.mNext = newHolder;
@@ -64,24 +60,18 @@ class PtrUIHandlerHolder implements PtrUIHandler {
         if (head == null || handler == null || null == head.mHandler) {
             return head;
         }
-
         PtrUIHandlerHolder current = head;
         PtrUIHandlerHolder pre = null;
         do {
-
             // delete current: link pre to next, unlink next from current;
             // pre will no change, current move to next element;
             if (current.contains(handler)) {
-
                 // current is head
                 if (pre == null) {
-
                     head = current.mNext;
                     current.mNext = null;
-
                     current = head;
                 } else {
-
                     pre.mNext = current.mNext;
                     current.mNext = null;
                     current = pre.mNext;
@@ -90,9 +80,7 @@ class PtrUIHandlerHolder implements PtrUIHandler {
                 pre = current;
                 current = current.mNext;
             }
-
         } while (current != null);
-
         if (head == null) {
             head = new PtrUIHandlerHolder();
         }

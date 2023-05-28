@@ -12,7 +12,6 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
 import in.srain.cube.views.ptr.util.PtrLocalDisplay;
-
 import java.util.ArrayList;
 
 public class StoreHouseHeader extends View implements PtrUIHandler {
@@ -20,28 +19,43 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
     public ArrayList<StoreHouseBarItem> mItemList = new ArrayList<StoreHouseBarItem>();
 
     private int mLineWidth = -1;
+
     private float mScale = 1;
+
     private int mDropHeight = -1;
+
     private float mInternalAnimationFactor = 0.7f;
+
     private int mHorizontalRandomness = -1;
 
     private float mProgress = 0;
 
     private int mDrawZoneWidth = 0;
+
     private int mDrawZoneHeight = 0;
+
     private int mOffsetX = 0;
+
     private int mOffsetY = 0;
+
     private float mBarDarkAlpha = 0.4f;
+
     private float mFromAlpha = 1.0f;
+
     private float mToAlpha = 0.4f;
 
     private int mLoadingAniDuration = 1000;
+
     private int mLoadingAniSegDuration = 1000;
+
     private int mLoadingAniItemDuration = 400;
 
     private Transformation mTransformation = new Transformation();
+
     private boolean mIsInLoading = false;
+
     private AniController mAniController = new AniController();
+
     private int mTextColor = Color.WHITE;
 
     public StoreHouseHeader(Context context) {
@@ -105,7 +119,6 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         int height = getTopOffset() + mDrawZoneHeight + getBottomOffset();
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         mOffsetX = (getMeasuredWidth() - mDrawZoneWidth) / 2;
         mOffsetY = getTopOffset();
         mDropHeight = getTopOffset();
@@ -151,7 +164,6 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
     }
 
     public void initWithPointList(ArrayList<float[]> pointList) {
-
         float drawWidth = 0;
         float drawHeight = 0;
         boolean shouldLayout = mItemList.size() > 0;
@@ -160,13 +172,10 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
             float[] line = pointList.get(i);
             PointF startPoint = new PointF(PtrLocalDisplay.dp2px(line[0]) * mScale, PtrLocalDisplay.dp2px(line[1]) * mScale);
             PointF endPoint = new PointF(PtrLocalDisplay.dp2px(line[2]) * mScale, PtrLocalDisplay.dp2px(line[3]) * mScale);
-
             drawWidth = Math.max(drawWidth, startPoint.x);
             drawWidth = Math.max(drawWidth, endPoint.x);
-
             drawHeight = Math.max(drawHeight, startPoint.y);
             drawHeight = Math.max(drawHeight, endPoint.y);
-
             StoreHouseBarItem item = new StoreHouseBarItem(i, startPoint, endPoint, mTextColor, mLineWidth);
             item.resetPosition(mHorizontalRandomness);
             mItemList.add(item);
@@ -195,27 +204,21 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         float progress = mProgress;
         int c1 = canvas.save();
         int len = mItemList.size();
-
         for (int i = 0; i < len; i++) {
-
             canvas.save();
             StoreHouseBarItem storeHouseBarItem = mItemList.get(i);
             float offsetX = mOffsetX + storeHouseBarItem.midPoint.x;
             float offsetY = mOffsetY + storeHouseBarItem.midPoint.y;
-
             if (mIsInLoading) {
                 storeHouseBarItem.getTransformation(getDrawingTime(), mTransformation);
                 canvas.translate(offsetX, offsetY);
             } else {
-
                 if (progress == 0) {
                     storeHouseBarItem.resetPosition(mHorizontalRandomness);
                     continue;
                 }
-
                 float startPadding = (1 - mInternalAnimationFactor) * i / len;
                 float endPadding = 1 - mInternalAnimationFactor - startPadding;
-
                 // done
                 if (progress == 1 || progress >= 1 - endPadding) {
                     canvas.translate(offsetX, offsetY);
@@ -251,13 +254,11 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
         loadFinish();
         for (int i = 0; i < mItemList.size(); i++) {
             mItemList.get(i).resetPosition(mHorizontalRandomness);
-
         }
     }
 
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
-
     }
 
     @Override
@@ -272,7 +273,6 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
 
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
-
         float currentPercent = Math.min(1f, ptrIndicator.getCurrentPercent());
         setProgress(currentPercent);
         invalidate();
@@ -281,15 +281,18 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
     private class AniController implements Runnable {
 
         private int mTick = 0;
+
         private int mCountPerSeg = 0;
+
         private int mSegCount = 0;
+
         private int mInterval = 0;
+
         private boolean mRunning = true;
 
         private void start() {
             mRunning = true;
             mTick = 0;
-
             mInterval = mLoadingAniDuration / mItemList.size();
             mCountPerSeg = mLoadingAniSegDuration / mInterval;
             mSegCount = mItemList.size() / mCountPerSeg + 1;
@@ -298,25 +301,20 @@ public class StoreHouseHeader extends View implements PtrUIHandler {
 
         @Override
         public void run() {
-
             int pos = mTick % mCountPerSeg;
             for (int i = 0; i < mSegCount; i++) {
-
                 int index = i * mCountPerSeg + pos;
                 if (index > mTick) {
                     continue;
                 }
-
                 index = index % mItemList.size();
                 StoreHouseBarItem item = mItemList.get(index);
-
                 item.setFillAfter(false);
                 item.setFillEnabled(true);
                 item.setFillBefore(false);
                 item.setDuration(mLoadingAniItemDuration);
                 item.start(mFromAlpha, mToAlpha);
             }
-
             mTick++;
             if (mRunning) {
                 postDelayed(this, mInterval);

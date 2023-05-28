@@ -18,9 +18,7 @@ public class PtrDemoApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-
         String environment = "";
-
         if (environment.equals("production")) {
             CLog.setLogLevel(CLog.LEVEL_ERROR);
         } else if (environment.equals("beta")) {
@@ -29,11 +27,9 @@ public class PtrDemoApplication extends Application {
             // development
             CLog.setLogLevel(CLog.LEVEL_VERBOSE);
         }
-
         CubeDebug.DEBUG_IMAGE = true;
         PtrFrameLayout.DEBUG = true;
         PtrFrameLayout.DEBUG = false;
-
         ImageLoaderFactory.setDefaultImageReSizer(DemoDuiTangImageReSizer.getInstance());
         ImageLoaderFactory.setDefaultImageLoadHandler(new PtrImageLoadHandler());
         String dir = "request-cache";

@@ -27,19 +27,19 @@ import in.srain.cube.views.ptr.demo.ui.MaterialStyleFragment;
 public class WithListView extends TitleBaseFragment {
 
     private ImageLoader mImageLoader;
+
     private ListViewDataAdapter<JsonData> mAdapter;
+
     private PtrClassicFrameLayout mPtrFrame;
 
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         setHeaderTitle(R.string.ptr_demo_block_list_view);
-
         mImageLoader = ImageLoaderFactory.create(getContext());
-
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_list_view, null);
         final ListView listView = (ListView) contentView.findViewById(R.id.rotate_header_list_view);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position >= 0) {
@@ -50,14 +50,13 @@ public class WithListView extends TitleBaseFragment {
                 }
             }
         });
-
         mAdapter = new ListViewDataAdapter<JsonData>();
         mAdapter.setViewHolderClass(this, ViewHolder.class);
         listView.setAdapter(mAdapter);
-
         mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.rotate_header_list_view_frame);
         mPtrFrame.setLastUpdateTimeRelateObject(this);
         mPtrFrame.setPtrHandler(new PtrHandler() {
+
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 updateData();
@@ -78,6 +77,7 @@ public class WithListView extends TitleBaseFragment {
         // default is true
         mPtrFrame.setKeepHeaderWhenRefresh(true);
         mPtrFrame.postDelayed(new Runnable() {
+
             @Override
             public void run() {
                 mPtrFrame.autoRefresh();
@@ -87,11 +87,12 @@ public class WithListView extends TitleBaseFragment {
     }
 
     protected void updateData() {
-
         DemoRequestData.getImageList(new RequestFinishHandler<JsonData>() {
+
             @Override
             public void onRequestFinish(final JsonData data) {
                 mPtrFrame.postDelayed(new Runnable() {
+
                     @Override
                     public void run() {
                         mAdapter.getDataList().clear();

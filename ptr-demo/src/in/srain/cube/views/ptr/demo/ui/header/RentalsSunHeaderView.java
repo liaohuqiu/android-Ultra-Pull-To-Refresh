@@ -13,7 +13,9 @@ import in.srain.cube.views.ptr.indicator.PtrTensionIndicator;
 public class RentalsSunHeaderView extends View implements PtrUIHandler {
 
     private RentalsSunDrawable mDrawable;
+
     private PtrFrameLayout mPtrFrameLayout;
+
     private PtrTensionIndicator mPtrTensionIndicator;
 
     public RentalsSunHeaderView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -68,7 +70,6 @@ public class RentalsSunHeaderView extends View implements PtrUIHandler {
 
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
-
     }
 
     @Override

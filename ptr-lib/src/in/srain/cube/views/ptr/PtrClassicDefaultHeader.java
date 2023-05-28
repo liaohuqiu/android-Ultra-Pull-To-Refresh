@@ -12,23 +12,33 @@ import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler {
 
     private final static String KEY_SharedPreferences = "cube_ptr_classic_last_update";
+
     private static SimpleDateFormat sDataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     private int mRotateAniTime = 150;
+
     private RotateAnimation mFlipAnimation;
+
     private RotateAnimation mReverseFlipAnimation;
+
     private TextView mTitleTextView;
+
     private View mRotateView;
+
     private View mProgressBar;
+
     private long mLastUpdateTime = -1;
+
     private TextView mLastUpdateTextView;
+
     private String mLastUpdateTimeKey;
+
     private boolean mShouldShowLastUpdate;
 
     private LastUpdateTimeUpdater mLastUpdateTimeUpdater = new LastUpdateTimeUpdater();
@@ -55,13 +65,10 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
         }
         buildAnimation();
         View header = LayoutInflater.from(getContext()).inflate(R.layout.cube_ptr_classic_default_header, this);
-
         mRotateView = header.findViewById(R.id.ptr_classic_header_rotate_view);
-
         mTitleTextView = (TextView) header.findViewById(R.id.ptr_classic_header_rotate_view_header_title);
         mLastUpdateTextView = (TextView) header.findViewById(R.id.ptr_classic_header_rotate_view_header_last_update);
         mProgressBar = header.findViewById(R.id.ptr_classic_header_rotate_view_progressbar);
-
         resetView();
     }
 
@@ -107,7 +114,6 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
         mFlipAnimation.setInterpolator(new LinearInterpolator());
         mFlipAnimation.setDuration(mRotateAniTime);
         mFlipAnimation.setFillAfter(true);
-
         mReverseFlipAnimation = new RotateAnimation(-180, 0, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         mReverseFlipAnimation.setInterpolator(new LinearInterpolator());
         mReverseFlipAnimation.setDuration(mRotateAniTime);
@@ -133,13 +139,10 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
 
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
-
         mShouldShowLastUpdate = true;
         tryUpdateLastUpdateTime();
         mLastUpdateTimeUpdater.start();
-
         mProgressBar.setVisibility(INVISIBLE);
-
         mRotateView.setVisibility(VISIBLE);
         mTitleTextView.setVisibility(VISIBLE);
         if (frame.isPullToRefresh()) {
@@ -156,20 +159,16 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
         mProgressBar.setVisibility(VISIBLE);
         mTitleTextView.setVisibility(VISIBLE);
         mTitleTextView.setText(R.string.cube_ptr_refreshing);
-
         tryUpdateLastUpdateTime();
         mLastUpdateTimeUpdater.stop();
     }
 
     @Override
     public void onUIRefreshComplete(PtrFrameLayout frame) {
-
         hideRotateView();
         mProgressBar.setVisibility(INVISIBLE);
-
         mTitleTextView.setVisibility(VISIBLE);
         mTitleTextView.setText(getResources().getString(R.string.cube_ptr_refresh_complete));
-
         // update last update time
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(KEY_SharedPreferences, 0);
         if (!TextUtils.isEmpty(mLastUpdateTimeKey)) {
@@ -193,7 +192,6 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
     }
 
     private String getLastUpdateTime() {
-
         if (mLastUpdateTime == -1 && !TextUtils.isEmpty(mLastUpdateTimeKey)) {
             mLastUpdateTime = getContext().getSharedPreferences(KEY_SharedPreferences, 0).getLong(mLastUpdateTimeKey, -1);
         }
@@ -210,7 +208,6 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
         }
         StringBuilder sb = new StringBuilder();
         sb.append(getContext().getString(R.string.cube_ptr_last_update));
-
         if (seconds < 60) {
             sb.append(seconds + getContext().getString(R.string.cube_ptr_seconds_ago));
         } else {
@@ -223,7 +220,6 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
                 } else {
                     sb.append(hours + getContext().getString(R.string.cube_ptr_hours_ago));
                 }
-
             } else {
                 sb.append(minutes + getContext().getString(R.string.cube_ptr_minutes_ago));
             }
@@ -233,11 +229,9 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
 
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
-
         final int mOffsetToRefresh = frame.getOffsetToRefresh();
         final int currentPos = ptrIndicator.getCurrentPosY();
         final int lastPos = ptrIndicator.getLastPosY();
-
         if (currentPos < mOffsetToRefresh && lastPos >= mOffsetToRefresh) {
             if (isUnderTouch && status == PtrFrameLayout.PTR_STATUS_PREPARE) {
                 crossRotateLineFromBottomUnderTouch(frame);

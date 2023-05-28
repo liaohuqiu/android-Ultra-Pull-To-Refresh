@@ -15,18 +15,18 @@ import in.srain.cube.views.ptr.demo.R;
 public class WithScrollView extends TitleBaseFragment {
 
     private PtrClassicFrameLayout mPtrFrame;
+
     private ScrollView mScrollView;
 
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         setHeaderTitle(R.string.ptr_demo_block_scroll_view);
-
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_scroll_view, null);
         mScrollView = (ScrollView) contentView.findViewById(R.id.rotate_header_scroll_view);
         mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.rotate_header_web_view_frame);
         mPtrFrame.setLastUpdateTimeRelateObject(this);
         mPtrFrame.setPtrHandler(new PtrHandler() {
+
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, mScrollView, header);
@@ -35,6 +35,7 @@ public class WithScrollView extends TitleBaseFragment {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 mPtrFrame.postDelayed(new Runnable() {
+
                     @Override
                     public void run() {
                         mPtrFrame.refreshComplete();
@@ -42,7 +43,6 @@ public class WithScrollView extends TitleBaseFragment {
                 }, 100);
             }
         });
-
         // the following are default settings
         mPtrFrame.setResistance(1.7f);
         mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
@@ -53,6 +53,7 @@ public class WithScrollView extends TitleBaseFragment {
         // default is true
         mPtrFrame.setKeepHeaderWhenRefresh(true);
         mPtrFrame.postDelayed(new Runnable() {
+
             @Override
             public void run() {
                 mPtrFrame.autoRefresh();

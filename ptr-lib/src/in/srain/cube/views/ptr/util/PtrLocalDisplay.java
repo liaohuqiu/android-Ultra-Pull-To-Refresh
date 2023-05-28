@@ -8,9 +8,13 @@ import android.view.WindowManager;
 public class PtrLocalDisplay {
 
     public static int SCREEN_WIDTH_PIXELS;
+
     public static int SCREEN_HEIGHT_PIXELS;
+
     public static float SCREEN_DENSITY;
+
     public static int SCREEN_WIDTH_DP;
+
     public static int SCREEN_HEIGHT_DP;
 
     public static void init(Context context) {

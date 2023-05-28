@@ -3,7 +3,6 @@ package in.srain.cube.views.ptr;
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
 
 /**
- *
  */
 public interface PtrUIHandler {
 

@@ -12,6 +12,7 @@ import in.srain.cube.views.ptr.demo.R;
 public class ImageListViewHolder extends ViewHolderBase<JsonData> {
 
     private ImageLoader mImageLoader;
+
     private CubeImageView mImageView;
 
     private ImageListViewHolder(ImageLoader imageLoader) {

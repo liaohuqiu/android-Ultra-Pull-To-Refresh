@@ -17,10 +17,13 @@ import in.srain.cube.views.ptr.indicator.PtrIndicator;
 public class MaterialHeader extends View implements PtrUIHandler {
 
     private MaterialProgressDrawable mDrawable;
+
     private float mScale = 1f;
+
     private PtrFrameLayout mPtrFrameLayout;
 
     private Animation mScaleAnimation = new Animation() {
+
         @Override
         public void applyTransformation(float interpolatedTime, Transformation t) {
             mScale = 1f - interpolatedTime;
@@ -45,19 +48,18 @@ public class MaterialHeader extends View implements PtrUIHandler {
     }
 
     public void setPtrFrameLayout(PtrFrameLayout layout) {
-
         final PtrUIHandlerHook mPtrUIHandlerHook = new PtrUIHandlerHook() {
+
             @Override
             public void run() {
                 startAnimation(mScaleAnimation);
             }
         };
-
         mScaleAnimation.setDuration(200);
         mScaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+
             @Override
             public void onAnimationStart(Animation animation) {
-
             }
 
             @Override
@@ -67,10 +69,8 @@ public class MaterialHeader extends View implements PtrUIHandler {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
-
         mPtrFrameLayout = layout;
         mPtrFrameLayout.setRefreshCompleteHook(mPtrUIHandlerHook);
     }
@@ -162,17 +162,13 @@ public class MaterialHeader extends View implements PtrUIHandler {
 
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
-
         float percent = Math.min(1f, ptrIndicator.getCurrentPercent());
-
         if (status == PtrFrameLayout.PTR_STATUS_PREPARE) {
             mDrawable.setAlpha((int) (255 * percent));
             mDrawable.showArrow(true);
-
             float strokeStart = ((percent) * .8f);
             mDrawable.setStartEndTrim(0f, Math.min(0.8f, strokeStart));
             mDrawable.setArrowScale(Math.min(1f, percent));
-
             // magic
             float rotation = (-0.25f + .4f * percent + percent * 2) * .5f;
             mDrawable.setProgressRotation(rotation);

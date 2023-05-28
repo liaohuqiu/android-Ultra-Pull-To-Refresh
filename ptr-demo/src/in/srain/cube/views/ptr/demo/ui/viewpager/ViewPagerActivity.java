@@ -20,14 +20,16 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.demo.R;
 import in.srain.cube.views.ptr.demo.data.DemoRequestData;
-
 import java.util.ArrayList;
 
 public class ViewPagerActivity extends TitleBaseActivity {
 
     private TabPageIndicator mCatTabPageIndicator;
+
     private ViewPager mFragmentViewPager;
+
     private FragmentViewPagerAdapter mPagerAdapter;
+
     private PtrFrameLayout mPtrFrame;
 
     @Override
@@ -39,20 +41,17 @@ public class ViewPagerActivity extends TitleBaseActivity {
     }
 
     private void initCateViews() {
-
         int startIndex = 0;
-
         mCatTabPageIndicator = (TabPageIndicator) findViewById(R.id.view_pager_tab_indicator);
         mFragmentViewPager = (ViewPager) this.findViewById(R.id.view_pager_view_pager);
         ArrayList<ViewPagerFragment> list = new ArrayList<ViewPagerFragment>();
-
         for (int i = 1; i <= 8; i++) {
             list.add(ViewPagerFragment.create(i));
         }
         mPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), list);
         mFragmentViewPager.setAdapter(mPagerAdapter);
-
         mCatTabPageIndicator.setViewHolderCreator(new TabPageIndicator.ViewHolderCreator() {
+
             @Override
             public TabPageIndicator.ViewHolderBase createViewHolder() {
                 return new HomeCatItemViewHolder();
@@ -66,10 +65,10 @@ public class ViewPagerActivity extends TitleBaseActivity {
             }
         });
         mCatTabPageIndicator.setViewPager(mFragmentViewPager);
-
         mPtrFrame = (PtrClassicFrameLayout) findViewById(R.id.view_pager_ptr_frame);
         mPtrFrame.disableWhenHorizontalMove(true);
         mPtrFrame.setPtrHandler(new PtrHandler() {
+
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return mPagerAdapter.checkCanDoRefresh();
@@ -96,6 +95,7 @@ public class ViewPagerActivity extends TitleBaseActivity {
     private class FragmentViewPagerAdapter extends FragmentStatePagerAdapter {
 
         private final ArrayList<ViewPagerFragment> mViewPagerFragments;
+
         private ViewPagerFragment mCurrentFragment;
 
         public FragmentViewPagerAdapter(FragmentManager fm, ArrayList<ViewPagerFragment> list) {
@@ -115,6 +115,7 @@ public class ViewPagerActivity extends TitleBaseActivity {
         protected void updateData() {
             final ViewPagerFragment fragment = mCurrentFragment;
             DemoRequestData.getImageList(new RequestFinishHandler<JsonData>() {
+
                 @Override
                 public void onRequestFinish(final JsonData data) {
                     if (fragment == mCurrentFragment) {
@@ -154,6 +155,7 @@ public class ViewPagerActivity extends TitleBaseActivity {
     private class HomeCatItemViewHolder extends TabPageIndicator.ViewHolderBase {
 
         private TextView mNameView;
+
         private View mTagView;
 
         @Override

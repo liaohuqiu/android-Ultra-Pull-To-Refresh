@@ -8,9 +8,13 @@ package in.srain.cube.views.ptr;
 public abstract class PtrUIHandlerHook implements Runnable {
 
     private Runnable mResumeAction;
+
     private static final byte STATUS_PREPARE = 0;
+
     private static final byte STATUS_IN_HOOK = 1;
+
     private static final byte STATUS_RESUMED = 2;
+
     private byte mStatus = STATUS_PREPARE;
 
     public void takeOver() {
@@ -21,7 +25,7 @@ public abstract class PtrUIHandlerHook implements Runnable {
         if (resumeAction != null) {
             mResumeAction = resumeAction;
         }
-        switch (mStatus) {
+        switch(mStatus) {
             case STATUS_PREPARE:
                 mStatus = STATUS_IN_HOOK;
                 run();
