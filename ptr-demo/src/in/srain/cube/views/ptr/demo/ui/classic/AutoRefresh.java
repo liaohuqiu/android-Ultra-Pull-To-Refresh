@@ -10,6 +10,7 @@ public class AutoRefresh extends WithGridView {
         ptrFrame.setLoadingMinTime(3000);
         setHeaderTitle(R.string.ptr_demo_block_auto_fresh);
         ptrFrame.postDelayed(new Runnable() {
+
             @Override
             public void run() {
                 ptrFrame.autoRefresh(true);

@@ -30,20 +30,21 @@ import in.srain.cube.views.ptr.demo.ui.MaterialStyleFragment;
 public class WithGridView extends TitleBaseFragment {
 
     private static final int sGirdImageSize = (LocalDisplay.SCREEN_WIDTH_PIXELS - LocalDisplay.dp2px(12 + 12 + 10)) / 2;
+
     private ImageLoader mImageLoader;
+
     private ListViewDataAdapter<JsonData> mAdapter;
+
     private PtrClassicFrameLayout mPtrFrame;
 
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         setHeaderTitle(R.string.ptr_demo_block_grid_view);
-
         mImageLoader = ImageLoaderFactory.create(getContext());
-
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_gridview, null);
         final GridView gridListView = (GridView) contentView.findViewById(R.id.rotate_header_grid_view);
         gridListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position >= 0) {
@@ -54,18 +55,18 @@ public class WithGridView extends TitleBaseFragment {
                 }
             }
         });
-
         mAdapter = new ListViewDataAdapter<JsonData>(new ViewHolderCreator<JsonData>() {
+
             @Override
             public ViewHolderBase<JsonData> createViewHolder(int position) {
                 return new ViewHolder();
             }
         });
         gridListView.setAdapter(mAdapter);
-
         mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.rotate_header_grid_view_frame);
         mPtrFrame.setLastUpdateTimeRelateObject(this);
         mPtrFrame.setPtrHandler(new PtrHandler() {
+
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 updateData();
@@ -86,6 +87,7 @@ public class WithGridView extends TitleBaseFragment {
         // default is true
         mPtrFrame.setKeepHeaderWhenRefresh(true);
         mPtrFrame.postDelayed(new Runnable() {
+
             @Override
             public void run() {
                 // mPtrFrame.autoRefresh();
@@ -97,15 +99,15 @@ public class WithGridView extends TitleBaseFragment {
     }
 
     protected void setupViews(final PtrClassicFrameLayout ptrFrame) {
-
     }
 
     protected void updateData() {
-
         DemoRequestData.getImageList(new RequestFinishHandler<JsonData>() {
+
             @Override
             public void onRequestFinish(final JsonData data) {
                 mPtrFrame.postDelayed(new Runnable() {
+
                     @Override
                     public void run() {
                         mAdapter.getDataList().clear();
@@ -127,7 +129,6 @@ public class WithGridView extends TitleBaseFragment {
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.with_grid_view_item_image_list_grid, null);
             mImageView = (CubeImageView) view.findViewById(R.id.with_grid_view_item_image);
             mImageView.setScaleType(ScaleType.CENTER_CROP);
-
             LinearLayout.LayoutParams lyp = new LinearLayout.LayoutParams(sGirdImageSize, sGirdImageSize);
             mImageView.setLayoutParams(lyp);
             return view;

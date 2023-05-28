@@ -13,15 +13,15 @@ public class HideHeader extends WithTextViewInFrameLayoutFragment {
     protected void setupViews(final PtrClassicFrameLayout ptrFrame) {
         setHeaderTitle(R.string.ptr_demo_block_hide_header);
         ptrFrame.setKeepHeaderWhenRefresh(false);
-
         final View loading = Utils.createSimpleLoadingTip(getContext());
         mTitleHeaderBar.getRightViewContainer().addView(loading);
-
         ptrFrame.setPtrHandler(new PtrDefaultHandler() {
+
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 loading.setVisibility(View.VISIBLE);
                 frame.postDelayed(new Runnable() {
+
                     @Override
                     public void run() {
                         loading.setVisibility(View.INVISIBLE);

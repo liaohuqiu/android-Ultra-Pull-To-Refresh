@@ -24,7 +24,9 @@ import in.srain.cube.views.ptr.demo.ui.header.RentalsSunHeaderView;
 public class RentalsStyleFragment extends TitleBaseFragment {
 
     private String mUrl = "http://img4.duitang.com/uploads/blog/201407/07/20140707113856_hBf3R.thumb.jpeg";
+
     private long mStartLoadingTime = -1;
+
     private boolean mImageHasLoaded = false;
 
     @Override
@@ -36,34 +38,30 @@ public class RentalsStyleFragment extends TitleBaseFragment {
 
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_materail_style, null);
         setHeaderTitle(R.string.ptr_demo_rentals_style);
-
         final CubeImageView imageView = (CubeImageView) view.findViewById(R.id.material_style_image_view);
         final ImageLoader imageLoader = ImageLoaderFactory.create(getContext());
-
         final PtrFrameLayout frame = (PtrFrameLayout) view.findViewById(R.id.material_style_ptr_frame);
-
         // header
         final RentalsSunHeaderView header = new RentalsSunHeaderView(getContext());
         header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
         header.setPadding(0, LocalDisplay.dp2px(15), 0, LocalDisplay.dp2px(10));
         header.setUp(frame);
-
         frame.setLoadingMinTime(1000);
         frame.setDurationToCloseHeader(1500);
         frame.setHeaderView(header);
         frame.addPtrUIHandler(header);
         // frame.setPullToRefresh(true);
         frame.postDelayed(new Runnable() {
+
             @Override
             public void run() {
                 frame.autoRefresh(true);
             }
         }, 100);
-
         frame.setPtrHandler(new PtrHandler() {
+
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return true;
@@ -74,6 +72,7 @@ public class RentalsStyleFragment extends TitleBaseFragment {
                 if (mImageHasLoaded) {
                     long delay = 1500;
                     frame.postDelayed(new Runnable() {
+
                         @Override
                         public void run() {
                             frame.refreshComplete();
@@ -85,8 +84,8 @@ public class RentalsStyleFragment extends TitleBaseFragment {
                 }
             }
         });
-
         ImageLoadHandler imageLoadHandler = new ImageLoadHandler() {
+
             @Override
             public void onLoading(ImageTask imageTask, CubeImageView cubeImageView) {
             }
@@ -96,10 +95,11 @@ public class RentalsStyleFragment extends TitleBaseFragment {
                 mImageHasLoaded = true;
                 long delay = 1500;
                 frame.postDelayed(new Runnable() {
+
                     @Override
                     public void run() {
                         if (cubeImageView != null && bitmapDrawable != null) {
-                            TransitionDrawable w1 = new TransitionDrawable(new Drawable[]{new ColorDrawable(Color.WHITE), (Drawable) bitmapDrawable});
+                            TransitionDrawable w1 = new TransitionDrawable(new Drawable[] { new ColorDrawable(Color.WHITE), (Drawable) bitmapDrawable });
                             imageView.setImageDrawable(w1);
                             w1.startTransition(200);
                         }
@@ -110,7 +110,6 @@ public class RentalsStyleFragment extends TitleBaseFragment {
 
             @Override
             public void onLoadError(ImageTask imageTask, CubeImageView cubeImageView, int i) {
-
             }
         };
         imageLoader.setImageLoadHandler(imageLoadHandler);

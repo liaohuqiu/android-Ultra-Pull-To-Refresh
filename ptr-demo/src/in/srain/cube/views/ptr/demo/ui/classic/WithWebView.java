@@ -16,16 +16,16 @@ import in.srain.cube.views.ptr.demo.R;
 public class WithWebView extends TitleBaseFragment {
 
     private PtrClassicFrameLayout mPtrFrame;
+
     private WebView mWebView;
 
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         setHeaderTitle(R.string.ptr_demo_block_web_view);
-
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_webview, null);
         mWebView = (WebView) contentView.findViewById(R.id.rotate_header_web_view);
         mWebView.setWebViewClient(new WebViewClient() {
+
             @Override
             public void onPageFinished(WebView view, String url) {
                 mPtrFrame.refreshComplete();
@@ -34,6 +34,7 @@ public class WithWebView extends TitleBaseFragment {
         mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.rotate_header_web_view_frame);
         mPtrFrame.setLastUpdateTimeRelateObject(this);
         mPtrFrame.setPtrHandler(new PtrHandler() {
+
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, mWebView, header);
@@ -54,6 +55,7 @@ public class WithWebView extends TitleBaseFragment {
         // default is true
         mPtrFrame.setKeepHeaderWhenRefresh(true);
         mPtrFrame.postDelayed(new Runnable() {
+
             @Override
             public void run() {
                 mPtrFrame.autoRefresh();

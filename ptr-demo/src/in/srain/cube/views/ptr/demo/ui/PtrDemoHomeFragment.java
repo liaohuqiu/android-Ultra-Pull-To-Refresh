@@ -18,14 +18,12 @@ import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingString;
 import in.srain.cube.views.ptr.demo.ui.storehouse.StoreHouseUsingStringArray;
 import in.srain.cube.views.ptr.demo.ui.viewpager.ViewPagerActivity;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
-
 import java.util.ArrayList;
 
 public class PtrDemoHomeFragment extends BlockMenuFragment {
 
     @Override
     protected void addItemInfo(ArrayList<BlockMenuFragment.MenuItemInfo> itemInfos) {
-
         // GridView
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_grid_view, R.color.cube_mints_4d90fe, new OnClickListener() {
 
@@ -62,7 +60,6 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(WithWebView.class, null);
             }
         }));
-
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_with_list_view_and_empty_view, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -70,7 +67,6 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(WithListViewAndEmptyView.class, null);
             }
         }));
-
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_scroll_view, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -80,7 +76,6 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
         }));
         itemInfos.add(null);
         itemInfos.add(null);
-
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_keep_header, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -95,7 +90,6 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(HideHeader.class, null);
             }
         }));
-
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_release_to_refresh, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -103,7 +97,6 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(ReleaseToRefresh.class, null);
             }
         }));
-
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_pull_to_refresh, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -119,7 +112,6 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
             }
         }));
         itemInfos.add(null);
-
         itemInfos.add(newItemInfo(R.string.ptr_demo_block_storehouse_header_using_string_array, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -185,7 +177,6 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
                 getContext().pushFragmentToBackStack(EnableNextPTRAtOnce.class, null);
             }
         }));
-
         itemInfos.add(newItemInfo(R.string.ptr_demo_placeholder, R.color.cube_mints_4d90fe, new OnClickListener() {
 
             @Override
@@ -210,16 +201,15 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.createView(inflater, container, savedInstanceState);
         view.setBackgroundColor(getResources().getColor(R.color.cube_mints_333333));
-
         final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.fragment_ptr_home_ptr_frame);
         StoreHouseHeader header = new StoreHouseHeader(getContext());
         header.setPadding(0, LocalDisplay.dp2px(20), 0, LocalDisplay.dp2px(20));
         header.initWithString("Ultra PTR");
-
         ptrFrameLayout.setDurationToCloseHeader(1500);
         ptrFrameLayout.setHeaderView(header);
         ptrFrameLayout.addPtrUIHandler(header);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
+
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
@@ -228,6 +218,7 @@ public class PtrDemoHomeFragment extends BlockMenuFragment {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 ptrFrameLayout.postDelayed(new Runnable() {
+
                     @Override
                     public void run() {
                         ptrFrameLayout.refreshComplete();

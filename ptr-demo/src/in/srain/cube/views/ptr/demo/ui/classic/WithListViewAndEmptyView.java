@@ -28,33 +28,33 @@ import in.srain.cube.views.ptr.demo.ui.MaterialStyleFragment;
 public class WithListViewAndEmptyView extends TitleBaseFragment {
 
     private ImageLoader mImageLoader;
+
     private ListViewDataAdapter<JsonData> mAdapter;
+
     private PtrClassicFrameLayout mPtrFrame;
+
     private TextView mTextView;
+
     private ListView mListView;
 
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         setHeaderTitle(R.string.ptr_demo_block_with_list_view_and_empty_view);
-
         mImageLoader = ImageLoaderFactory.create(getContext());
-
-
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_list_view_and_empty_view, null);
         mTextView = (TextView) contentView.findViewById(R.id.list_view_with_empty_view_fragment_empty_view);
         mPtrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.list_view_with_empty_view_fragment_ptr_frame);
-
         mTextView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 mPtrFrame.setVisibility(View.VISIBLE);
                 mPtrFrame.autoRefresh();
             }
         });
-
         mListView = (ListView) contentView.findViewById(R.id.list_view_with_empty_view_fragment_list_view);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position >= 0) {
@@ -65,20 +65,17 @@ public class WithListViewAndEmptyView extends TitleBaseFragment {
                 }
             }
         });
-
         // show empty view
         mPtrFrame.setVisibility(View.INVISIBLE);
         mTextView.setVisibility(View.VISIBLE);
-
         mAdapter = new ListViewDataAdapter<JsonData>();
         mAdapter.setViewHolderClass(this, ViewHolder.class);
         mListView.setAdapter(mAdapter);
-
         mPtrFrame.setLastUpdateTimeRelateObject(this);
         mPtrFrame.setPtrHandler(new PtrHandler() {
+
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-
                 // here check $mListView instead of $content
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, mListView, header);
             }
@@ -101,8 +98,8 @@ public class WithListViewAndEmptyView extends TitleBaseFragment {
     }
 
     protected void updateData() {
-
         DemoRequestData.getImageList(new RequestFinishHandler<JsonData>() {
+
             @Override
             public void onRequestFinish(final JsonData data) {
                 displayData(data);
@@ -111,9 +108,7 @@ public class WithListViewAndEmptyView extends TitleBaseFragment {
     }
 
     private void displayData(JsonData data) {
-
         mTextView.setVisibility(View.GONE);
-
         mAdapter.getDataList().clear();
         mAdapter.getDataList().addAll(data.optJson("data").optJson("list").toArrayList());
         mPtrFrame.refreshComplete();

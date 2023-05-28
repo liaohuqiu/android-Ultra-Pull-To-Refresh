@@ -5,14 +5,13 @@ import in.srain.cube.request.*;
 public class DemoRequestData {
 
     public static void getImageList(final RequestFinishHandler<JsonData> requestFinishHandler) {
-
         CacheAbleRequestHandler requestHandler = new CacheAbleRequestJsonHandler() {
+
             @Override
             public void onCacheAbleRequestFinish(JsonData data, CacheAbleRequest.ResultType type, boolean outOfDate) {
                 requestFinishHandler.onRequestFinish(data);
             }
         };
-
         CacheAbleRequest<JsonData> request = new CacheAbleRequest<JsonData>(requestHandler);
         String url = "http://cube-server.liaohuqiu.net/api_demo/image-list.php";
         request.setCacheTime(3600);

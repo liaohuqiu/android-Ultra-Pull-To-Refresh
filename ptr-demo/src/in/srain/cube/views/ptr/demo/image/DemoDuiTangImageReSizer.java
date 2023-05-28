@@ -9,7 +9,6 @@ import in.srain.cube.util.CLog;
  */
 public class DemoDuiTangImageReSizer extends DefaultImageReSizer {
 
-
     private static DemoDuiTangImageReSizer sInstance;
 
     public static DemoDuiTangImageReSizer getInstance() {
@@ -20,10 +19,12 @@ public class DemoDuiTangImageReSizer extends DefaultImageReSizer {
     }
 
     private static String TAG = "thumb";
+
     private static String SP = "_";
+
     private static String DOT = ".";
 
-    private static final int[] CDN_FIX_WIDTH_SIZE = {110, 150, 170, 220, 240, 290, 450, 580, 620, 790};
+    private static final int[] CDN_FIX_WIDTH_SIZE = { 110, 150, 170, 220, 240, 290, 450, 580, 620, 790 };
 
     @Override
     public String getRemoteUrl(ImageTask imageTask) {
@@ -61,11 +62,9 @@ public class DemoDuiTangImageReSizer extends DefaultImageReSizer {
     }
 
     private static int findBestCDNSize(int[] array, int size, boolean higher) {
-
         if (size >= array[array.length - 1]) {
             return array[array.length - 1];
         }
-
         int pos = binarySearch(array, size, higher);
         return array[pos];
     }

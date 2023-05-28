@@ -14,16 +14,15 @@ public class WithTextViewInFrameLayoutFragment extends TitleBaseFragment {
 
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         setHeaderTitle(R.string.ptr_demo_block_frame_layout);
-
         final View contentView = inflater.inflate(R.layout.fragment_classic_header_with_viewgroup, container, false);
-
         final PtrClassicFrameLayout ptrFrame = (PtrClassicFrameLayout) contentView.findViewById(R.id.fragment_rotate_header_with_view_group_frame);
         ptrFrame.setPtrHandler(new PtrHandler() {
+
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 frame.postDelayed(new Runnable() {
+
                     @Override
                     public void run() {
                         ptrFrame.refreshComplete();
@@ -37,7 +36,6 @@ public class WithTextViewInFrameLayoutFragment extends TitleBaseFragment {
             }
         });
         ptrFrame.setLastUpdateTimeRelateObject(this);
-
         // the following are default settings
         ptrFrame.setResistance(1.7f);
         ptrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
@@ -47,22 +45,19 @@ public class WithTextViewInFrameLayoutFragment extends TitleBaseFragment {
         ptrFrame.setPullToRefresh(false);
         // default is true
         ptrFrame.setKeepHeaderWhenRefresh(true);
-
         // scroll then refresh
         // comment in base fragment
         ptrFrame.postDelayed(new Runnable() {
+
             @Override
             public void run() {
                 // ptrFrame.autoRefresh();
             }
         }, 150);
-
         setupViews(ptrFrame);
-
         return contentView;
     }
 
     protected void setupViews(final PtrClassicFrameLayout ptrFrame) {
-
     }
 }
